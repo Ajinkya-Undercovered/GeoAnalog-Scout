@@ -2,6 +2,8 @@
 > **Terrestrial Planetary Analog Engine for Permanent Moon Bases & Mars Missions**  
 > *Built for the NASA Space Apps Challenge 2026*
 
+![GeoAnalog Scout Mission Ops Workstation](./screenshot.png)
+
 ---
 
 ## 🌟 1. Project Overview & The Challenge
