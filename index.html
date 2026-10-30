@@ -122,8 +122,8 @@
           <span class="material-symbols-outlined text-sm" data-icon="explore">explore</span>
         </div>
         <div>
-          <h2 class="font-space font-bold text-xs uppercase tracking-wider text-white">Analog Testbed Catalog</h2>
-          <p class="text-[10px] font-mono text-slate-subtle tracking-widest uppercase">WGS84 DATUM // 5 RECON SITES</p>
+          <h2 class="font-space font-bold text-xs uppercase tracking-wider text-white">Earth Test Locations</h2>
+          <p class="text-[10px] font-mono text-slate-subtle tracking-widest uppercase">5 REAL PLACES ON EARTH</p>
         </div>
       </div>
       <button id="sidebar-close-btn" title="Close Sidebar (Esc)" aria-label="Close Sidebar" class="w-8 h-8 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.08] hover:border-white/[0.2] flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer">
@@ -142,14 +142,14 @@
             <span id="sidebar-mission-label" class="text-xs font-semibold text-slate-100 truncate">Artemis III Base (Moon South Pole)</span>
           </div>
         </div>
-        <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full shrink-0">LOCKED</span>
+        <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full shrink-0">ACTIVE</span>
       </div>
 
       <!-- Frontier Settlement Scenarios in Sidebar -->
       <div class="space-y-1.5 pt-1">
         <div class="flex items-center justify-between text-[9px] font-mono text-amber-400 uppercase tracking-wider font-semibold">
-          <span>FRONTIER MISSION SCENARIO</span>
-          <span class="text-slate-subtle text-[8px]">SELECT REQUIREMENT</span>
+          <span>MISSION SCENARIOS</span>
+          <span class="text-slate-subtle text-[8px]">PICK RULES</span>
         </div>
         <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono" id="sidebar-scenario-selector">
           <button data-scenario="scenario-a" class="sidebar-scen-btn p-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-center font-bold transition-all cursor-pointer">
@@ -159,7 +159,7 @@
             SCENARIO B<br><span class="text-[8px] font-normal opacity-80">Mars Station</span>
           </button>
           <button data-scenario="scenario-c" class="sidebar-scen-btn p-1.5 rounded-lg bg-space-850 text-slate-subtle border border-white/[0.06] text-center transition-all cursor-pointer hover:text-white">
-            SCENARIO C<br><span class="text-[8px] font-normal opacity-80">Survival Haven</span>
+            SCENARIO C<br><span class="text-[8px] font-normal opacity-80">Survival Bunker</span>
           </button>
         </div>
       </div>
@@ -167,15 +167,15 @@
       <!-- Quick Search input inside sidebar -->
       <div class="relative">
         <span class="material-symbols-outlined text-slate-subtle text-xs absolute left-3 top-2.5" data-icon="search">search</span>
-        <input id="sidebar-search-input" type="text" placeholder="Filter sites by name, soil, biome..." class="w-full bg-space-850/80 border border-white/[0.08] text-xs pl-8 pr-3 py-2 rounded-lg text-slate-100 placeholder:text-slate-subtle focus:border-terracotta-500 focus:outline-none transition-all"/>
+        <input id="sidebar-search-input" type="text" placeholder="Search by name, rock, ice, country..." class="w-full bg-space-850/80 border border-white/[0.08] text-xs pl-8 pr-3 py-2 rounded-lg text-slate-100 placeholder:text-slate-subtle focus:border-terracotta-500 focus:outline-none transition-all"/>
       </div>
 
       <!-- Quick Category Filter Chips -->
       <div class="flex flex-wrap gap-1.5 pt-1" id="sidebar-filter-chips">
         <button data-cat="all" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-terracotta-500 text-white font-semibold transition-all cursor-pointer">ALL</button>
-        <button data-cat="lunar-polar" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">LUNAR POLAR</button>
-        <button data-cat="martian-permafrost" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">MARS PERMAFROST</button>
-        <button data-cat="lava-tubes" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">LAVA TUBES</button>
+        <button data-cat="lunar-polar" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">MOON POLAR</button>
+        <button data-cat="martian-permafrost" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">MARS ICE</button>
+        <button data-cat="lava-tubes" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">LAVA CAVES</button>
       </div>
     </div>
 
@@ -189,24 +189,24 @@
       <div class="grid grid-cols-2 gap-2 text-[11px] font-mono">
         <button id="sidebar-btn-map" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
           <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="public">public</span>
-          <span>Satellite 3D</span>
+          <span>Satellite Map</span>
         </button>
         <button id="sidebar-btn-matrix" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
           <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="table_chart">table_chart</span>
-          <span>Matrix Table</span>
+          <span>Compare Table</span>
         </button>
         <button id="sidebar-btn-terminal" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
           <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="terminal">terminal</span>
-          <span>Orbital HUD</span>
+          <span>Terminal HUD</span>
         </button>
         <button id="sidebar-btn-recon" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
           <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="add_circle">add_circle</span>
-          <span>+ Add Recon</span>
+          <span>+ Add Location</span>
         </button>
       </div>
 
       <div class="flex items-center justify-between text-[10px] font-mono text-slate-subtle pt-1 border-t border-white/[0.04]">
-        <span>SWOT-2: <strong id="sidebar-pass-timer" class="text-terracotta-400">T-MINUS 08:14</strong></span>
+        <span>SATELLITE PASS: <strong id="sidebar-pass-timer" class="text-terracotta-400">T-MINUS 08:14</strong></span>
         <span>NASA SPACE APPS</span>
       </div>
     </div>
@@ -217,7 +217,7 @@
     <!-- Brand Logo & Sidebar Toggle -->
     <div class="flex items-center gap-4 lg:gap-6">
       <!-- Three Lines (Hamburger Menu) Toggle Button -->
-      <button id="sidebar-toggle-btn" title="Toggle Terrestrial Analogs Sidebar (Three Lines)" aria-label="Toggle Catalog Sidebar" class="flex flex-col justify-center items-center w-10 h-10 rounded-xl bg-space-850 hover:bg-space-800 border border-white/[0.08] hover:border-terracotta-500/50 text-white transition-all group shrink-0 shadow-sm cursor-pointer">
+      <button id="sidebar-toggle-btn" title="Toggle Earth Locations Menu (Three Lines)" aria-label="Toggle Catalog Sidebar" class="flex flex-col justify-center items-center w-10 h-10 rounded-xl bg-space-850 hover:bg-space-800 border border-white/[0.08] hover:border-terracotta-500/50 text-white transition-all group shrink-0 shadow-sm cursor-pointer">
         <div class="flex flex-col justify-between w-4 h-3.5" id="hamburger-icon-bars">
           <span class="block h-0.5 w-4 bg-slate-200 group-hover:bg-terracotta-400 transition-all rounded-full bar-top"></span>
           <span class="block h-0.5 w-4 bg-slate-200 group-hover:bg-terracotta-400 transition-all rounded-full bar-mid"></span>
@@ -253,20 +253,20 @@
     <!-- Center Navigation Tabs -->
     <nav class="hidden lg:flex items-center gap-1 bg-space-900 border border-white/[0.06] p-1 rounded-full text-xs font-mono">
       <button id="tab-overview" class="nav-tab px-4 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all cursor-pointer">
-        ANALOG DOSSIERS
+        EXPLORE SITES
       </button>
       <button id="tab-scenarios" class="nav-tab px-3.5 py-1.5 rounded-full text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all flex items-center gap-1.5 cursor-pointer">
         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
         <span>3 SCENARIOS</span>
       </button>
       <button id="tab-radar" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors cursor-pointer">
-        ORBITAL RADAR
+        RADAR VIEW
       </button>
       <button id="tab-matrix" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors cursor-pointer">
-        SURFACE MATRIX
+        COMPARE TABLE
       </button>
       <button id="tab-telemetry" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors cursor-pointer">
-        TELEMETRY HUD
+        LIVE SENSORS
       </button>
     </nav>
 
@@ -275,7 +275,7 @@
       <!-- Search Input -->
       <div class="relative hidden sm:block">
         <span class="material-symbols-outlined text-slate-subtle text-sm absolute left-3 top-2.5" data-icon="search">search</span>
-        <input id="search-input" type="text" placeholder="Search testbeds... (⌘K)" class="bg-space-850/80 border border-white/[0.08] text-xs pl-8 pr-3 py-1.5 rounded-full text-slate-100 placeholder:text-slate-subtle focus:border-terracotta-500 focus:outline-none w-48 transition-all"/>
+        <input id="search-input" type="text" placeholder="Search locations... (⌘K)" class="bg-space-850/80 border border-white/[0.08] text-xs pl-8 pr-3 py-1.5 rounded-full text-slate-100 placeholder:text-slate-subtle focus:border-terracotta-500 focus:outline-none w-48 transition-all"/>
       </div>
 
       <!-- Sync Button -->
@@ -287,7 +287,7 @@
       <!-- Primary Action: Export Dossier -->
       <button id="btn-export-dossier" class="flex items-center gap-2 bg-gradient-to-r from-terracotta-600 to-terracotta-500 hover:from-terracotta-500 hover:to-terracotta-400 text-white font-mono font-semibold text-xs px-4 py-1.5 rounded-full shadow-lg shadow-terracotta-500/20 transition-all active:scale-95">
         <span class="material-symbols-outlined text-sm" data-icon="file_download">file_download</span>
-        <span>EXPORT DOSSIER</span>
+        <span>SAVE REPORT</span>
       </button>
     </div>
   </header>
@@ -300,24 +300,24 @@
       <div class="space-y-2 max-w-3xl">
         <div class="flex items-center gap-2 font-mono text-[11px] text-terracotta-400 tracking-wider uppercase">
           <span class="w-1.5 h-1.5 rounded-full bg-terracotta-500"></span>
-          <span id="mission-sub-badge">OPS PLAN // ARTEMIS-III ARCHITECTURE</span>
+          <span id="mission-sub-badge">SPACE APPS 2026 • EARTH ANALOG FINDER FOR MOON & MARS</span>
           <span class="text-white/[0.2]">•</span>
-          <span class="text-slate-subtle">SWOT-2 ORBITAL ALT 412 KM</span>
+          <span class="text-slate-subtle">LIVE SATELLITE RADAR</span>
         </div>
         <h1 id="mission-main-title" class="font-space text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight">
-          Earth Locations That Analog Moon Base & Mars Missions
+          Earth Locations That Match Moon Base & Mars Missions
         </h1>
         <p class="text-xs sm:text-sm text-slate-subtle font-inter leading-relaxed">
-          Systematic correlation of extreme terrestrial environments to validate cryogenic ice drilling, lava tube subterranean shelters, and autonomous rover trafficability before launch.
+          Discover real places on Earth where NASA and space agencies test rovers, drill for ice, and train astronauts before launching into space.
         </p>
       </div>
 
       <!-- Quick Filter Pills -->
       <div class="flex flex-wrap items-center gap-1.5 font-mono text-xs self-start md:self-auto" id="filter-chips-container">
-        <button data-cat="all" class="filter-chip px-3.5 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all">All Sites</button>
-        <button data-cat="lunar-polar" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Lunar Polar</button>
-        <button data-cat="martian-permafrost" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Mars Permafrost</button>
-        <button data-cat="lava-tubes" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Lava Tubes</button>
+        <button data-cat="all" class="filter-chip px-3.5 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all">All Locations</button>
+        <button data-cat="lunar-polar" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Moon Polar</button>
+        <button data-cat="martian-permafrost" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Mars Ice</button>
+        <button data-cat="lava-tubes" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Lava Caves</button>
       </div>
     </div>
 
@@ -328,9 +328,9 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.06] pb-5">
         <div>
           <div class="flex items-center gap-2 text-[11px] font-mono text-terracotta-400 font-semibold uppercase tracking-wider">
-            <span id="hero-badge">PRIMARY TESTBED #01</span>
+            <span id="hero-badge">LOCATION #01</span>
             <span class="text-white/[0.2]">//</span>
-            <span id="hero-sector" class="text-slate-subtle">DEVON ISLAND RECON SECTOR</span>
+            <span id="hero-sector" class="text-slate-subtle">ARCTIC CRATER REGION</span>
           </div>
           <h2 id="hero-name" class="font-space text-2xl lg:text-3xl font-bold text-white mt-1">
             Haughton Crater, Devon Island (Nunavut, Canada)
@@ -340,20 +340,20 @@
             <span>•</span>
             <span id="hero-elev">ELEV: 230m ASL</span>
             <span>•</span>
-            <span id="hero-impact">IMPACT AGE: ~39 Ma</span>
+            <span id="hero-impact">IMPACT AGE: ~39 Million Years Ago</span>
           </div>
         </div>
 
         <!-- High-Impact Fidelity Display -->
         <div class="flex items-center gap-4 bg-space-900/90 border border-white/[0.08] px-5 py-3 rounded-xl self-start sm:self-auto">
           <div class="text-right">
-            <span class="text-[10px] font-mono text-slate-subtle uppercase block tracking-wider">Planetary Twin Index</span>
+            <span class="text-[10px] font-mono text-slate-subtle uppercase block tracking-wider">Moon & Mars Match Score</span>
             <span id="hero-fidelity" class="font-space text-3xl font-bold text-terracotta-400 block font-tabular">94.2%</span>
           </div>
           <div class="flex flex-col gap-1.5">
             <button id="btn-full-dossier" class="px-3.5 py-1.5 bg-terracotta-500 hover:bg-terracotta-600 text-white font-mono text-xs font-bold rounded-lg transition-colors flex items-center gap-1 shadow">
               <span class="material-symbols-outlined text-sm" data-icon="description">description</span>
-              <span>Dossier</span>
+              <span>Full Report</span>
             </button>
             <button id="btn-spectral-layer" class="px-3.5 py-1.5 bg-space-800 hover:bg-space-700 text-slate-light border border-white/[0.08] font-mono text-xs rounded-lg transition-colors flex items-center gap-1">
               <span class="material-symbols-outlined text-sm" data-icon="radar">radar</span>
@@ -373,15 +373,15 @@
 
           <!-- Overlay Tags -->
           <div class="relative z-10 flex justify-between items-center text-[10px] font-mono">
-            <span class="bg-space-950/80 backdrop-blur px-2.5 py-1 rounded border border-white/[0.1] text-slate-light">ORBITAL SAR COMPOSITE</span>
-            <span class="bg-terracotta-500/20 text-terracotta-400 border border-terracotta-500/30 px-2.5 py-1 rounded font-bold">P-BAND SYNTH</span>
+            <span class="bg-space-950/80 backdrop-blur px-2.5 py-1 rounded border border-white/[0.1] text-slate-light">SATELLITE VIEW</span>
+            <span class="bg-terracotta-500/20 text-terracotta-400 border border-terracotta-500/30 px-2.5 py-1 rounded font-bold">RADAR ACTIVE</span>
           </div>
 
           <!-- Bottom Geo-Zone Caption -->
           <div class="relative z-10 bg-space-900/90 backdrop-blur-md border border-white/[0.08] p-3 rounded-lg">
-            <span id="hero-geo-zone" class="text-xs font-mono font-bold text-white block">GEO-ZONE: IMPACT STRUCTURAL BASIN</span>
+            <span id="hero-geo-zone" class="text-xs font-mono font-bold text-white block">TERRAIN: METEOR IMPACT CRATER</span>
             <p id="hero-geo-desc" class="text-[11px] text-slate-subtle mt-0.5 leading-relaxed">
-              High shock metamorphism, paleolake sediment analogs to Jezero / Shackleton rim rubble.
+              Cracked rocks and dried lake beds that closely match the Moon's South Pole and ancient Mars craters.
             </p>
           </div>
         </div>
@@ -389,71 +389,71 @@
         <!-- Right: 4 Scientific Attribute Bento Cards (7 Cols) -->
         <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           
-          <!-- Bento 1: Geomorphology -->
+          <!-- Bento 1: Geomorphology -> Ground & Rock Terrain -->
           <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-slate-subtle mb-1.5">
-                <span class="text-[10px] font-mono uppercase tracking-wider">Geomorphology</span>
+                <span class="text-[10px] font-mono uppercase tracking-wider">Ground & Rock Terrain</span>
                 <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="blur_circular">blur_circular</span>
               </div>
-              <h4 id="hero-geom-title" class="font-space font-bold text-sm text-white">Impact Breccia & Shatter Cones</h4>
+              <h4 id="hero-geom-title" class="font-space font-bold text-sm text-white">Crater Rocks & Rover Grip</h4>
               <p id="hero-geom-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
-                Target carbonate & crystalline basement clasts mimic lunar South Pole regolith mechanical shear.
+                Shattered limestone and loose gravel match the rocky ground at the Moon's South Pole, testing rover wheels against slip and wear.
               </p>
             </div>
             <div id="hero-geom-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
-              MATCH INDEX: 96.8%
+              MATCH: 96.8%
             </div>
           </div>
 
-          <!-- Bento 2: Climatic Regime -->
+          <!-- Bento 2: Climatic Regime -> Extreme Weather & Cold -->
           <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-slate-subtle mb-1.5">
-                <span class="text-[10px] font-mono uppercase tracking-wider">Climatic Regime</span>
+                <span class="text-[10px] font-mono uppercase tracking-wider">Extreme Weather & Cold</span>
                 <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="ac_unit">ac_unit</span>
               </div>
-              <h4 id="hero-clim-title" class="font-space font-bold text-sm text-white">Hyper-Cold Dry Desert Biome</h4>
+              <h4 id="hero-clim-title" class="font-space font-bold text-sm text-white">Freezing Arctic Desert</h4>
               <p id="hero-clim-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
-                Mean annual temp −17°C, severe desiccating katabatic winds, negligible liquid precipitation.
+                Freezing average temperatures of −17°C with high-speed dry winds replicate the harsh, bone-chilling cold of space missions.
               </p>
             </div>
             <div id="hero-clim-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
-              MATCH INDEX: 93.1%
+              MATCH: 93.1%
             </div>
           </div>
 
-          <!-- Bento 3: Habitat Architecture -->
+          <!-- Bento 3: Hab Architecture -> Astronaut Shelters -->
           <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-slate-subtle mb-1.5">
-                <span class="text-[10px] font-mono uppercase tracking-wider">Hab Architecture</span>
+                <span class="text-[10px] font-mono uppercase tracking-wider">Astronaut Shelters</span>
                 <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="home_repair_service">home_repair_service</span>
               </div>
-              <h4 id="hero-hab-title" class="font-space font-bold text-sm text-white">Autonomous Perimeter Trial</h4>
+              <h4 id="hero-hab-title" class="font-space font-bold text-sm text-white">Astronaut Base & Suit Tests</h4>
               <p id="hero-hab-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
-                Validated FMARS habitat core, pressurized rover ingress, EVA suit joint dust intrusion testing.
+                Real habitat dome where crews practice airlock procedures and test whether abrasive rock dust clogs spacesuit joints.
               </p>
             </div>
             <div id="hero-hab-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
-              MATCH INDEX: 91.5%
+              MATCH: 91.5%
             </div>
           </div>
 
-          <!-- Bento 4: Volatile Deposits -->
+          <!-- Bento 4: Volatile Deposits -> Underground Water & Ice -->
           <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-slate-subtle mb-1.5">
-                <span class="text-[10px] font-mono uppercase tracking-wider">Volatile Deposits</span>
+                <span class="text-[10px] font-mono uppercase tracking-wider">Underground Water & Ice</span>
                 <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="water_drop">water_drop</span>
               </div>
-              <h4 id="hero-vol-title" class="font-space font-bold text-sm text-white">Subsurface Massive Ground Ice</h4>
+              <h4 id="hero-vol-title" class="font-space font-bold text-sm text-white">Deep Frozen Ground Ice</h4>
               <p id="hero-vol-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
-                Active continuous permafrost polygonal wedges simulating Martian mid-latitude ice tables.
+                Thick underground ice layers let scientists practice drilling to extract fresh water for astronaut drinking and rocket fuel.
               </p>
             </div>
             <div id="hero-vol-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
-              MATCH INDEX: 95.4%
+              MATCH: 95.4%
             </div>
           </div>
 
@@ -471,15 +471,15 @@
         <div class="space-y-1">
           <div class="flex flex-wrap items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-            <span class="text-[11px] font-mono text-amber-400 uppercase tracking-widest font-bold">THE FRONTIER TWIST // MISSION REQUIREMENT</span>
+            <span class="text-[11px] font-mono text-amber-400 uppercase tracking-widest font-bold">THE FRONTIER TWIST // MISSION SCENARIOS</span>
             <span class="text-white/[0.2]">•</span>
-            <span class="text-[10px] font-mono bg-white/[0.06] border border-white/[0.08] text-slate-subtle px-2 py-0.5 rounded-full">TRANSPARENT SCORING FRAMEWORK</span>
+            <span class="text-[10px] font-mono bg-white/[0.06] border border-white/[0.08] text-slate-subtle px-2 py-0.5 rounded-full">HOW SITES ARE RANKED</span>
           </div>
           <h2 class="font-space text-xl lg:text-2xl font-bold text-white flex items-center gap-2">
-            <span>Settlement Mission Scenarios & Site Selection</span>
+            <span>3 Mission Scenarios & Which Location Wins 1st Place</span>
           </h2>
           <p class="text-xs text-slate-subtle max-w-3xl leading-relaxed">
-            Each settlement architecture carries distinct mission priorities. Select a preset scenario below or use the <strong>Interactive Analogue Explorer</strong> to tune criterion weights and observe real-time candidate rank re-sorting.
+            Different space missions need different things. Click any scenario below to see which Earth location wins, or move the sliders in the <strong>Interactive Explorer</strong> to create your own custom mission rules!
           </p>
         </div>
 
@@ -487,7 +487,7 @@
         <div class="flex items-center gap-3">
           <button id="btn-open-board-defense" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-terracotta-500 hover:from-amber-400 hover:to-terracotta-400 text-space-950 font-mono text-xs font-bold rounded-xl transition-all shadow-lg shadow-amber-500/20 flex items-center gap-2 cursor-pointer active:scale-95 shrink-0">
             <span class="material-symbols-outlined text-base" data-icon="gavel">gavel</span>
-            <span>DEFEND BEFORE SELECTION BOARD</span>
+            <span>DEFEND BEFORE SPACE SELECTION BOARD</span>
           </button>
         </div>
       </div>
@@ -502,13 +502,13 @@
               <span class="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">SCENARIO A</span>
               <span class="text-[10px] font-mono text-emerald-400 font-semibold active-scenario-tag">● ACTIVE</span>
             </div>
-            <h3 class="font-space font-bold text-sm text-white group-hover:text-amber-400 transition-colors">Lunar Research Outpost</h3>
+            <h3 class="font-space font-bold text-sm text-white group-hover:text-amber-400 transition-colors">Scenario A: Moon Base (Lunar Research Outpost)</h3>
             <p class="text-xs text-slate-300 leading-relaxed font-sans">
-              <strong>Requirement:</strong> Prioritise terrain, illumination conditions and access to relevant resources.
+              <strong>Must have:</strong> Crater rocks to test rovers, low-angle sunlight, and underground water ice to drill.
             </p>
           </div>
           <div class="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
-            <span class="text-slate-subtle">Strongest Match:</span>
+            <span class="text-slate-subtle">Winning Location:</span>
             <span class="text-amber-400 font-bold scenario-top-site">Haughton Crater (90.7%)</span>
           </div>
         </div>
@@ -520,13 +520,13 @@
               <span class="text-[10px] font-mono font-bold text-terracotta-400 uppercase tracking-wider bg-terracotta-500/10 border border-terracotta-500/20 px-2 py-0.5 rounded">SCENARIO B</span>
               <span class="text-[10px] font-mono text-slate-subtle hidden active-scenario-tag">● ACTIVE</span>
             </div>
-            <h3 class="font-space font-bold text-sm text-white group-hover:text-terracotta-400 transition-colors">Martian Science Station</h3>
+            <h3 class="font-space font-bold text-sm text-white group-hover:text-terracotta-400 transition-colors">Scenario B: Mars Science Station (Search for Life)</h3>
             <p class="text-xs text-slate-300 leading-relaxed font-sans">
-              <strong>Requirement:</strong> Prioritise geological analogues, environmental conditions and research opportunities.
+              <strong>Must have:</strong> Ancient Mars-like rocks, freezing cold air, and living microbes to test life-detecting tools.
             </p>
           </div>
           <div class="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
-            <span class="text-slate-subtle">Strongest Match:</span>
+            <span class="text-slate-subtle">Winning Location:</span>
             <span class="text-terracotta-400 font-bold scenario-top-site">McMurdo Dry Valleys (91.1%)</span>
           </div>
         </div>
@@ -538,13 +538,13 @@
               <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">SCENARIO C</span>
               <span class="text-[10px] font-mono text-slate-subtle hidden active-scenario-tag">● ACTIVE</span>
             </div>
-            <h3 class="font-space font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">Emergency Survival Outpost</h3>
+            <h3 class="font-space font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">Scenario C: Emergency Survival Shelter (Astronaut Safety)</h3>
             <p class="text-xs text-slate-300 leading-relaxed font-sans">
-              <strong>Requirement:</strong> Prioritise accessibility, resource availability and operational resilience.
+              <strong>Must have:</strong> Thick underground cave ceilings to block radiation, natural warmth, and fast emergency rescue.
             </p>
           </div>
           <div class="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
-            <span class="text-slate-subtle">Strongest Match:</span>
+            <span class="text-slate-subtle">Winning Location:</span>
             <span class="text-emerald-400 font-bold scenario-top-site">Mauna Loa Lava Tubes (89.5%)</span>
           </div>
         </div>
@@ -556,16 +556,16 @@
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-amber-400 text-lg" data-icon="tune">tune</span>
             <div>
-              <h4 class="font-space font-bold text-sm text-white">Interactive Analogue Explorer (Bonus Objective)</h4>
-              <p class="text-[11px] text-slate-subtle font-mono">Drag any criterion slider below to adjust weights and see the rankings update live</p>
+              <h4 class="font-space font-bold text-sm text-white">Interactive Explorer: Create Your Own Mission Rules</h4>
+              <p class="text-[11px] text-slate-subtle font-mono">Drag any slider below to adjust what matters most to your mission and see the rankings update instantly!</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
             <button id="btn-reset-weights" class="text-[11px] font-mono text-slate-subtle hover:text-white px-2.5 py-1 rounded bg-space-850 border border-white/[0.08] transition-colors cursor-pointer">
-              Reset Preset Weights
+              Reset to Default Sliders
             </button>
             <span class="text-[11px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2.5 py-1 rounded">
-              WEIGHT SUM: <strong id="weights-sum-display" class="text-white">580</strong>
+              TOTAL IMPORTANCE: <strong id="weights-sum-display" class="text-white">580</strong>
             </span>
           </div>
         </div>
@@ -581,9 +581,9 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-amber-400 text-sm" data-icon="leaderboard">leaderboard</span>
-            <span class="font-space font-bold text-sm text-white uppercase tracking-wider">Site Selection Rankings (Transparent Weighted Scoring)</span>
+            <span class="font-space font-bold text-sm text-white uppercase tracking-wider">Location Leaderboard (Transparent Score)</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-subtle">Formula: Score = Σ(Weight × Metric) / Σ(Weight)</span>
+          <span class="text-[10px] font-mono text-slate-subtle">Formula: Score = Sum of (Importance × Match) / Total Importance</span>
         </div>
 
         <div class="space-y-2" id="rankings-list-container">
@@ -597,16 +597,16 @@
     <section class="space-y-4">
       <div class="flex items-center justify-between border-b border-white/[0.06] pb-3">
         <div>
-          <h3 class="font-space font-bold text-lg text-white">Candidate Planetary Analog Sites</h3>
-          <p class="text-xs text-slate-subtle">Click any testbed to swap it into the primary analysis stage</p>
+          <h3 class="font-space font-bold text-lg text-white">Other Earth Locations to Explore</h3>
+          <p class="text-xs text-slate-subtle">Click any location below to see its full breakdown above</p>
         </div>
         <div class="flex items-center gap-2">
           <span id="sync-candidate-badge" class="font-mono text-xs text-slate-subtle bg-space-850 border border-white/[0.06] px-3 py-1 rounded-full">
-            4 SITES SYNCHRONIZED
+            4 LOCATIONS READY
           </span>
           <button id="btn-add-recon" class="flex items-center gap-1 font-mono text-xs text-terracotta-400 hover:text-white border border-terracotta-500/40 hover:bg-terracotta-500/10 px-3 py-1 rounded-full transition-all">
             <span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
-            <span>Add Recon</span>
+            <span>+ Add Location</span>
           </button>
         </div>
       </div>
@@ -624,49 +624,49 @@
       <div class="lg:col-span-4 glass-card p-5 rounded-2xl flex flex-col justify-between space-y-4">
         <div>
           <div class="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-3">
-            <h4 class="font-space font-bold text-sm text-white">Live Planetary Telemetry</h4>
+            <h4 class="font-space font-bold text-sm text-white">Live Ground & Space Sensors</h4>
             <span id="live-link-badge" class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full cursor-pointer hover:bg-emerald-500/20">
-              ORBIT LINK LOCKED
+              CONNECTION ACTIVE
             </span>
           </div>
 
           <div class="space-y-2.5 font-mono text-xs">
             <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
               <div>
-                <span class="text-[10px] text-slate-subtle block">PYROXENE / OLIVINE INDEX</span>
-                <span id="tel-poi" class="text-white font-bold text-sm">0.89 POI-NORM</span>
+                <span class="text-[10px] text-slate-subtle block">ROCK & MINERAL MATCH</span>
+                <span id="tel-poi" class="text-white font-bold text-sm">0.89 Rock Match</span>
               </div>
-              <span id="tel-poi-status" class="text-[10px] font-bold text-terracotta-400 bg-terracotta-500/10 px-2 py-0.5 rounded">CALIBRATED</span>
+              <span id="tel-poi-status" class="text-[10px] font-bold text-terracotta-400 bg-terracotta-500/10 px-2 py-0.5 rounded">ACCURATE</span>
             </div>
 
             <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
               <div>
-                <span class="text-[10px] text-slate-subtle block">UV-C ATTENUATION FLUX</span>
+                <span class="text-[10px] text-slate-subtle block">SUNLIGHT & UV RADIATION</span>
                 <span id="tel-uv" class="text-white font-bold text-sm">14.8 W/m²</span>
               </div>
-              <span id="tel-uv-status" class="text-[10px] font-bold text-slate-subtle bg-space-800 px-2 py-0.5 rounded">ELEVATED</span>
+              <span id="tel-uv-status" class="text-[10px] font-bold text-slate-subtle bg-space-800 px-2 py-0.5 rounded">STRONG SUN</span>
             </div>
 
             <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
               <div>
-                <span class="text-[10px] text-slate-subtle block">WATER ICE EQUIVALENT (WIE)</span>
-                <span id="tel-wie" class="text-white font-bold text-sm">3.2 wt% DRY MASS</span>
+                <span class="text-[10px] text-slate-subtle block">WATER ICE IN SOIL</span>
+                <span id="tel-wie" class="text-white font-bold text-sm">3.2% Ice in Soil</span>
               </div>
-              <span id="tel-wie-status" class="text-[10px] font-bold text-terracotta-400 bg-terracotta-500/10 px-2 py-0.5 rounded">DETECTION+</span>
+              <span id="tel-wie-status" class="text-[10px] font-bold text-terracotta-400 bg-terracotta-500/10 px-2 py-0.5 rounded">WATER FOUND</span>
             </div>
 
             <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
               <div>
-                <span class="text-[10px] text-slate-subtle block">ORBIT RELAY LATENCY</span>
-                <span id="tel-latency" class="text-white font-bold text-sm">342 ms ROUNDTRIP</span>
+                <span class="text-[10px] text-slate-subtle block">RADIO SIGNAL DELAY</span>
+                <span id="tel-latency" class="text-white font-bold text-sm">342 ms Delay</span>
               </div>
-              <span id="tel-latency-status" class="text-[10px] font-bold text-slate-light bg-space-800 px-2 py-0.5 rounded">NOMINAL</span>
+              <span id="tel-latency-status" class="text-[10px] font-bold text-slate-light bg-space-800 px-2 py-0.5 rounded">NORMAL</span>
             </div>
           </div>
         </div>
 
         <div class="border-t border-white/[0.06] pt-3 text-[10px] font-mono text-slate-subtle flex justify-between items-center">
-          <span>NEXT PASS (SWOT-2):</span>
+          <span>NEXT SATELLITE PASS:</span>
           <span id="orbital-timer" class="text-terracotta-400 font-bold">T-MINUS 00:14:28</span>
         </div>
       </div>
@@ -675,20 +675,20 @@
       <div class="lg:col-span-4 glass-card p-5 rounded-2xl flex flex-col justify-between space-y-4">
         <div>
           <div class="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-3">
-            <h4 class="font-space font-bold text-sm text-white">Regolith Simulant Benchmark</h4>
+            <h4 class="font-space font-bold text-sm text-white">Soil & Dust Comparison</h4>
             <select id="simulant-select" class="bg-space-850 text-terracotta-400 font-mono text-xs font-bold border border-white/[0.08] rounded-lg px-2 py-1 outline-none cursor-pointer">
-              <option value="lhs-jsc">LHS-1 vs JSC-1A</option>
-              <option value="lhs-apollo">LHS-1 vs Apollo 16</option>
-              <option value="lms-apollo11">LMS-1 vs Apollo 11</option>
-              <option value="mms-rocknest">MMS-1 vs Curiosity</option>
-              <option value="jsc-jezero">JSC-1A vs Jezero Clay</option>
+              <option value="lhs-jsc">Moon Soil (LHS-1 vs JSC-1A)</option>
+              <option value="lhs-apollo">Moon Highlands (Apollo 16)</option>
+              <option value="lms-apollo11">Moon Basalt (Apollo 11)</option>
+              <option value="mms-rocknest">Mars Sand (Curiosity Rover)</option>
+              <option value="jsc-jezero">Mars Clay (Jezero Crater)</option>
             </select>
           </div>
 
           <div class="space-y-4 pt-1 font-mono text-xs">
             <div>
               <div class="flex justify-between text-[11px] mb-1.5">
-                <span class="text-slate-subtle">SiO₂ / Basaltic Oxide Ratio</span>
+                <span class="text-slate-subtle">Rock & Mineral Composition</span>
                 <span id="bar-sio2-val" class="text-white font-bold">93.4%</span>
               </div>
               <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
@@ -698,7 +698,7 @@
 
             <div>
               <div class="flex justify-between text-[11px] mb-1.5">
-                <span class="text-slate-subtle">Grain Angularity & Abrasion Factor</span>
+                <span class="text-slate-subtle">Dust Sharpness & Wheel Wear</span>
                 <span id="bar-grain-val" class="text-white font-bold">88.1%</span>
               </div>
               <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
@@ -708,7 +708,7 @@
 
             <div>
               <div class="flex justify-between text-[11px] mb-1.5">
-                <span class="text-slate-subtle">Volatile Sublimation Kinetics</span>
+                <span class="text-slate-subtle">Ice Evaporation Speed</span>
                 <span id="bar-vol-val" class="text-white font-bold">79.5%</span>
               </div>
               <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
@@ -718,7 +718,7 @@
 
             <div>
               <div class="flex justify-between text-[11px] mb-1.5">
-                <span class="text-slate-subtle">Dielectric Permittivity Constant</span>
+                <span class="text-slate-subtle">Ground Radar Penetration</span>
                 <span id="bar-dielectric-val" class="text-white font-bold">95.2%</span>
               </div>
               <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
@@ -729,15 +729,15 @@
         </div>
 
         <p class="text-[10px] text-slate-subtle border-t border-white/[0.06] pt-3">
-          Calibrated against USGS Lunar Regolith Simulant standards.
+          Compared against real Moon soil samples from NASA Apollo missions.
         </p>
       </div>
 
       <!-- Habitability Feasibility Radar Chart (4 Cols) -->
       <div class="lg:col-span-4 glass-card p-5 rounded-2xl flex flex-col justify-between items-center text-center">
         <div class="w-full flex items-center justify-between border-b border-white/[0.06] pb-3 mb-2">
-          <h4 class="font-space font-bold text-sm text-white">Habitability Radar Matrix</h4>
-          <span class="text-[10px] font-mono text-terracotta-400">5-AXIS GEOMETRY</span>
+          <h4 class="font-space font-bold text-sm text-white">Capability Radar Chart</h4>
+          <span class="text-[10px] font-mono text-terracotta-400">5-AXIS RADAR</span>
         </div>
 
         <div class="relative py-2 flex items-center justify-center">
@@ -764,10 +764,10 @@
         </div>
 
         <div class="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-[11px] font-mono text-slate-subtle border-t border-white/[0.06] pt-3 text-left">
-          <div>• Top: Mineralogy</div>
-          <div>• Right: Shielding</div>
-          <div>• B-Right: Thermal</div>
-          <div>• B-Left: In-situ H₂O</div>
+          <div>• Top: Rock Match</div>
+          <div>• Right: Cave Shield</div>
+          <div>• B-Right: Weather</div>
+          <div>• B-Left: Ice Water</div>
         </div>
       </div>
 
@@ -783,14 +783,14 @@
       <div class="p-4 border-b border-white/[0.08] flex items-center justify-between font-mono text-xs">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="satellite_alt">satellite_alt</span>
-          <span class="font-bold text-white uppercase tracking-wider">Orbital SAR & Satellite Reconnaissance</span>
+          <span class="font-bold text-white uppercase tracking-wider">Satellite & Aerial Map View</span>
         </div>
-        <button id="btn-close-satellite" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
+        <button id="btn-close-satellite" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold cursor-pointer">&times;</button>
       </div>
       <div class="relative flex-1 bg-space-950">
         <div id="satellite-map" class="w-full h-full"></div>
         <div class="absolute bottom-3 left-3 z-[1000] bg-space-900/90 backdrop-blur border border-white/[0.1] px-3 py-1.5 text-xs font-mono text-slate-subtle rounded-lg">
-          <span>SENSOR: ESRI WORLD IMAGERY (SUB-METER RESOLUTION)</span>
+          <span>MAP SENSOR: HIGH-RESOLUTION SATELLITE IMAGERY</span>
         </div>
       </div>
     </div>
@@ -800,65 +800,65 @@
   <div id="dossier-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
     <div class="glass-card rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl">
       <div class="p-4 border-b border-white/[0.08] flex items-center justify-between font-mono text-xs no-print">
-        <span class="font-bold text-terracotta-400 uppercase tracking-wider">Planetary Analogue Field Protocol // Dossier</span>
-        <button id="btn-close-dossier" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
+        <span class="font-bold text-terracotta-400 uppercase tracking-wider">Official Location Summary & Testing Report</span>
+        <button id="btn-close-dossier" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold cursor-pointer">&times;</button>
       </div>
 
       <!-- Printable Area -->
       <div id="dossier-print-area" class="p-6 space-y-4 font-mono text-xs text-slate-100 bg-space-950">
         <div class="border-b border-terracotta-500 pb-3 flex justify-between items-start">
           <div>
-            <h2 class="text-lg font-bold text-white uppercase">ANALOGUE FLIGHT TEST PROTOCOL</h2>
-            <p class="text-[11px] text-slate-subtle">EXPLORATION SYSTEMS DEVELOPMENT • HABITAT VALIDATION</p>
+            <h2 class="text-lg font-bold text-white uppercase">SPACE MISSION SITE REPORT</h2>
+            <p class="text-[11px] text-slate-subtle">TEST GROUND REPORT FOR MOON & MARS EXPLORATION</p>
           </div>
           <div class="text-right text-xs">
-            <span class="text-slate-subtle block">AUTHORIZATION:</span>
+            <span class="text-slate-subtle block">OFFICIAL CODE:</span>
             <div id="modal-dossier-id" class="font-bold text-terracotta-400">NASA-ANALOG-749201</div>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3 bg-space-900 p-3 rounded-lg border border-white/[0.06] text-xs">
           <div>
-            <span class="text-slate-subtle text-[10px] uppercase block">TARGET LOCATION</span>
+            <span class="text-slate-subtle text-[10px] uppercase block">LOCATION NAME</span>
             <span id="modal-site-name" class="font-bold text-terracotta-400 block">Haughton Crater, Devon Island</span>
           </div>
           <div>
-            <span class="text-slate-subtle text-[10px] uppercase block">FIDELITY INDEX</span>
+            <span class="text-slate-subtle text-[10px] uppercase block">SIMILARITY TO SPACE</span>
             <span id="modal-site-fidelity" class="font-bold text-white block">94.2%</span>
           </div>
           <div>
-            <span class="text-slate-subtle text-[10px] uppercase block">DATUM / COORDINATES</span>
+            <span class="text-slate-subtle text-[10px] uppercase block">GPS COORDINATES</span>
             <span id="modal-site-coords" class="font-bold text-slate-light block">WGS84: 75°22′N 89°41′W</span>
           </div>
           <div>
-            <span class="text-slate-subtle text-[10px] uppercase block">ELEVATION ASL</span>
+            <span class="text-slate-subtle text-[10px] uppercase block">ALTITUDE (ABOVE SEA LEVEL)</span>
             <span id="modal-site-elev" class="font-bold text-slate-light block">230m ASL</span>
           </div>
         </div>
 
         <div class="space-y-1.5">
-          <span class="text-xs uppercase font-bold text-terracotta-400 block tracking-wider">1. GEOLOGICAL & ENVIRONMENTAL VALIDATION</span>
+          <span class="text-xs uppercase font-bold text-terracotta-400 block tracking-wider">1. GROUND TERRAIN & HARSH WEATHER</span>
           <p id="modal-site-desc" class="text-slate-subtle text-xs leading-relaxed"></p>
         </div>
 
         <div class="space-y-1.5">
-          <span class="text-xs uppercase font-bold text-terracotta-400 block tracking-wider">2. TEST CAMPAIGN SPECIFICATION</span>
+          <span class="text-xs uppercase font-bold text-terracotta-400 block tracking-wider">2. ASTRONAUT TRAINING & EQUIPMENT TESTING</span>
           <p id="modal-site-hab" class="text-slate-subtle text-xs leading-relaxed"></p>
         </div>
 
         <div class="pt-3 border-t border-white/[0.08] text-[10px] text-slate-subtle">
-          AUTHORIZED FOR ARTEMIS-III / ARES-1 ARCHITECTURE TESTBED UNDER COLD HARDENED PROTOCOL SPEC 2.2
+          APPROVED FOR MOON & MARS PRE-FLIGHT TESTING UNDER SPACE HABITAT SPEC 2.2
         </div>
       </div>
 
       <div class="p-4 border-t border-white/[0.08] bg-space-900 flex justify-between items-center font-mono text-xs no-print">
-        <button id="btn-download-json" class="px-3.5 py-2 border border-white/[0.1] hover:border-white/[0.3] text-slate-subtle hover:text-white rounded-lg transition-colors flex items-center gap-1.5">
+        <button id="btn-download-json" class="px-3.5 py-2 border border-white/[0.1] hover:border-white/[0.3] text-slate-subtle hover:text-white rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer">
           <span class="material-symbols-outlined text-sm" data-icon="data_object">data_object</span>
-          Download JSON
+          <span>Download JSON</span>
         </button>
-        <button id="btn-print-modal" class="px-4 py-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow">
+        <button id="btn-print-modal" class="px-4 py-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow cursor-pointer">
           <span class="material-symbols-outlined text-sm" data-icon="print">print</span>
-          Print / Save PDF
+          <span>Print / Save PDF</span>
         </button>
       </div>
     </div>
@@ -870,20 +870,20 @@
       <div class="p-4 border-b border-white/[0.08] flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="grid_view">grid_view</span>
-          <span class="font-bold text-white uppercase tracking-wider">Surface Correlation Matrix</span>
+          <span class="font-bold text-white uppercase tracking-wider">All Locations Comparison Table</span>
         </div>
-        <button id="btn-close-matrix" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
+        <button id="btn-close-matrix" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold cursor-pointer">&times;</button>
       </div>
       <div class="p-5 overflow-x-auto flex-1">
         <table class="w-full text-left border-collapse border border-white/[0.08] rounded-xl overflow-hidden">
           <thead>
             <tr class="bg-space-900 border-b border-white/[0.08] text-slate-subtle text-[11px]">
-              <th class="p-3 border-r border-white/[0.06]">ANALOG SITE</th>
-              <th class="p-3 border-r border-white/[0.06]">FIDELITY</th>
-              <th class="p-3 border-r border-white/[0.06]">POI INDEX</th>
-              <th class="p-3 border-r border-white/[0.06]">UV-C FLUX</th>
-              <th class="p-3 border-r border-white/[0.06]">WIE (wt%)</th>
-              <th class="p-3">PRIMARY REGIME</th>
+              <th class="p-3 border-r border-white/[0.06]">EARTH LOCATION</th>
+              <th class="p-3 border-r border-white/[0.06]">SPACE MATCH</th>
+              <th class="p-3 border-r border-white/[0.06]">ROCK MATCH</th>
+              <th class="p-3 border-r border-white/[0.06]">SUN & UV</th>
+              <th class="p-3 border-r border-white/[0.06]">ICE IN SOIL</th>
+              <th class="p-3">MAIN ENVIRONMENT</th>
             </tr>
           </thead>
           <tbody id="matrix-table-body" class="text-slate-100 text-xs">
@@ -900,12 +900,12 @@
       <div class="p-3 border-b border-white/[0.08] flex items-center justify-between bg-space-900">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="terminal">terminal</span>
-          <span class="font-bold text-white">MISSION OPS TERMINAL HUD</span>
+          <span class="font-bold text-white">SPACE OPERATIONS COMMAND HUD</span>
         </div>
-        <button id="btn-close-terminal" class="text-slate-subtle hover:text-white font-bold">&times;</button>
+        <button id="btn-close-terminal" class="text-slate-subtle hover:text-white font-bold cursor-pointer">&times;</button>
       </div>
       <div id="terminal-output" class="flex-1 p-4 overflow-y-auto space-y-1.5 text-slate-subtle text-[11px]">
-        <div class="text-terracotta-400 font-bold">GEOANALOG MISSION OPS TERMINAL [VERSION 2.2-HARDENED]</div>
+        <div class="text-terracotta-400 font-bold">GEOANALOG MISSION OPS TERMINAL [VERSION 2.2]</div>
         <div>TYPE <span class="text-terracotta-400 font-bold">help</span> FOR AVAILABLE COMMANDS (scan, list, target, clear, ping).</div>
         <div class="text-white/[0.1]">----------------------------------------------------</div>
       </div>
@@ -922,17 +922,17 @@
       <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="add_location_alt">add_location_alt</span>
-          <span class="font-bold text-white uppercase tracking-wider">ADD TARGET FIELD RECON</span>
+          <span class="font-bold text-white uppercase tracking-wider">ADD NEW EARTH LOCATION</span>
         </div>
-        <button id="btn-close-add-recon" class="text-slate-subtle hover:text-white font-bold text-lg">&times;</button>
+        <button id="btn-close-add-recon" class="text-slate-subtle hover:text-white font-bold text-lg cursor-pointer">&times;</button>
       </div>
       <form id="form-add-recon" class="space-y-3">
         <div>
-          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Site / Analog Name</label>
+          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Location Name</label>
           <input id="input-site-name" type="text" required placeholder="e.g. Lanzarote Lava Tubes" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
         </div>
         <div>
-          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Territory / Region</label>
+          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Country / Region</label>
           <input id="input-site-region" type="text" required placeholder="e.g. Canary Islands, Spain" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -946,11 +946,11 @@
           </div>
         </div>
         <div>
-          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Primary Geological Feature</label>
-          <input id="input-site-geo" type="text" required placeholder="e.g. Basaltic pyroducts & radiation shield" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
+          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Main Terrain Feature</label>
+          <input id="input-site-geo" type="text" required placeholder="e.g. Underground basalt lava caves" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
         </div>
-        <button type="submit" class="w-full py-2.5 bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold rounded-lg uppercase transition-colors shadow mt-2">
-          Compute Fidelity & Deploy Recon
+        <button type="submit" class="w-full py-2.5 bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold rounded-lg uppercase transition-colors shadow mt-2 cursor-pointer">
+          Calculate Space Match & Add Site
         </button>
       </form>
     </div>
@@ -967,8 +967,8 @@
             <span class="material-symbols-outlined text-sm" data-icon="gavel">gavel</span>
           </div>
           <div>
-            <h3 class="font-bold text-white uppercase tracking-wider">International Site-Selection Board</h3>
-            <p class="text-[10px] text-slate-subtle">SIMULATED EVALUATION // NASA • ESA • JAXA CONSENSUS</p>
+            <h3 class="font-bold text-white uppercase tracking-wider">Space Agency Site Approval Board</h3>
+            <p class="text-[10px] text-slate-subtle">SIMULATED PANEL // NASA (USA) • ESA (EUROPE) • JAXA (JAPAN)</p>
           </div>
         </div>
         <button id="btn-close-board-defense" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold cursor-pointer">&times;</button>
@@ -980,27 +980,27 @@
         <div class="border-b border-amber-500/50 pb-4 flex flex-col sm:flex-row justify-between sm:items-start gap-2">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded font-bold uppercase" id="board-scenario-badge">SCENARIO A: LUNAR RESEARCH OUTPOST</span>
-              <span class="text-[10px] text-emerald-400 font-bold">● BOARD SESSION CONVENED</span>
+              <span class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded font-bold uppercase" id="board-scenario-badge">SCENARIO A: MOON BASE OUTPOST</span>
+              <span class="text-[10px] text-emerald-400 font-bold">● BOARD MEETING IN SESSION</span>
             </div>
-            <h2 class="text-base sm:text-lg font-bold font-space text-white uppercase" id="board-scenario-title">Candidate Defense: Lunar Research Outpost</h2>
-            <p class="text-[11px] text-slate-subtle" id="board-scenario-req">Requirement: Prioritise terrain, illumination conditions and access to relevant resources.</p>
+            <h2 class="text-base sm:text-lg font-bold font-space text-white uppercase" id="board-scenario-title">Candidate Defense: Moon Base Outpost</h2>
+            <p class="text-[11px] text-slate-subtle" id="board-scenario-req">Must have: Crater rocks to test rovers, low-angle sunlight, and underground water ice to drill.</p>
           </div>
           <div class="text-left sm:text-right shrink-0">
-            <span class="text-slate-subtle text-[10px] block">BOARD RESOLUTION:</span>
-            <span class="font-bold text-amber-400 text-sm">IPSSB-2026-CONFIRMED</span>
+            <span class="text-slate-subtle text-[10px] block">BOARD DECISION:</span>
+            <span class="font-bold text-amber-400 text-sm">APPROVED FOR MISSIONS</span>
           </div>
         </div>
 
         <!-- Selected Strongest Candidate Banner -->
         <div class="bg-gradient-to-r from-space-900 to-space-850 p-4 rounded-xl border border-white/[0.08] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
-            <span class="text-[10px] uppercase text-amber-400 font-bold block tracking-wider">STRONGEST CANDIDATE LOCATION</span>
+            <span class="text-[10px] uppercase text-amber-400 font-bold block tracking-wider">WINNING 1ST PLACE LOCATION</span>
             <h3 class="font-space font-bold text-lg text-white" id="board-top-site-name">Haughton Crater, Devon Island</h3>
             <p class="text-xs text-slate-subtle" id="board-top-site-meta">Nunavut, Canada • WGS84: 75°22′N 89°41′W</p>
           </div>
           <div class="bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl text-center shrink-0">
-            <span class="text-[9px] uppercase text-slate-subtle block">SCENARIO SCORE</span>
+            <span class="text-[9px] uppercase text-slate-subtle block">FINAL SCORE</span>
             <span class="font-space font-bold text-2xl text-amber-400 font-tabular" id="board-top-site-score">90.7%</span>
           </div>
         </div>
@@ -1009,7 +1009,7 @@
         <div class="space-y-2 bg-space-900/40 p-4 rounded-xl border border-white/[0.06]">
           <span class="text-[11px] uppercase font-bold text-amber-400 flex items-center gap-1.5">
             <span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
-            <span>1. Primary Rationale & Priority Multipliers</span>
+            <span>1. Why This Location Won 1st Place</span>
           </span>
           <p class="text-slate-200 leading-relaxed font-sans text-xs" id="board-defense-statement">
             <!-- Injected via JS -->
@@ -1020,7 +1020,7 @@
         <div class="space-y-2 bg-space-900/40 p-4 rounded-xl border border-white/[0.06]">
           <span class="text-[11px] uppercase font-bold text-slate-300 flex items-center gap-1.5">
             <span class="material-symbols-outlined text-sm" data-icon="do_not_disturb_on">do_not_disturb_on</span>
-            <span>2. Elimination Analysis (Why Alternative Sites Failed)</span>
+            <span>2. Why The Other Locations Lost</span>
           </span>
           <p class="text-slate-subtle leading-relaxed font-sans text-xs" id="board-why-eliminated">
             <!-- Injected via JS -->
@@ -1031,7 +1031,7 @@
         <div class="space-y-2 bg-space-900/40 p-4 rounded-xl border border-white/[0.06]">
           <span class="text-[11px] uppercase font-bold text-slate-300 flex items-center gap-1.5">
             <span class="material-symbols-outlined text-sm" data-icon="security">security</span>
-            <span>3. Operational Risk Mitigation & Survival Margin</span>
+            <span>3. How Astronaut Safety & Risks Are Handled</span>
           </span>
           <p class="text-slate-subtle leading-relaxed font-sans text-xs" id="board-risk-mitigation">
             <!-- Injected via JS -->
@@ -1040,23 +1040,23 @@
 
         <!-- Section 4: Simulated Board Member Vote -->
         <div class="border-t border-white/[0.08] pt-4 space-y-3">
-          <span class="text-[10px] uppercase font-bold text-slate-subtle block tracking-wider">SIMULATED INTERNATIONAL BOARD ROLL-CALL VOTE</span>
+          <span class="text-[10px] uppercase font-bold text-slate-subtle block tracking-wider">VOTES FROM SPACE AGENCIES (NASA, ESA, JAXA)</span>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <div class="bg-space-900 p-2.5 rounded-lg border border-white/[0.06] text-center">
-              <span class="text-[9px] text-slate-subtle block">NASA ESDMD</span>
+              <span class="text-[9px] text-slate-subtle block">NASA (USA)</span>
               <span class="text-xs font-bold text-emerald-400">APPROVED (97/100)</span>
             </div>
             <div class="bg-space-900 p-2.5 rounded-lg border border-white/[0.06] text-center">
-              <span class="text-[9px] text-slate-subtle block">ESA HRE DIRECTORATE</span>
+              <span class="text-[9px] text-slate-subtle block">ESA (EUROPE)</span>
               <span class="text-xs font-bold text-emerald-400">APPROVED (95/100)</span>
             </div>
             <div class="bg-space-900 p-2.5 rounded-lg border border-white/[0.06] text-center">
-              <span class="text-[9px] text-slate-subtle block">JAXA LUNAR STRATEGY</span>
+              <span class="text-[9px] text-slate-subtle block">JAXA (JAPAN)</span>
               <span class="text-xs font-bold text-emerald-400">APPROVED (96/100)</span>
             </div>
           </div>
           <div class="bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-lg text-center text-emerald-400 font-bold text-xs" id="board-verdict-banner">
-            UNANIMOUS CONSENSUS: SITE SELECTED FOR PROTO-HABITAT DEPLOYMENT
+            UNANIMOUS DECISION: SITE APPROVED FOR SPACE MISSION TRAINING
           </div>
         </div>
 
@@ -1066,11 +1066,11 @@
       <div class="p-4 border-t border-white/[0.08] bg-space-900 flex justify-between items-center font-mono text-xs no-print">
         <button id="btn-load-top-candidate" class="px-3.5 py-2 border border-amber-500/30 hover:border-amber-500 text-amber-300 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer">
           <span class="material-symbols-outlined text-sm" data-icon="flight_takeoff">flight_takeoff</span>
-          <span>Load Site on Flight Deck</span>
+          <span>Load Location on Main Screen</span>
         </button>
         <button id="btn-print-board-defense" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-terracotta-500 hover:from-amber-400 hover:to-terracotta-400 text-space-950 font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow cursor-pointer">
           <span class="material-symbols-outlined text-sm" data-icon="print">print</span>
-          <span>Print Board Resolution</span>
+          <span>Print Board Decision (PDF)</span>
         </button>
       </div>
 

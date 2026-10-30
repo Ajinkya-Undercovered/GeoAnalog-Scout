@@ -4,40 +4,40 @@
 const planetarySites = [
   {
     id: "haughton",
-    dossierCode: "PRIMARY TESTBED #01",
-    sector: "DEVON ISLAND RECON SECTOR",
+    dossierCode: "LOCATION #01",
+    sector: "ARCTIC CRATER REGION",
     name: "Haughton Crater, Devon Island",
     region: "Nunavut, Canada",
     coords: "75°22′N 89°41′W",
     lat: 75.38,
     lng: -89.68,
     elev: "230m ASL",
-    impactAge: "~39 Ma",
+    impactAge: "~39 Million Years Ago",
     fidelity: 94.2,
-    analogType: "LUNAR SOUTH POLE / MARS PERMAFROST",
+    analogType: "MOON SOUTH POLE & MARS ICE",
     category: "all lunar-polar martian-permafrost",
-    geoZone: "GEO-ZONE: IMPACT STRUCTURAL BASIN",
-    geoZoneDesc: "High shock metamorphism, paleolake sediment analogs to Jezero / Shackleton rim rubble.",
+    geoZone: "TERRAIN: METEOR IMPACT CRATER",
+    geoZoneDesc: "Cracked rocks and dried lake beds that closely match the Moon's South Pole and ancient Mars craters.",
     image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
     specs: {
       geomorphology: {
-        title: "Impact Breccia & Shatter Cones",
-        desc: "Target carbonate & crystalline basement clasts mimic lunar South Pole regolith mechanical shear.",
+        title: "Crater Rocks & Rover Grip",
+        desc: "Shattered limestone and loose gravel match the rocky ground at the Moon's South Pole, testing rover wheels against slip and wear.",
         match: "96.8%"
       },
       climate: {
-        title: "Hyper-Cold Dry Desert Biome",
-        desc: "Mean annual temp −17°C, severe desiccating katabatic winds, negligible liquid precipitation.",
+        title: "Freezing Arctic Desert",
+        desc: "Freezing average temperatures of −17°C with high-speed dry winds replicate the harsh, bone-chilling cold of space missions.",
         match: "93.1%"
       },
       hab: {
-        title: "Autonomous Perimeter Trial",
-        desc: "Validated FMARS habitat core, pressurized rover ingress, EVA suit joint dust intrusion testing.",
+        title: "Astronaut Base & Suit Tests",
+        desc: "Real habitat dome where crews practice airlock procedures and test whether abrasive rock dust clogs spacesuit joints.",
         match: "91.5%"
       },
       volatile: {
-        title: "Subsurface Massive Ground Ice",
-        desc: "Active continuous permafrost polygonal wedges simulating Martian mid-latitude ice tables.",
+        title: "Deep Frozen Ground Ice",
+        desc: "Thick underground ice layers let scientists practice drilling to extract fresh water for astronaut drinking and rocket fuel.",
         match: "95.4%"
       }
     },
@@ -52,14 +52,14 @@ const planetarySites = [
       accessibility: 68
     },
     telemetry: {
-      poiIndex: "0.89 POI-NORM",
-      poiStatus: "CALIBRATED",
-      uvFlux: "14.8 W/m² (SURFACE)",
-      uvStatus: "ELEVATED",
-      wie: "3.2 wt% DRY MASS",
-      wieStatus: "DETECTION+",
-      latency: "342 ms ROUNDTRIP",
-      latencyStatus: "NOMINAL",
+      poiIndex: "0.89 Rock Match",
+      poiStatus: "ACCURATE",
+      uvFlux: "14.8 W/m² (Intense UV)",
+      uvStatus: "STRONG SUN",
+      wie: "3.2% Ice in Soil",
+      wieStatus: "WATER FOUND",
+      latency: "342 ms Delay",
+      latencyStatus: "NORMAL",
       bars: {
         sio2: "93.4%",
         grain: "88.1%",
@@ -71,40 +71,40 @@ const planetarySites = [
   },
   {
     id: "mcmurdo",
-    dossierCode: "PRIMARY TESTBED #02",
-    sector: "VICTORIA LAND RECON SECTOR",
+    dossierCode: "LOCATION #02",
+    sector: "ANTARCTICA ICE-FREE VALLEY",
     name: "McMurdo Dry Valleys",
     region: "Victoria Land, Antarctica",
     coords: "77°30′S 162°52′E",
     lat: -77.5,
     lng: 162.5,
     elev: "150m ASL",
-    impactAge: "Pre-Cambrian basement",
+    impactAge: "Ancient Bedrock",
     fidelity: 96.1,
-    analogType: "96.1% MARS ANALOG",
+    analogType: "96.1% MARS TWIN",
     category: "all martian-permafrost",
-    geoZone: "GEO-ZONE: HYPER-ARID POLAR REGOLITH",
-    geoZoneDesc: "Subzero salt brines, cryptoendoliths, and cold permafrost modeling Mars Noachian transition.",
+    geoZone: "TERRAIN: ULTRA-DRY COLD POLAR DESERT",
+    geoZoneDesc: "The coldest, driest place on Earth with frozen salty soils, matching the barren freeze of modern Mars.",
     image: "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=1200&q=80",
     specs: {
       geomorphology: {
-        title: "Ventifacts & Porous Sandstones",
-        desc: "Extreme aeolian saltation carving polished rock facets analogous to Gusev Crater plain.",
+        title: "Wind-Carved Rocks & Sandy Plains",
+        desc: "Fierce polar winds blast rocks into polished facets and gravel plains identical to Mars rover landing sites.",
         match: "97.4%"
       },
       climate: {
-        title: "Extreme Katabatic Hyper-Arid",
-        desc: "Precipitation <10mm/yr water equivalent, relative humidity down to 5%, continuous freeze.",
+        title: "Extreme Freeze & Bone-Dry Air",
+        desc: "Less than 10 mm of moisture per year and humidity near 5%—nearly as dry and cold as the Martian atmosphere.",
         match: "98.2%"
       },
       hab: {
-        title: "Subzero Habitat Life-Support",
-        desc: "Closed-loop atmospheric insulation testing for sustained polar martian outposts.",
+        title: "Extreme Cold Life Support",
+        desc: "Tests insulated living modules and heaters to ensure astronauts stay warm through brutally cold polar winters.",
         match: "94.0%"
       },
       volatile: {
-        title: "Sublimation Ice & Permafrost Brines",
-        desc: "Hyper-saline liquid water veins beneath ice crust serving as recurring slope lineae proxies.",
+        title: "Underground Salty Water & Ice",
+        desc: "Hidden veins of ultra-salty water beneath ice crusts mimic the dark seasonal water streaks spotted on Mars slopes.",
         match: "96.5%"
       }
     },
@@ -119,13 +119,13 @@ const planetarySites = [
       accessibility: 62
     },
     telemetry: {
-      poiIndex: "0.94 POI-NORM",
-      poiStatus: "CALIBRATED",
-      uvFlux: "18.2 W/m² (SURFACE)",
-      uvStatus: "ANOMALOUS",
-      wie: "8.7 wt% CRYOGENIC",
-      wieStatus: "DETECTION+",
-      latency: "512 ms ROUNDTRIP",
+      poiIndex: "0.94 Rock Match",
+      poiStatus: "ACCURATE",
+      uvFlux: "18.2 W/m² (Intense UV)",
+      uvStatus: "STRONG SUN",
+      wie: "8.7% Frozen Ice",
+      wieStatus: "RICH ICE",
+      latency: "512 ms Delay",
       latencyStatus: "STABLE",
       bars: {
         sio2: "91.2%",
@@ -138,40 +138,40 @@ const planetarySites = [
   },
   {
     id: "atacama",
-    dossierCode: "PRIMARY TESTBED #03",
-    sector: "YUNGAY BASIN RECON SECTOR",
+    dossierCode: "LOCATION #03",
+    sector: "CHILE HIGH DESERT",
     name: "Atacama Desert (Yungay)",
     region: "Antofagasta Region, Chile",
     coords: "24°04′S 69°52′W",
     lat: -24.05,
     lng: -69.85,
     elev: "1200m ASL",
-    impactAge: "Oligocene Paleosol",
+    impactAge: "Ancient Sun-Dried Soil",
     fidelity: 91.8,
-    analogType: "91.8% MARS OXIDATION",
+    analogType: "MARS SOIL & CHEMICAL TWIN",
     category: "all martian-permafrost",
-    geoZone: "GEO-ZONE: HYPER-OXIDIZING NITRATE SALARS",
-    geoZoneDesc: "Perchlorates, extreme solar UV flux, and dry limit for soil microbial habitability.",
+    geoZone: "TERRAIN: DRIEST SUN-BAKED SALAR",
+    geoZoneDesc: "Super-dry salt flats baked by intense ultraviolet sunlight, matching the sterile, salty red soil of Mars.",
     image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80",
     specs: {
       geomorphology: {
-        title: "Perchlorate Polygons & Gypsum Crust",
-        desc: "Evaporite salt polygons and desiccated clay soils identical to Gale Crater mudstones.",
+        title: "Hard Salt Crusts & Dry Mud Cracks",
+        desc: "Dried clay flats and sharp salt crusts identical to the ancient dried lake beds explored by Mars rovers.",
         match: "94.5%"
       },
       climate: {
-        title: "Solar Hyper-Aridity Matrix",
-        desc: "Decadal zero-precipitation core with maximum planetary ultraviolet flux at surface.",
+        title: "Virtually Zero Rain & Fierce Sun",
+        desc: "Decades pass without rain, while intense solar radiation sterilizes the ground just like on the surface of Mars.",
         match: "95.8%"
       },
       hab: {
-        title: "Rover Ingress & Seal Endurance",
-        desc: "Autonomous sample collection drilling tests in abrasive oxidizing soils.",
+        title: "Rover Drill & Dust Seal Endurance",
+        desc: "Robotic drills chew through hard, crunchy salt-crusted ground to test robotic sample arms without breaking.",
         match: "89.2%"
       },
       volatile: {
-        title: "Hygroscopic Mineral Trapping",
-        desc: "Anhydrite-gypsum water extraction mimicking Martian clay roasting protocols.",
+        title: "Baking Moisture Out of Rocks",
+        desc: "Crews test small thermal ovens that heat gypsum minerals to bake out tiny droplets of trapped drinking water.",
         match: "88.0%"
       }
     },
@@ -186,14 +186,14 @@ const planetarySites = [
       accessibility: 89
     },
     telemetry: {
-      poiIndex: "0.91 POI-NORM",
-      poiStatus: "CALIBRATED",
-      uvFlux: "31.4 W/m² (SURFACE)",
-      uvStatus: "CRITICAL",
-      wie: "0.1 wt% DESICCATED",
-      wieStatus: "TRACE",
-      latency: "82 ms ROUNDTRIP",
-      latencyStatus: "OPTIMAL",
+      poiIndex: "0.91 Rock Match",
+      poiStatus: "ACCURATE",
+      uvFlux: "31.4 W/m² (Fierce UV)",
+      uvStatus: "DANGEROUS",
+      wie: "0.1% Trace Moisture",
+      wieStatus: "VERY DRY",
+      latency: "82 ms Delay",
+      latencyStatus: "FAST RELAY",
       bars: {
         sio2: "89.5%",
         grain: "91.0%",
@@ -205,40 +205,40 @@ const planetarySites = [
   },
   {
     id: "maunaloa",
-    dossierCode: "PRIMARY TESTBED #04",
-    sector: "HAWAII PYRODUCT RECON SECTOR",
+    dossierCode: "LOCATION #04",
+    sector: "VOLCANIC CAVE SYSTEM",
     name: "Mauna Loa Lava Tubes",
     region: "Hawaii Island, HI, United States",
     coords: "19°28′N 155°35′W",
     lat: 19.53,
     lng: -155.57,
     elev: "2500m ASL",
-    impactAge: "Holocene Basalt Flow",
+    impactAge: "Fresh Lava Flows",
     fidelity: 88.4,
-    analogType: "88.4% LUNAR BASALT",
+    analogType: "MOON & MARS CAVE SHELTER",
     category: "all lunar-polar lava-tubes",
-    geoZone: "GEO-ZONE: BASALTIC THOLEIITE PYRODUCT",
-    geoZoneDesc: "Unweathered volcanic tube networks providing 99.4% radiation shielding for permanent bases.",
+    geoZone: "TERRAIN: UNDERGROUND LAVA CAVES",
+    geoZoneDesc: "Natural underground tunnels formed by ancient lava flows that naturally block space radiation and weather extremes.",
     image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80",
     specs: {
       geomorphology: {
-        title: "Pyroduct Conduits & Collapse Skylights",
-        desc: "Basaltic roof thickness of 5-15m mimicking Marius Hills and Mare Tranquillitatis skylights.",
+        title: "Giant Lava Tunnels & Cave Skylights",
+        desc: "Solid basalt rock ceilings 5 to 15 meters thick match the giant underground lava tube caves found on the Moon and Mars.",
         match: "92.0%"
       },
       climate: {
-        title: "Subterranean Thermal Buffer",
-        desc: "Internal cave temperature steady at 14°C regardless of exterior surface temperature swings.",
+        title: "Natural Cozy Room Temperature",
+        desc: "Inside the cave, it stays a steady 14°C year-round, naturally shielding astronauts from freezing nights and baking heat.",
         match: "89.4%"
       },
       hab: {
-        title: "Subterranean Inflatable Modules",
-        desc: "HI-SEAS isolation trials testing pressurized modular habitat deployment underground.",
+        title: "Inflatable Underground Living Pods",
+        desc: "Astronaut crews practice deploying inflatable dome habitats inside dark caverns while wearing full spacesuits.",
         match: "93.1%"
       },
       volatile: {
-        title: "Secondary Cave Volatiles",
-        desc: "Perennial rock condensation and trapped moisture in deep basalt chambers.",
+        title: "Rock Moisture & Cave Humidity",
+        desc: "Cool underground rock naturally traps moisture from circulating air, helping validate water collection systems.",
         match: "81.5%"
       }
     },
@@ -253,14 +253,14 @@ const planetarySites = [
       accessibility: 96
     },
     telemetry: {
-      poiIndex: "0.96 POI-NORM",
-      poiStatus: "CALIBRATED",
-      uvFlux: "0.0 W/m² (SURFACE)",
-      uvStatus: "SHIELDED",
-      wie: "1.4 wt% ROCK MATRIX",
+      poiIndex: "0.96 Rock Match",
+      poiStatus: "ACCURATE",
+      uvFlux: "0.0 W/m² (Blocked)",
+      uvStatus: "SAFE / SHIELDED",
+      wie: "1.4% Rock Moisture",
       wieStatus: "BASELINE",
-      latency: "68 ms ROUNDTRIP",
-      latencyStatus: "OPTIMAL",
+      latency: "68 ms Delay",
+      latencyStatus: "FAST RELAY",
       bars: {
         sio2: "96.8%",
         grain: "85.0%",
@@ -272,8 +272,8 @@ const planetarySites = [
   },
   {
     id: "askja",
-    dossierCode: "PRIMARY TESTBED #05",
-    sector: "ICELAND HIGHLANDS RECON SECTOR",
+    dossierCode: "LOCATION #05",
+    sector: "VOLCANIC HIGHLAND DESERT",
     name: "Iceland Highlands (Askja)",
     region: "Dyngjufjöll, Iceland",
     coords: "65°02′N 16°45′W",
@@ -282,30 +282,30 @@ const planetarySites = [
     elev: "1100m ASL",
     impactAge: "Caldera Eruption 1875",
     fidelity: 86.7,
-    analogType: "86.7% LUNAR HIGHLANDS",
+    analogType: "APOLLO MOON TRAINING GROUND",
     category: "all lunar-polar",
-    geoZone: "GEO-ZONE: ANORTHOSITIC PLAGIOCLASE DESERT",
-    geoZoneDesc: "Apollo astronaut field geology training site. Glassy basaltic sands and volcanic tephra.",
+    geoZone: "TERRAIN: VOLCANIC ASH & GLASS DESERT",
+    geoZoneDesc: "Where Apollo astronauts trained in the 1960s. Glassy dark volcanic sand matches rough lunar highland plains.",
     image: "https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=1200&q=80",
     specs: {
       geomorphology: {
-        title: "Volcanic Tephra & Anorthosite",
-        desc: "Abrasive, angular glassy basalt sand matching lunar regolith grain mechanical wear.",
+        title: "Sharp Volcanic Sand & Moon Rock",
+        desc: "Rough, sharp volcanic sand that wears down rover wheels and tests spacesuit boots against cuts and punctures.",
         match: "91.2%"
       },
       climate: {
-        title: "Subarctic Volcanic Wilderness",
-        desc: "Cold arid winds, seasonal snow sublimation, and high weathering rates on basalt plains.",
+        title: "Windy Subarctic Wilderness",
+        desc: "Cold winds and blowing black sand test whether astronaut cameras, solar panels, and sensors can survive gritty storms.",
         match: "87.0%"
       },
       hab: {
-        title: "Apollo Traverse Retracing",
-        desc: "Astronaut lunar sampling field drills and spacesuit joint dust seal testing.",
+        title: "Astronaut Moonwalk Field Practice",
+        desc: "Astronauts hike across jagged volcanic plains practicing how to collect geological samples with robotic tongs.",
         match: "88.6%"
       },
       volatile: {
-        title: "Sub-Glacial Hydrothermal Ice",
-        desc: "Hydrothermal volcanic interaction with glacial caps, analog for young Mars volcanoes.",
+        title: "Volcanic Heat & Melted Snow",
+        desc: "Underground volcanic heat melting winter snow mimic steam plumes and warm zones beneath young Mars volcanoes.",
         match: "82.3%"
       }
     },
@@ -320,14 +320,14 @@ const planetarySites = [
       accessibility: 85
     },
     telemetry: {
-      poiIndex: "0.86 POI-NORM",
-      poiStatus: "CALIBRATED",
-      uvFlux: "8.4 W/m² (SURFACE)",
-      uvStatus: "NOMINAL",
-      wie: "4.8 wt% DRY MASS",
-      wieStatus: "DETECTION+",
-      latency: "124 ms ROUNDTRIP",
-      latencyStatus: "OPTIMAL",
+      poiIndex: "0.86 Rock Match",
+      poiStatus: "ACCURATE",
+      uvFlux: "8.4 W/m² (Normal Sun)",
+      uvStatus: "MILD",
+      wie: "4.8% Frozen Moisture",
+      wieStatus: "WATER FOUND",
+      latency: "124 ms Delay",
+      latencyStatus: "FAST RELAY",
       bars: {
         sio2: "92.1%",
         grain: "96.4%",
@@ -365,56 +365,56 @@ const simulantProfiles = {
 const missionTargets = [
   {
     id: "artemis-south-pole",
-    code: "ARTEMIS-III / ARES-1 ARCHITECTURE TESTBED",
-    title: "Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars",
-    body: "Moon & Mars Polar Hybrid",
+    code: "MOON SOUTH POLE BASE CAMP",
+    title: "Find Earth Locations That Match Moon Base & Mars Missions",
+    body: "Moon & Mars Polar Testbed",
     topSiteId: "haughton"
   },
   {
     id: "marius-lava-tube",
-    code: "LUNAR LAVA TUBE HABITAT VALIDATION (MARIUS HILLS)",
-    title: "Identify Subterranean Shielding Analogs for Permanent Lunar Cavern Outposts",
-    body: "Moon Volcanic Conduit",
+    code: "UNDERGROUND MOON CAVE SHELTER",
+    title: "Find Natural Underground Caves to Shield Permanent Moon Bases",
+    body: "Moon Lava Tube Shelter",
     topSiteId: "maunaloa"
   },
   {
     id: "jezero-astrobiology",
-    code: "MARS PERSEVERANCE // JEZERO DELTA MATRIX",
-    title: "Identify Terrestrial Biosignature Preservation Sites for Mars Paleo-Lakes",
-    body: "Mars Ancient Aqueous",
+    code: "MARS PERSEVERANCE // ANCIENT LAKE BED",
+    title: "Find Earth Sites with Ancient Dried Lakes to Test Mars Life Detectors",
+    body: "Mars Ancient Lake Bed",
     topSiteId: "mcmurdo"
   },
   {
     id: "arcadia-ice",
-    code: "MARS GLACIAL ICE TABLE HARVESTING (ARCADIA PLANITIA)",
-    title: "Identify Cryogenic Subsurface Water Ice Drilling Analogs on Earth",
-    body: "Mars Subsurface Cryosphere",
+    code: "MARS UNDERGROUND ICE HARVESTING",
+    title: "Find Freezing Ground Ice on Earth to Test Deep Water Drilling",
+    body: "Mars Underground Ice Table",
     topSiteId: "mcmurdo"
   }
 ];
 
 const criteriaDefinitions = [
-  { id: "terrain", label: "Terrain & Trafficability", desc: "Slope stability, ejecta rubble, rover wheel traction", icon: "terrain" },
-  { id: "illumination", label: "Illumination Conditions", desc: "Low-angle polar sunlight, solar array exposure", icon: "wb_sunny" },
-  { id: "resources", label: "Resource Access (Volatiles)", desc: "Subsurface massive ground ice, water-ice equivalent", icon: "water_drop" },
-  { id: "geology", label: "Geological & Mineral Analogy", desc: "Impact shock breccia, basaltic tholeiite, evaporites", icon: "landscape" },
-  { id: "environment", label: "Environmental Severity", desc: "Hyper-cold, desiccating katabatics, planetary UV flux", icon: "ac_unit" },
-  { id: "research", label: "Research Opportunities", desc: "Astrobiology, biosignatures, extremophile limit of life", icon: "biotech" },
-  { id: "resilience", label: "Operational Resilience & Shielding", desc: "Lava tube ceiling, 99.4% radiation & meteoroid barrier", icon: "shield" },
-  { id: "accessibility", label: "Accessibility & Logistics", desc: "Emergency egress, transport corridor, telemetry latency", icon: "local_shipping" }
+  { id: "terrain", label: "Driving & Rover Traction", desc: "Easy driving, smooth slopes, and good wheel grip on loose gravel", icon: "terrain" },
+  { id: "illumination", label: "Sunlight & Solar Power", desc: "Plentiful sunlight to power solar panels and keep base batteries charged", icon: "wb_sunny" },
+  { id: "resources", label: "Water Ice for Drinking & Fuel", desc: "Thick underground ice ready to drill and melt into water and rocket fuel", icon: "water_drop" },
+  { id: "geology", label: "Rock & Soil Similarity", desc: "How closely local rocks and sand match actual Moon and Mars samples", icon: "landscape" },
+  { id: "environment", label: "Harsh Cold & Realistic Weather", desc: "Brutal freezing cold and desert winds that push space gear to the limit", icon: "ac_unit" },
+  { id: "research", label: "Search for Life & Science Tests", desc: "Hidden microbes and fossil signs to practice finding signs of alien life", icon: "biotech" },
+  { id: "resilience", label: "Cave Protection from Radiation", desc: "Thick underground rock ceilings that shield astronauts from solar flares", icon: "shield" },
+  { id: "accessibility", label: "Easy Road Access & Fast Rescue", desc: "How quickly supply trucks and emergency rescue crews can reach the base", icon: "local_shipping" }
 ];
 
 const settlementScenarios = {
   "scenario-a": {
     id: "scenario-a",
     code: "SCENARIO A",
-    title: "Lunar Research Outpost",
-    subtitle: "Frontier Twist // Artemis Moon Base Architecture",
-    requirement: "Prioritise terrain, illumination conditions and access to relevant resources.",
-    badge: "LUNAR POLAR BASE",
+    title: "Scenario A: Moon Base (Lunar Research Outpost)",
+    subtitle: "NASA Artemis Outpost Plan",
+    requirement: "Must have: Crater rocks to test rovers, low-angle sunlight, and underground water ice to drill.",
+    badge: "MOON BASE MISSION",
     badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    targetBody: "Moon South Pole (Shackleton / Malapert Mountain)",
-    priorities: ["Terrain & Trafficability", "Illumination Conditions", "Resource Access (Volatiles)"],
+    targetBody: "Moon South Pole (Shackleton Crater Rim)",
+    priorities: ["Driving & Rover Traction", "Sunlight & Solar Power", "Water Ice for Drinking & Fuel"],
     weights: {
       terrain: 95,
       illumination: 95,
@@ -427,23 +427,23 @@ const settlementScenarios = {
     },
     topCandidateId: "haughton",
     defense: {
-      missionCharter: "Establish permanent crewed scientific presence at Lunar South Pole with persistent ISRU water-ice harvesting and polar summit solar power stations.",
-      defenseStatement: "Haughton Crater (Devon Island) provides the gold standard for Lunar Research Outpost qualification. Its high-latitude Arctic regime mimics the grazing low-angle solar incidence of Lunar South Pole summits of eternal light. Its impact-fractured carbonate and crystalline breccia replicates regolith shear encountered by heavy rovers, while its massive permafrost ice tables serve as an exact physical and operational proxy for permanently shadowed crater (PSR) water extraction.",
-      whyEliminated: "Mauna Loa is subterranean without polar illumination; Atacama lacks cryogenic water ice; McMurdo presents extreme logistics and lacks impact crater topography.",
-      keyRiskMitigations: "Cryogenic drill mechanical binding mitigated via permafrost trials; EVA dust intrusion validated at FMARS core.",
-      boardVerdict: "UNANIMOUS APPROVAL: Haughton Crater selected as primary Lunar Research Outpost analog testbed."
+      missionCharter: "Build a permanent Moon base at the lunar South Pole where astronauts live, generate continuous solar power, and drill ice to make water and oxygen.",
+      defenseStatement: "Haughton Crater (Canada) is the undisputed #1 choice for a Moon Base. Why? Its far-north Arctic sun stays low along the horizon—just like the sunlight at the Moon's South Pole. Its crushed crater gravel tests how rovers drive on loose lunar soil, and its thick underground permafrost ice lets crews practice drilling water from frozen dirt.",
+      whyEliminated: "Why other sites didn't win: Hawaii is underground in a cave without sunlight; the Atacama Desert is completely dry with zero ice; and McMurdo lacks a crater bowl.",
+      keyRiskMitigations: "Ice drilling tools tested in frozen ground; spacesuit joints tested against fine dust inside the arctic habitat dome.",
+      boardVerdict: "UNANIMOUS APPROVAL: Haughton Crater wins 1st place as the primary Moon Base testing ground."
     }
   },
   "scenario-b": {
     id: "scenario-b",
     code: "SCENARIO B",
-    title: "Martian Science Station",
-    subtitle: "Frontier Twist // Mars Astrobiology & Paleoclimate",
-    requirement: "Prioritise geological analogues, environmental conditions and research opportunities.",
-    badge: "MARS ASTROBIOLOGY",
+    title: "Scenario B: Mars Science Station (Search for Life)",
+    subtitle: "Mars Rover & Ancient Lake Exploration",
+    requirement: "Must have: Ancient Mars-like rocks, freezing cold air, and living microbes to test life-detecting tools.",
+    badge: "SEARCH FOR ALIEN LIFE",
     badgeColor: "bg-terracotta-500/10 text-terracotta-400 border-terracotta-500/20",
-    targetBody: "Mars (Jezero Crater Delta / Gusev / Noachian Highlands)",
-    priorities: ["Geological Analogues", "Environmental Severity", "Research Opportunities"],
+    targetBody: "Mars (Jezero Crater & Ancient Dry Lakes)",
+    priorities: ["Rock & Soil Similarity", "Harsh Cold & Realistic Weather", "Search for Life & Science Tests"],
     weights: {
       terrain: 65,
       illumination: 50,
@@ -456,23 +456,23 @@ const settlementScenarios = {
     },
     topCandidateId: "mcmurdo",
     defense: {
-      missionCharter: "Conduct in-situ search for ancient and extant biosignatures, examine Noachian aqueous mineral transition, and evaluate microbial habitability under extreme hyper-aridity.",
-      defenseStatement: "McMurdo Dry Valleys stands as the undisputed premier Mars analog on planet Earth. Featuring mean annual temperatures down to −50°C, decadal desiccating katabatic winds, and continuous freeze-thaw cycles, it replicates Martian Noachian-to-Amazonian transitional climate. Most critically, endolithic cyanobacteria living inside porous sandstones provide a unique real-world benchmark for testing life-detection payloads (Raman, UV fluorescence, and mass spectrometers).",
-      whyEliminated: "Hawaii lacks subzero temperatures and hyper-aridity; Iceland is too wet with young basalt; Haughton lacks the extreme desiccated endolithic biome.",
-      keyRiskMitigations: "Forward contamination controlled under COSPAR Category IVc standards; autonomous sample caching verified under subzero katabatic winds.",
-      boardVerdict: "UNANIMOUS APPROVAL: McMurdo Dry Valleys selected as primary Martian Science Station validation site."
+      missionCharter: "Search for signs of ancient alien life, study how Mars dried up into a cold desert, and test sensitive rover instruments in freezing conditions.",
+      defenseStatement: "McMurdo Dry Valleys (Antarctica) is the best Mars twin on Earth. With temperatures dropping below −50°C and bone-dry air, it looks and behaves just like the Red Planet. Even better, tiny microbes live inside the porous rocks here, making it the perfect real-world test for rover laser spectrometers and life-detecting cameras.",
+      whyEliminated: "Why other sites didn't win: Hawaii is too warm and wet; Iceland has young black lava instead of ancient Mars mud; and Haughton doesn't have rock-dwelling microbes.",
+      keyRiskMitigations: "Sterile sampling drills prevent Earth germs from spoiling samples; automated sample containers tested in subzero winds.",
+      boardVerdict: "UNANIMOUS APPROVAL: McMurdo Dry Valleys wins 1st place as the primary Mars Science Station testing ground."
     }
   },
   "scenario-c": {
     id: "scenario-c",
     code: "SCENARIO C",
-    title: "Emergency Survival Outpost",
-    subtitle: "Frontier Twist // Extreme Resilience & Evacuation",
-    requirement: "Prioritise accessibility, resource availability and operational resilience.",
-    badge: "SURVIVAL & RESILIENCE",
+    title: "Scenario C: Emergency Survival Shelter (Astronaut Safety)",
+    subtitle: "Deep Underground Bunker Protection",
+    requirement: "Must have: Thick underground cave ceilings to block radiation, natural warmth, and fast emergency rescue.",
+    badge: "ASTRONAUT SAFETY & BUNKER",
     badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-    targetBody: "Subterranean Planetary Shelter (Lunar & Martian Lava Tubes)",
-    priorities: ["Operational Resilience", "Accessibility & Logistics", "Resource Availability"],
+    targetBody: "Subterranean Underground Shelters (Moon & Mars Lava Tubes)",
+    priorities: ["Cave Protection from Radiation", "Easy Road Access & Fast Rescue", "Water Ice for Drinking & Fuel"],
     weights: {
       terrain: 60,
       illumination: 40,
@@ -485,11 +485,11 @@ const settlementScenarios = {
     },
     topCandidateId: "maunaloa",
     defense: {
-      missionCharter: "Guarantee human survival in extreme abort or severe solar particle event (SPE) scenarios where surface habitats fail, requiring subterranean radiation shielding, thermal buffering, and critical logistics.",
-      defenseStatement: "Mauna Loa Lava Tubes provides the highest operational survival rating of any terrestrial candidate. Its 5–15 meter thick unweathered basalt ceiling offers over 99.4% radiation and micrometeorite shielding, completely mitigating lethal galactic cosmic rays and solar flares. Internally, it maintains a constant 14°C natural thermal buffer independent of surface extremes, while its proximity to logistical corridors guarantees rapid emergency extraction and continuous life-support resupply.",
-      whyEliminated: "Surface sites (Atacama, McMurdo, Haughton) have 0% natural cosmic radiation shielding and would suffer catastrophic decompression/thermal failure during severe solar storms.",
-      keyRiskMitigations: "Autonomous subterranean communications relay verified; structural acoustic monitoring for roof integrity deployed.",
-      boardVerdict: "UNANIMOUS APPROVAL: Mauna Loa Lava Tubes selected as primary Emergency Survival Outpost subterranean benchmark."
+      missionCharter: "Protect astronaut crews when surface habitats fail or during deadly solar radiation storms, providing a natural rock shield, stable room temperatures, and fast emergency rescue.",
+      defenseStatement: "Mauna Loa Lava Tubes (Hawaii) is the ultimate survival shelter. Its 5-to-15-meter thick solid rock ceiling blocks more than 99.4% of deadly cosmic radiation and solar flares. Inside the cave, it stays a comfortable 14°C all year without any heaters, and nearby roads ensure rescue teams and supplies can arrive quickly.",
+      whyEliminated: "Why other sites didn't win: Surface sites like Atacama, McMurdo, and Haughton have 0% natural cave shielding—astronauts on the surface would be exposed to deadly cosmic radiation during solar flares.",
+      keyRiskMitigations: "Underground wireless radio relays keep communication alive; rock sensors listen constantly to ensure cave ceilings remain solid.",
+      boardVerdict: "UNANIMOUS APPROVAL: Mauna Loa Lava Tubes wins 1st place as the primary Emergency Survival Shelter."
     }
   }
 };

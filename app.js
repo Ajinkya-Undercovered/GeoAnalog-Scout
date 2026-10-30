@@ -64,19 +64,19 @@ function initHeroDossier(site) {
   if (site.specs) {
     document.getElementById('hero-geom-title').textContent = site.specs.geomorphology.title;
     document.getElementById('hero-geom-desc').textContent = site.specs.geomorphology.desc;
-    document.getElementById('hero-geom-match').textContent = `MATCH INDEX: ${site.specs.geomorphology.match}`;
+    document.getElementById('hero-geom-match').textContent = `MATCH: ${site.specs.geomorphology.match}`;
 
     document.getElementById('hero-clim-title').textContent = site.specs.climate.title;
     document.getElementById('hero-clim-desc').textContent = site.specs.climate.desc;
-    document.getElementById('hero-clim-match').textContent = `MATCH INDEX: ${site.specs.climate.match}`;
+    document.getElementById('hero-clim-match').textContent = `MATCH: ${site.specs.climate.match}`;
 
     document.getElementById('hero-hab-title').textContent = site.specs.hab.title;
     document.getElementById('hero-hab-desc').textContent = site.specs.hab.desc;
-    document.getElementById('hero-hab-match').textContent = `MATCH INDEX: ${site.specs.hab.match}`;
+    document.getElementById('hero-hab-match').textContent = `MATCH: ${site.specs.hab.match}`;
 
     document.getElementById('hero-vol-title').textContent = site.specs.volatile.title;
     document.getElementById('hero-vol-desc').textContent = site.specs.volatile.desc;
-    document.getElementById('hero-vol-match').textContent = `MATCH INDEX: ${site.specs.volatile.match}`;
+    document.getElementById('hero-vol-match').textContent = `MATCH: ${site.specs.volatile.match}`;
   }
 
   // Right-hand telemetry readouts
@@ -981,10 +981,10 @@ function initFrontierScenarios() {
 
       // Build criteria pill previews
       const critPills = [
-        { label: 'Terrain', val: site.criteriaScores?.terrain || 85 },
-        { label: 'Resources', val: site.criteriaScores?.resources || 85 },
-        { label: 'Geology', val: site.criteriaScores?.geology || 85 },
-        { label: 'Resilience', val: site.criteriaScores?.resilience || 70 }
+        { label: 'Driving', val: site.criteriaScores?.terrain || 85 },
+        { label: 'Ice & Water', val: site.criteriaScores?.resources || 85 },
+        { label: 'Rocks', val: site.criteriaScores?.geology || 85 },
+        { label: 'Cave Shield', val: site.criteriaScores?.resilience || 70 }
       ].map(c => `
         <span class="text-[10px] font-mono bg-space-850 px-2 py-0.5 rounded border border-white/[0.04]">
           ${c.label}: <strong class="text-white">${c.val}</strong>
@@ -1003,7 +1003,7 @@ function initFrontierScenarios() {
           <div>
             <div class="flex items-center gap-2">
               <h4 class="font-space font-bold text-sm text-white">${site.name}</h4>
-              ${isTop ? '<span class="text-[9px] font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold animate-pulse">STRONGEST CANDIDATE</span>' : ''}
+              ${isTop ? '<span class="text-[9px] font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold animate-pulse">#1 WINNER</span>' : ''}
             </div>
             <p class="text-xs text-slate-subtle">${site.region} • <span class="font-mono text-[11px]">${site.coords}</span></p>
             <div class="flex flex-wrap items-center gap-1.5 mt-2">
@@ -1014,7 +1014,7 @@ function initFrontierScenarios() {
 
         <div class="flex items-center gap-3 self-end md:self-auto shrink-0">
           <div class="text-right">
-            <span class="text-[10px] font-mono text-slate-subtle block uppercase">Weighted Score</span>
+            <span class="text-[10px] font-mono text-slate-subtle block uppercase">Final Score</span>
             <span class="font-space font-bold text-xl font-tabular ${isTop ? 'text-amber-400' : 'text-slate-100'}">${site.scenarioScore}%</span>
           </div>
 
