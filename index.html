@@ -3,125 +3,83 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>GEO-ANALOG SCOUT // MISSION OPS</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<title>GeoAnalog Scout — Planetary Analogue Intelligence</title>
+
+<!-- High-End Typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
-<!-- Leaflet CSS & JS for Satellite Orthomosaic Layer -->
+<!-- Leaflet CSS & JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            "surface-dim": "#111316",
-            "surface-container-low": "#1a1c1f",
-            "surface": "#111316",
-            "on-error": "#690005",
-            "tertiary-fixed": "#ede1cf",
-            "on-background": "#e2e2e6",
-            "primary-container": "#e36e4e",
-            "on-tertiary-container": "#2f291d",
-            "surface-tint": "#ffb5a0",
-            "on-secondary-container": "#a7bcc5",
-            "primary": "#ffb5a0",
-            "error": "#ffb4ab",
-            "on-primary-container": "#541100",
-            "secondary": "#b5cad3",
-            "on-surface-variant": "#dec0b9",
-            "on-primary-fixed-variant": "#82270c",
-            "secondary-container": "#394c54",
-            "outline": "#a58b84",
-            "on-tertiary-fixed": "#201b10",
-            "tertiary-container": "#99907f",
-            "tertiary-fixed-dim": "#d0c5b3",
-            "inverse-primary": "#a23e22",
-            "surface-container": "#1e2023",
-            "on-primary-fixed": "#3b0900",
-            "on-error-container": "#ffdad6",
-            "surface-container-lowest": "#0c0e11",
-            "on-secondary": "#20333a",
-            "tertiary": "#d0c5b3",
-            "primary-fixed-dim": "#ffb5a0",
-            "secondary-fixed-dim": "#b5cad3",
-            "on-tertiary-fixed-variant": "#4d4638",
-            "on-tertiary": "#363023",
-            "error-container": "#93000a",
-            "on-secondary-fixed-variant": "#374a51",
-            "inverse-surface": "#e2e2e6",
-            "surface-container-highest": "#333538",
-            "surface-bright": "#37393d",
-            "secondary-fixed": "#d1e6ef",
-            "inverse-on-surface": "#2f3034",
-            "surface-container-high": "#282a2d",
-            "surface-variant": "#333538",
-            "primary-fixed": "#ffdbd1",
-            "on-secondary-fixed": "#0a1e25",
-            "on-primary": "#601400",
-            "outline-variant": "#57423c",
-            "on-surface": "#e2e2e6",
-            "background": "#111316"
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          space: {
+            950: '#07080a',
+            900: '#0c0e12',
+            850: '#11141a',
+            800: '#161a22',
+            700: '#222834',
+            600: '#323b4c'
           },
-          "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
+          terracotta: {
+            400: '#ff9e80',
+            500: '#e76f51',
+            600: '#d15335'
           },
-          "spacing": {
-            "space-md": "0.75rem",
-            "space-xl": "2rem",
-            "gutter": "1rem",
-            "margin": "1rem",
-            "space-lg": "1.25rem",
-            "space-xs": "0.25rem",
-            "margin-desktop": "2.5rem",
-            "space-sm": "0.5rem",
-            "margin-tablet": "1.5rem",
-            "gutter-desktop": "1.5rem"
-          },
-          "fontFamily": {
-            "body-sm": ["Inter"],
-            "caption": ["Inter"],
-            "label-telemetry": ["JetBrains Mono"],
-            "headline-md": ["Space Grotesk"],
-            "headline-sm": ["Space Grotesk"],
-            "body-md": ["Inter"],
-            "headline-lg": ["Space Grotesk"],
-            "label-data-sm": ["JetBrains Mono"],
-            "display": ["Space Grotesk"],
-            "headline-lg-mobile": ["Space Grotesk"],
-            "body-lg": ["Inter"]
-          },
-          "fontSize": {
-            "body-sm": ["0.8125rem", { "lineHeight": "1.25rem", "fontWeight": "400" }],
-            "caption": ["0.6875rem", { "lineHeight": "0.875rem", "fontWeight": "400" }],
-            "label-telemetry": ["0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.04em", "fontWeight": "600" }],
-            "headline-md": ["1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "500" }],
-            "headline-sm": ["1.25rem", { "lineHeight": "1.75rem", "fontWeight": "500" }],
-            "body-md": ["0.9375rem", { "lineHeight": "1.45rem", "fontWeight": "400" }],
-            "headline-lg": ["2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "600" }],
-            "label-data-sm": ["0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.06em", "fontWeight": "500" }],
-            "display": ["3rem", { "lineHeight": "3.5rem", "letterSpacing": "-0.03em", "fontWeight": "700" }],
-            "headline-lg-mobile": ["1.75rem", { "lineHeight": "2.25rem", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-            "body-lg": ["1.125rem", { "lineHeight": "1.625rem", "fontWeight": "400" }]
+          slate: {
+            subtle: '#8a99ad',
+            light: '#cbd5e1'
           }
+        },
+        fontFamily: {
+          space: ['"Space Grotesk"', 'sans-serif'],
+          inter: ['"Inter"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace']
         }
       }
     }
+  }
 </script>
+
 <style>
-  /* Custom scrollbars */
-  ::-webkit-scrollbar { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track { background: #111316; }
-  ::-webkit-scrollbar-thumb { background: #282a2d; border-radius: 2px; }
-  ::-webkit-scrollbar-thumb:hover { background: #57423c; }
+  body {
+    background-color: #07080a;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Glassmorphism styling */
+  .glass-card {
+    background: rgba(17, 20, 26, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .glass-card-hover {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-card-hover:hover {
+    background: rgba(22, 26, 34, 0.85);
+    border-color: rgba(231, 111, 81, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Custom minimal scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #07080a; }
+  ::-webkit-scrollbar-thumb { background: #222834; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #323b4c; }
 
   @media print {
     body * { visibility: hidden; }
@@ -131,809 +89,611 @@
   }
 </style>
 </head>
-<body class="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-primary selection:text-on-primary">
-<!-- TOP WORKSTATION NAV BAR -->
-<header class="flex justify-between items-center w-full px-6 py-2 border-b border-outline-variant/30 bg-surface-dim sticky top-0 z-50">
-<!-- Brand & Search Bar Left -->
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-3 cursor-pointer" id="btn-brand-home">
-<span class="material-symbols-outlined text-primary" data-icon="deployed_code">deployed_code</span>
-<span class="text-headline-sm font-headline-sm uppercase tracking-wider text-primary font-bold">GEO-ANALOG SCOUT // MISSION OPS</span>
-</div>
-<div class="hidden xl:flex items-center bg-surface-container border border-outline-variant/30 px-3 py-1.5 rounded-lg w-72">
-<span class="material-symbols-outlined text-secondary mr-2 text-sm" data-icon="search">search</span>
-<input id="search-input" class="bg-transparent border-0 p-0 text-label-data-sm font-label-data-sm text-on-surface placeholder:text-secondary focus:ring-0 w-full uppercase outline-none" placeholder="FILTER ANALOG DOSSIERS..." type="text"/>
-<span class="text-caption font-caption text-secondary border border-outline-variant/40 px-1 py-0.5 rounded cursor-pointer" id="badge-cmdk">⌘K</span>
-</div>
-</div>
-<!-- Center Navigation Links -->
-<nav class="hidden lg:flex items-center gap-8">
-<a id="btn-nav-dossiers" class="nav-tab text-primary border-b-2 border-primary pb-1 font-label-telemetry text-label-telemetry uppercase tracking-wider cursor-pointer" href="#dossiers">ANALOG DOSSIERS</a>
-<a id="btn-nav-radar" class="nav-tab text-on-surface-variant hover:text-on-surface font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#radar">ORBITAL RADAR</a>
-<a id="btn-nav-matrix" class="nav-tab text-on-surface-variant hover:text-on-surface font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#matrix">SURFACE MATRIX</a>
-<a id="btn-nav-spectral" class="nav-tab text-on-surface-variant hover:text-on-surface font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#spectral">SPECTRAL MAPPING</a>
-<a id="btn-nav-telemetry" class="nav-tab text-on-surface-variant hover:text-on-surface font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#telemetry">SYSTEM TELEMETRY</a>
-</nav>
-<!-- Trailing Actions & Icons -->
-<div class="flex items-center gap-3">
-<div class="hidden sm:flex items-center gap-2 border-r border-outline-variant/30 pr-3 mr-1">
-<button id="btn-quick-radar" class="text-secondary hover:bg-surface-container-high hover:text-on-surface p-1.5 rounded transition-colors duration-150" title="Orbital Uplink / Satellite Map">
-<span class="material-symbols-outlined" data-icon="satellite_alt">satellite_alt</span>
-</button>
-<button id="btn-quick-calibrate" class="text-secondary hover:bg-surface-container-high hover:text-on-surface p-1.5 rounded transition-colors duration-150" title="Sensor Calibration & Sliders">
-<span class="material-symbols-outlined" data-icon="tune">tune</span>
-</button>
-<button id="btn-quick-terminal" class="text-secondary hover:bg-surface-container-high hover:text-on-surface p-1.5 rounded transition-colors duration-150" title="Mission Terminal Console">
-<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
-</button>
-</div>
-<button id="btn-sync-orbital" class="hidden md:inline-flex items-center gap-2 bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-secondary px-3 py-1.5 text-label-telemetry font-label-telemetry uppercase tracking-wider rounded-lg transition-colors duration-150">
-<span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
-<span id="sync-text">SYNC ORBITAL</span>
-</button>
-<button id="btn-export-dossier" class="inline-flex items-center gap-2 bg-primary-container text-on-primary px-3 py-1.5 text-label-telemetry font-label-telemetry uppercase tracking-wider rounded-lg hover:bg-inverse-primary transition-colors duration-150 font-bold">
-<span class="material-symbols-outlined text-sm" data-icon="file_download">file_download</span>
-        EXPORT DOSSIER
-</button>
-<!-- Flight Controller Profile Button -->
-<div id="btn-user-profile" class="w-8 h-8 rounded border border-outline-variant/50 overflow-hidden ml-2 flex items-center justify-center bg-surface-container cursor-pointer hover:border-primary transition-colors" title="Flight Controller Credentials">
-<span class="material-symbols-outlined text-primary text-lg" data-icon="account_circle">account_circle</span>
-</div>
-</div>
-</header>
+<body class="bg-space-950 text-slate-100 min-h-screen flex flex-col selection:bg-terracotta-500 selection:text-white">
 
-<!-- WORKSTATION BODY: SIDEBAR + MAIN WORKSPACE + TELEMETRY PANEL -->
-<div class="flex h-[calc(100vh-49px)] overflow-hidden relative">
-
-<!-- LEFT VERTICAL INSPECTOR / SIDEBAR -->
-<aside class="flex flex-col justify-between h-full w-72 border-r border-outline-variant/30 bg-surface-container-low p-4 shrink-0 overflow-y-auto">
-<div>
-<!-- Sidebar Header -->
-<div class="pb-4 mb-4 border-b border-outline-variant/30">
-<div class="flex items-center gap-2 mb-1">
-<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-<span class="text-headline-sm font-headline-sm text-primary font-bold uppercase">TERRESTRIAL ANALOG SPEC</span>
-</div>
-<div class="text-caption font-caption text-secondary tracking-widest uppercase">WGS84 DATUM // ORBITAL LINK LOCKED</div>
-</div>
-<!-- Target Navigation Links -->
-<div class="text-label-data-sm font-label-data-sm text-secondary uppercase mb-2 px-1">ACTIVE TARGET CATALOG [6]</div>
-<div class="flex flex-col gap-1" id="target-catalog-list">
-<!-- Catalog items -->
-<a data-target-id="lunar-basalt" class="catalog-link flex items-center gap-3 bg-surface-container text-primary border-l-2 border-primary px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider rounded-none cursor-pointer" href="#catalog">
-<span class="material-symbols-outlined text-primary" data-icon="radio_button_checked">radio_button_checked</span>
-<span>LUNAR BASALT EQUIV</span>
-</a>
-<a data-target-id="martian-regolith" class="catalog-link flex items-center gap-3 text-secondary hover:bg-surface-container hover:text-on-surface px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#catalog">
-<span class="material-symbols-outlined text-secondary" data-icon="terrain">terrain</span>
-<span>MARTIAN REGOLITH SIM</span>
-</a>
-<a data-target-id="hydrothermal" class="catalog-link flex items-center gap-3 text-secondary hover:bg-surface-container hover:text-on-surface px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#catalog">
-<span class="material-symbols-outlined text-secondary" data-icon="waves">waves</span>
-<span>HYDROTHERMAL VENTS</span>
-</a>
-<a data-target-id="polar-permafrost" class="catalog-link flex items-center gap-3 text-secondary hover:bg-surface-container hover:text-on-surface px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#catalog">
-<span class="material-symbols-outlined text-secondary" data-icon="ac_unit">ac_unit</span>
-<span>POLAR PERMAFROST</span>
-</a>
-<a data-target-id="volcanic-tubes" class="catalog-link flex items-center gap-3 text-secondary hover:bg-surface-container hover:text-on-surface px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#catalog">
-<span class="material-symbols-outlined text-secondary" data-icon="volcano">volcano</span>
-<span>VOLCANIC TUBES</span>
-</a>
-<a data-target-id="impact-craters" class="catalog-link flex items-center gap-3 text-secondary hover:bg-surface-container hover:text-on-surface px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#catalog">
-<span class="material-symbols-outlined text-secondary" data-icon="blur_circular">blur_circular</span>
-<span>IMPACT CRATERS</span>
-</a>
-</div>
-
-<!-- Working ADD TARGET RECON button -->
-<button id="btn-add-recon" class="mt-4 w-full flex items-center justify-center gap-2 border border-dashed border-outline-variant/60 hover:border-primary text-secondary hover:text-primary py-2 px-3 text-label-telemetry font-label-telemetry uppercase tracking-wider rounded-lg transition-colors">
-<span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
-          ADD TARGET RECON
-</button>
-</div>
-
-<!-- Sidebar Footer -->
-<div class="border-t border-outline-variant/30 pt-4 flex flex-col gap-1">
-<a id="btn-sidebar-log" class="flex items-center gap-3 text-secondary hover:text-on-surface px-3 py-1.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#log">
-<span class="material-symbols-outlined text-sm" data-icon="receipt_long">receipt_long</span>
-<span>TELEMETRY LOG</span>
-</a>
-<a id="btn-sidebar-calibrate" class="flex items-center gap-3 text-secondary hover:text-on-surface px-3 py-1.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#calibrate">
-<span class="material-symbols-outlined text-sm" data-icon="precision_manufacturing">precision_manufacturing</span>
-<span>SENSOR CALIBRATION</span>
-</a>
-<a id="btn-sidebar-abort" class="flex items-center gap-3 text-error hover:bg-error-container/20 px-3 py-1.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer" href="#abort">
-<span class="material-symbols-outlined text-sm" data-icon="power_settings_new">power_settings_new</span>
-<span>ABORT COMM</span>
-</a>
-</div>
-</aside>
-
-<!-- CENTER WORKSPACE -->
-<main class="flex-1 overflow-y-auto p-6 bg-surface-dim">
-
-<!-- Mission Brief Header with Interactive Mission Switcher -->
-<div class="border-b border-outline-variant/30 pb-5 mb-6">
-<div class="flex flex-wrap items-center justify-between gap-2 mb-2 text-label-data-sm font-label-data-sm text-secondary">
-<div class="flex items-center gap-2">
-<span class="bg-secondary-container px-2 py-0.5 rounded text-on-secondary-container font-label-data-sm font-bold">OPS PLAN // SEC-09</span>
-<span>FLIGHT ORBIT ALT 412 KM</span>
-<span>•</span>
-<span id="header-mission-badge" class="text-primary font-semibold">ARTEMIS-III / ARES-1 ARCHITECTURE TESTBED</span>
-</div>
-<!-- Quick Mission Selector Dropdown -->
-<div class="flex items-center gap-1.5">
-<span class="text-caption font-caption text-secondary">TARGET MISSION:</span>
-<select id="mission-target-select" class="bg-surface-container border border-outline-variant/40 text-primary text-caption font-caption px-2 py-1 rounded outline-none cursor-pointer hover:border-primary">
-<option value="artemis-south-pole">🌖 Artemis III Base (Moon South Pole)</option>
-<option value="marius-lava-tube">🌖 Marius Hills Lava Tube Cavern (Moon)</option>
-<option value="jezero-astrobiology">🔴 Jezero Crater Delta (Mars)</option>
-<option value="arcadia-ice">🔴 Arcadia Planitia Ice Sheet (Mars)</option>
-</select>
-</div>
-</div>
-<h1 id="mission-main-title" class="text-headline-lg font-headline-lg text-on-surface tracking-tight leading-snug">
-          Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars
-</h1>
-<p class="text-body-md font-body-md text-secondary mt-1 max-w-4xl">
-          Terrestrial extreme environment scouting for Artemis South Pole habitat validation and Mars Ares-1 surface architecture analog trials. Systematic quantification of regolith fidelity, cryosphere volatile persistence, and subsurface radiation shielding.
-</p>
-
-<!-- Quick Filter Chips -->
-<div class="flex flex-wrap items-center gap-2 mt-4" id="filter-chips-container">
-<button data-cat="all" class="filter-chip bg-primary text-on-primary font-label-telemetry text-label-data-sm uppercase px-3 py-1 rounded font-bold border border-primary transition-all">
-            All Analogs
-</button>
-<button data-cat="lunar-polar" class="filter-chip bg-surface-container border border-outline-variant/40 hover:border-primary text-secondary hover:text-on-surface font-label-telemetry text-label-data-sm uppercase px-3 py-1 rounded transition-colors">
-            Lunar Polar Base (Artemis)
-</button>
-<button data-cat="martian-permafrost" class="filter-chip bg-surface-container border border-outline-variant/40 hover:border-primary text-secondary hover:text-on-surface font-label-telemetry text-label-data-sm uppercase px-3 py-1 rounded transition-colors">
-            Martian Permafrost
-</button>
-<button data-cat="lava-tubes" class="filter-chip bg-surface-container border border-outline-variant/40 hover:border-primary text-secondary hover:text-on-surface font-label-telemetry text-label-data-sm uppercase px-3 py-1 rounded transition-colors">
-            Subsurface Lava Tubes
-</button>
-</div>
-</div>
-
-<!-- FEATURED PRIMARY DOSSIER HERO: HAUGHTON CRATER -->
-<section class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-5 mb-8" id="hero-section">
-<div class="flex flex-wrap justify-between items-start gap-4 mb-4 pb-3 border-b border-outline-variant/30">
-<div>
-<div class="flex items-center gap-3">
-<span id="hero-badge" class="text-caption font-caption bg-primary-container text-on-primary-container font-bold px-2 py-0.5 rounded">PRIMARY TESTBED #01</span>
-<span id="hero-sector" class="text-label-data-sm font-label-data-sm text-primary">DEVON ISLAND RECON SECTOR</span>
-</div>
-<h2 id="hero-name" class="text-headline-md font-headline-md text-on-surface mt-1 font-bold">
-              Haughton Crater, Devon Island (Nunavut, Canada)
-</h2>
-<div class="flex items-center gap-4 text-label-data-sm font-label-data-sm text-secondary mt-1">
-<span id="hero-coords">WGS84: 75°22′N 89°41′W</span>
-<span>•</span>
-<span id="hero-elev">ELEV: 230m ASL</span>
-<span>•</span>
-<span id="hero-impact">IMPACT AGE: ~39 Ma</span>
-</div>
-</div>
-<div class="flex items-center gap-3">
-<div class="text-right">
-<div class="text-caption font-caption text-secondary">OVERALL SIMILARITY</div>
-<div id="hero-fidelity" class="text-headline-sm font-headline-sm text-primary font-bold">94.2% FIDELITY</div>
-</div>
-<div class="flex gap-2">
-<button id="btn-full-dossier" class="bg-primary text-on-primary font-label-telemetry text-label-data-sm uppercase px-3 py-2 rounded font-bold hover:bg-surface-tint transition-colors">
-                FULL DOSSIER
-</button>
-<button id="btn-spectral-layer" class="bg-surface-container border border-outline-variant/40 text-secondary hover:text-on-surface font-label-telemetry text-label-data-sm uppercase px-3 py-2 rounded transition-colors">
-                SPECTRAL LAYER
-</button>
-</div>
-</div>
-</div>
-
-<!-- Hero Content Grid: Satellite/Terrain Imagery + Breakdown Specs -->
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
-<!-- Terrain Image Module -->
-<div class="xl:col-span-5 relative bg-surface-container-lowest border border-outline-variant/30 rounded overflow-hidden min-h-[260px] flex flex-col justify-between p-3">
-<img id="hero-image" class="absolute inset-0 w-full h-full object-cover opacity-60 filter contrast-125" data-alt="Satellite survey view" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'"/>
-<div class="relative z-10 flex justify-between items-start">
-<span class="bg-surface-container-lowest/80 border border-outline-variant/40 text-secondary text-caption font-caption px-2 py-0.5 rounded">ORBITAL SAR COMPOSITE</span>
-<span class="bg-surface-container-lowest/80 border border-outline-variant/40 text-primary text-caption font-caption px-2 py-0.5 rounded">P-BAND SYNTH</span>
-</div>
-<div class="relative z-10 bg-surface-container-lowest/90 border border-outline-variant/40 p-2.5 rounded backdrop-blur-sm">
-<div id="hero-geo-zone" class="text-label-data-sm font-label-data-sm text-on-surface font-bold">GEO-ZONE: IMPACT STRUCTURAL BASIN</div>
-<div id="hero-geo-desc" class="text-caption font-caption text-secondary mt-0.5">High shock metamorphism, paleolake sediment analogs to Jezero / Shackleton rim rubble.</div>
-</div>
-</div>
-<!-- Technical Breakdown Bento Cards -->
-<div class="xl:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-3">
-<div class="bg-surface-container p-3.5 border border-outline-variant/20 rounded">
-<div class="flex items-center justify-between text-secondary mb-1">
-<span class="text-caption font-caption uppercase tracking-wider">Geomorphology</span>
-<span class="material-symbols-outlined text-sm text-primary" data-icon="blur_circular">blur_circular</span>
-</div>
-<div id="hero-geom-title" class="text-label-telemetry font-label-telemetry text-on-surface font-semibold mb-1">Impact Breccia & Shatter Cones</div>
-<p id="hero-geom-desc" class="text-body-sm font-body-sm text-secondary">Target carbonate & crystalline basement clasts mimic lunar South Pole regolith mechanical shear.</p>
-<div id="hero-geom-match" class="mt-2 text-label-data-sm font-label-data-sm text-primary">MATCH INDEX: 96.8%</div>
-</div>
-<div class="bg-surface-container p-3.5 border border-outline-variant/20 rounded">
-<div class="flex items-center justify-between text-secondary mb-1">
-<span class="text-caption font-caption uppercase tracking-wider">Climatic Regime</span>
-<span class="material-symbols-outlined text-sm text-primary" data-icon="ac_unit">ac_unit</span>
-</div>
-<div id="hero-clim-title" class="text-label-telemetry font-label-telemetry text-on-surface font-semibold mb-1">Hyper-Cold Dry Desert Biome</div>
-<p id="hero-clim-desc" class="text-body-sm font-body-sm text-secondary">Mean annual temp −17°C, severe desiccating katabatic winds, negligible liquid precipitation.</p>
-<div id="hero-clim-match" class="mt-2 text-label-data-sm font-label-data-sm text-primary">MATCH INDEX: 93.1%</div>
-</div>
-<div class="bg-surface-container p-3.5 border border-outline-variant/20 rounded">
-<div class="flex items-center justify-between text-secondary mb-1">
-<span class="text-caption font-caption uppercase tracking-wider">Hab Architecture</span>
-<span class="material-symbols-outlined text-sm text-primary" data-icon="home_repair_service">home_repair_service</span>
-</div>
-<div id="hero-hab-title" class="text-label-telemetry font-label-telemetry text-on-surface font-semibold mb-1">Autonomous Perimeter Trial</div>
-<p id="hero-hab-desc" class="text-body-sm font-body-sm text-secondary">Validated FMARS habitat core, pressurized rover ingress, EVA suit joint dust intrusion testing.</p>
-<div id="hero-hab-match" class="mt-2 text-label-data-sm font-label-data-sm text-primary">MATCH INDEX: 91.5%</div>
-</div>
-<div class="bg-surface-container p-3.5 border border-outline-variant/20 rounded">
-<div class="flex items-center justify-between text-secondary mb-1">
-<span class="text-caption font-caption uppercase tracking-wider">Volatile Deposits</span>
-<span class="material-symbols-outlined text-sm text-primary" data-icon="water_drop">water_drop</span>
-</div>
-<div id="hero-vol-title" class="text-label-telemetry font-label-telemetry text-on-surface font-semibold mb-1">Subsurface Massive Ground Ice</div>
-<p id="hero-vol-desc" class="text-body-sm font-body-sm text-secondary">Active continuous permafrost polygonal wedges simulating Martian mid-latitude ice tables.</p>
-<div id="hero-vol-match" class="mt-2 text-label-data-sm font-label-data-sm text-primary">MATCH INDEX: 95.4%</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- CANDIDATE ANALOG SITES TABLE / BENTO GRID -->
-<section>
-<div class="flex justify-between items-center mb-3">
-<div>
-<h3 class="text-headline-sm font-headline-sm text-on-surface uppercase font-bold">Candidate Analog Field Sites</h3>
-<p class="text-caption font-caption text-secondary">Ranked by Astrobiological & Geomechanical Planetary Correlation Matrix</p>
-</div>
-<span id="sync-candidate-badge" class="text-label-data-sm font-label-data-sm text-secondary border border-outline-variant/30 px-2 py-1 rounded bg-surface-container">4 SITES ONLINE // SYNCHRONIZED</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="candidate-grid">
-<!-- Populated dynamically and populated by initial HTML -->
-<!-- Site 1: McMurdo Dry Valleys -->
-<div data-site-id="mcmurdo" class="candidate-card bg-surface-container-low border border-outline-variant/30 rounded p-4 hover:border-primary/80 transition-colors cursor-pointer group">
-<div class="flex justify-between items-start mb-2">
-<div>
-<span class="text-label-data-sm font-label-data-sm text-primary font-bold">ANTARCTICA // VECTOR 77°30′S 162°52′E</span>
-<h4 class="text-headline-sm font-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">McMurdo Dry Valleys</h4>
-</div>
-<span class="bg-surface-container border border-primary/40 text-primary text-label-data-sm font-label-data-sm px-2 py-0.5 rounded font-bold">96.1% MARS ANALOG</span>
-</div>
-<p class="text-body-sm font-body-sm text-secondary mb-3">
-              Ice-free hyper-arid polar desert. Cryptoendolithic microbial communities preserved within porous sandstone; high subzero hypersaline brines (Don Juan Pond) proxying recurring slope lineae.
-</p>
-<div class="grid grid-cols-3 gap-2 border-t border-outline-variant/20 pt-2 text-caption font-caption text-secondary">
-<div><span class="block text-on-surface font-label-data-sm">RADIATION</span> Extreme UV-B/C</div>
-<div><span class="block text-on-surface font-label-data-sm">REGOLITH</span> Perchlorate trace</div>
-<div><span class="block text-on-surface font-label-data-sm">TESTBED</span> Drill rigs (Icebreaker)</div>
-</div>
-</div>
-<!-- Site 2: Atacama Desert (Yungay) -->
-<div data-site-id="atacama" class="candidate-card bg-surface-container-low border border-outline-variant/30 rounded p-4 hover:border-primary/80 transition-colors cursor-pointer group">
-<div class="flex justify-between items-start mb-2">
-<div>
-<span class="text-label-data-sm font-label-data-sm text-primary font-bold">CHILE // VECTOR 24°04′S 69°52′W</span>
-<h4 class="text-headline-sm font-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">Atacama Desert (Yungay)</h4>
-</div>
-<span class="bg-surface-container border border-primary/40 text-primary text-label-data-sm font-label-data-sm px-2 py-0.5 rounded font-bold">91.8% MARS OXIDATION</span>
-</div>
-<p class="text-body-sm font-body-sm text-secondary mb-3">
-              Hyper-arid core with near-zero rain frequency over decades. Soil chemistry saturated with nitrates and perchlorates; extreme solar UV-C irradiance mimicking the oxidizing Martian surface.
-</p>
-<div class="grid grid-cols-3 gap-2 border-t border-outline-variant/20 pt-2 text-caption font-caption text-secondary">
-<div><span class="block text-on-surface font-label-data-sm">OXIDANT</span> Perchlorates &gt;0.5%</div>
-<div><span class="block text-on-surface font-label-data-sm">ORGANICS</span> Dry-limit threshold</div>
-<div><span class="block text-on-surface font-label-data-sm">ROVER TEST</span> ExoMars drill bench</div>
-</div>
-</div>
-<!-- Site 3: Mauna Loa Lava Tubes -->
-<div data-site-id="maunaloa" class="candidate-card bg-surface-container-low border border-outline-variant/30 rounded p-4 hover:border-primary/80 transition-colors cursor-pointer group">
-<div class="flex justify-between items-start mb-2">
-<div>
-<span class="text-label-data-sm font-label-data-sm text-primary font-bold">HAWAII, US // VECTOR 19°28′N 155°35′W</span>
-<h4 class="text-headline-sm font-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">Mauna Loa Lava Tubes</h4>
-</div>
-<span class="bg-surface-container border border-primary/40 text-primary text-label-data-sm font-label-data-sm px-2 py-0.5 rounded font-bold">88.4% LUNAR BASALT</span>
-</div>
-<p class="text-body-sm font-body-sm text-secondary mb-3">
-              Unweathered tholeiitic basalt subterranean tubes and HI-SEAS habitat complex. Evaluates radiation shielding geometry and subsurface autonomous mobility for Artemis lunar lava tube shelters.
-</p>
-<div class="grid grid-cols-3 gap-2 border-t border-outline-variant/20 pt-2 text-caption font-caption text-secondary">
-<div><span class="block text-on-surface font-label-data-sm">CAVERN DIA</span> 12m - 28m void</div>
-<div><span class="block text-on-surface font-label-data-sm">SHIELDING</span> 99.4% GCR block</div>
-<div><span class="block text-on-surface font-label-data-sm">CREW DURATION</span> 120-Day trials</div>
-</div>
-</div>
-<!-- Site 4: Askja Caldera -->
-<div data-site-id="askja" class="candidate-card bg-surface-container-low border border-outline-variant/30 rounded p-4 hover:border-primary/80 transition-colors cursor-pointer group">
-<div class="flex justify-between items-start mb-2">
-<div>
-<span class="text-label-data-sm font-label-data-sm text-primary font-bold">ICELAND HIGHLANDS // VECTOR 65°02′N 16°45′W</span>
-<h4 class="text-headline-sm font-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">Iceland Highlands (Askja)</h4>
-</div>
-<span class="bg-surface-container border border-primary/40 text-primary text-label-data-sm font-label-data-sm px-2 py-0.5 rounded font-bold">86.7% LUNAR HIGHLANDS</span>
-</div>
-<p class="text-body-sm font-body-sm text-secondary mb-3">
-              Original Apollo geologic field training site. Glassy basaltic sand sandstorms, volcanic tephra, and anorthositic plagioclase equivalents matching lunar regolith grain abrasiveness.
-</p>
-<div class="grid grid-cols-3 gap-2 border-t border-outline-variant/20 pt-2 text-caption font-caption text-secondary">
-<div><span class="block text-on-surface font-label-data-sm">MINERALOGY</span> Pyroxene / Olivine</div>
-<div><span class="block text-on-surface font-label-data-sm">GRAIN HARD</span> 6.5 Mohs scale</div>
-<div><span class="block text-on-surface font-label-data-sm">TRAFFIC</span> Rover wheel slip test</div>
-</div>
-</div>
-</div>
-</section>
-</main>
-
-<!-- RIGHT TELEMETRY & ENVIRONMENTAL MATRIX PANEL -->
-<aside class="w-96 border-l border-outline-variant/30 bg-surface-container-low p-4 flex flex-col gap-5 shrink-0 overflow-y-auto hidden 2xl:flex" id="telemetry-panel">
-<!-- Section: Real-time Telemetry -->
-<div>
-<div class="flex items-center justify-between border-b border-outline-variant/30 pb-2 mb-3">
-<span class="text-headline-sm font-headline-sm text-primary font-bold uppercase">PLANETARY TELEMETRY</span>
-<span class="text-caption font-caption text-secondary bg-surface-container px-2 py-0.5 rounded cursor-pointer hover:text-primary" id="live-link-badge">LIVE LINK</span>
-</div>
-<div class="flex flex-col gap-2.5">
-<div class="bg-surface-container p-2.5 border border-outline-variant/20 rounded flex justify-between items-center">
-<div>
-<div class="text-caption font-caption text-secondary">PYROXENE / OLIVINE INDEX</div>
-<div id="tel-poi" class="text-label-telemetry font-label-telemetry text-on-surface font-bold">0.89 POI-NORM</div>
-</div>
-<span id="tel-poi-status" class="text-primary text-label-data-sm font-label-data-sm font-bold bg-primary-container/20 px-2 py-1 rounded">CALIBRATED</span>
-</div>
-<div class="bg-surface-container p-2.5 border border-outline-variant/20 rounded flex justify-between items-center">
-<div>
-<div class="text-caption font-caption text-secondary">UV-C ATTENUATION FLUX</div>
-<div id="tel-uv" class="text-label-telemetry font-label-telemetry text-on-surface font-bold">14.8 W/m² (SURFACE)</div>
-</div>
-<span id="tel-uv-status" class="text-secondary text-label-data-sm font-label-data-sm font-bold bg-secondary-container/40 px-2 py-1 rounded">ELEVATED</span>
-</div>
-<div class="bg-surface-container p-2.5 border border-outline-variant/20 rounded flex justify-between items-center">
-<div>
-<div class="text-caption font-caption text-secondary">WATER ICE EQUIVALENT (WIE)</div>
-<div id="tel-wie" class="text-label-telemetry font-label-telemetry text-on-surface font-bold">3.2 wt% DRY MASS</div>
-</div>
-<span id="tel-wie-status" class="text-primary text-label-data-sm font-label-data-sm font-bold bg-primary-container/20 px-2 py-1 rounded">DETECTION+</span>
-</div>
-<div class="bg-surface-container p-2.5 border border-outline-variant/20 rounded flex justify-between items-center">
-<div>
-<div class="text-caption font-caption text-secondary">ORBIT RELAY LATENCY</div>
-<div id="tel-latency" class="text-label-telemetry font-label-telemetry text-on-surface font-bold">342 ms ROUNDTRIP</div>
-</div>
-<span id="tel-latency-status" class="text-on-surface text-label-data-sm font-label-data-sm font-bold">NOMINAL</span>
-</div>
-</div>
-</div>
-
-<!-- Section: Regolith Simulant Comparison Bar Matrix (Interactive Switcher) -->
-<div class="border-t border-outline-variant/30 pt-4" id="matrix">
-<div class="text-label-data-sm font-label-data-sm text-secondary uppercase mb-3 flex items-center justify-between">
-<span>REGOLITH SIMULANT COMPARISON</span>
-<!-- Interactive Simulant Switcher -->
-<select id="simulant-select" class="bg-surface-container text-primary font-bold text-caption font-caption border border-outline-variant/40 rounded px-1.5 py-0.5 outline-none cursor-pointer hover:border-primary">
-<option value="lhs-jsc">LHS-1 vs JSC-1A</option>
-<option value="lhs-apollo">LHS-1 vs Apollo 16</option>
-<option value="lms-apollo11">LMS-1 vs Apollo 11</option>
-<option value="mms-rocknest">MMS-1 vs Curiosity</option>
-<option value="jsc-jezero">JSC-1A vs Jezero Clay</option>
-</select>
-</div>
-<div class="space-y-3">
-<div>
-<div class="flex justify-between text-caption font-caption mb-1">
-<span class="text-secondary">SiO₂ / Basaltic Oxide Ratio</span>
-<span id="bar-sio2-val" class="text-on-surface font-label-data-sm">93.4%</span>
-</div>
-<div class="w-full bg-surface-container h-1.5 rounded overflow-hidden">
-<div id="bar-sio2" class="bg-primary h-full rounded transition-all duration-500" style="width: 93.4%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-caption font-caption mb-1">
-<span class="text-secondary">Grain Angularity & Abrasion Factor</span>
-<span id="bar-grain-val" class="text-on-surface font-label-data-sm">88.1%</span>
-</div>
-<div class="w-full bg-surface-container h-1.5 rounded overflow-hidden">
-<div id="bar-grain" class="bg-primary h-full rounded transition-all duration-500" style="width: 88.1%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-caption font-caption mb-1">
-<span class="text-secondary">Volatile Sublimation Kinetics</span>
-<span id="bar-vol-val" class="text-on-surface font-label-data-sm">79.5%</span>
-</div>
-<div class="w-full bg-surface-container h-1.5 rounded overflow-hidden">
-<div id="bar-vol" class="bg-secondary h-full rounded transition-all duration-500" style="width: 79.5%"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between text-caption font-caption mb-1">
-<span class="text-secondary">Dielectric Permittivity Constant</span>
-<span id="bar-dielectric-val" class="text-on-surface font-label-data-sm">95.2%</span>
-</div>
-<div class="w-full bg-surface-container h-1.5 rounded overflow-hidden">
-<div id="bar-dielectric" class="bg-primary h-full rounded transition-all duration-500" style="width: 95.2%"></div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Section: Habitability Feasibility Radar / Polar Graph -->
-<div class="border-t border-outline-variant/30 pt-4" id="radar">
-<div class="text-label-data-sm font-label-data-sm text-secondary uppercase mb-2">
-          HABITABILITY FEASIBILITY RADAR
-</div>
-<div class="bg-surface-container p-3 rounded border border-outline-variant/20 flex flex-col items-center">
-<!-- Geometric Multi-Axis SVG Radar Chart -->
-<svg class="w-48 h-48" viewbox="0 0 100 100">
-<!-- Concentric guide rings -->
-<polygon fill="none" points="50,15 83,38 71,78 29,78 17,38" stroke="#57423c" stroke-dasharray="1 1" stroke-width="0.5"></polygon>
-<polygon fill="none" points="50,25 73,42 64,70 36,70 27,42" stroke="#57423c" stroke-dasharray="1 1" stroke-width="0.5"></polygon>
-<polygon fill="none" points="50,35 63,45 58,63 42,63 37,45" stroke="#57423c" stroke-dasharray="1 1" stroke-width="0.5"></polygon>
-<!-- Axis lines -->
-<line stroke="#57423c" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"></line>
-<line stroke="#57423c" stroke-width="0.5" x1="50" x2="88" y1="50" y2="38"></line>
-<line stroke="#57423c" stroke-width="0.5" x1="50" x2="74" y1="50" y2="85"></line>
-<line stroke="#57423c" stroke-width="0.5" x1="50" x2="26" y1="50" y2="85"></line>
-<line stroke="#57423c" stroke-width="0.5" x1="50" x2="12" y1="50" y2="38"></line>
-<!-- Analog Score Polygon (Devon Island Profile) -->
-<polygon id="svg-radar-poly" fill="#e36e4e" fill-opacity="0.35" points="50,18 78,39 68,74 34,71 20,36" stroke="#ffb5a0" stroke-width="1.5"></polygon>
-<!-- Data vertices -->
-<circle id="radar-c1" cx="50" cy="18" fill="#ffb5a0" r="1.5"></circle>
-<circle id="radar-c2" cx="78" cy="39" fill="#ffb5a0" r="1.5"></circle>
-<circle id="radar-c3" cx="68" cy="74" fill="#ffb5a0" r="1.5"></circle>
-<circle id="radar-c4" cx="34" cy="71" fill="#ffb5a0" r="1.5"></circle>
-<circle id="radar-c5" cx="20" cy="36" fill="#ffb5a0" r="1.5"></circle>
-</svg>
-<div class="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-caption font-caption text-secondary mt-2">
-<div>• Top: Mineralogy</div>
-<div>• Right: Shielding</div>
-<div>• B-Right: Thermal</div>
-<div>• B-Left: In-situ H₂O</div>
-</div>
-</div>
-</div>
-
-<!-- Satellite Pass & Live Log -->
-<div class="border-t border-outline-variant/30 pt-4 flex-1 flex flex-col justify-end">
-<div class="bg-surface-container-lowest border border-outline-variant/30 p-2.5 rounded font-label-data-sm text-caption">
-<div class="text-secondary flex justify-between items-center mb-1">
-<span>NEXT ORBITAL PASS (SWOT-2)</span>
-<span class="text-primary font-bold font-mono" id="orbital-timer">T-MINUS 00:14:28</span>
-</div>
-<div class="text-secondary/70 truncate" id="log-line-1">&gt; SAR Telemetry channel lock verified</div>
-<div class="text-secondary/70 truncate" id="log-line-2">&gt; Devon Island field unit sync active</div>
-</div>
-</div>
-</aside>
-</div>
-
-<!-- ================= MODALS & SLIDE-OVER PANELS ================= -->
-
-<!-- 1. SATELLITE / ORTHOMOSAIC RECON MODAL -->
-<div id="satellite-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-dim border border-outline-variant/40 rounded max-w-4xl w-full h-[80vh] flex flex-col shadow-2xl overflow-hidden">
-    <div class="p-3 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container font-mono text-xs">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-sm" data-icon="satellite_alt">satellite_alt</span>
-        <span class="font-bold text-primary uppercase">ORBITAL SAR & SPECTRAL RECONNAISSANCE</span>
+  <!-- ================= TOP NAVIGATION ================= -->
+  <header class="sticky top-0 z-40 bg-space-950/80 backdrop-blur-xl border-b border-white/[0.06] px-6 lg:px-12 py-3.5 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-3 cursor-pointer group" id="btn-brand-home">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-terracotta-600 to-terracotta-400 p-[1px] flex items-center justify-center shadow-lg shadow-terracotta-500/10">
+          <div class="w-full h-full bg-space-950 rounded-[7px] flex items-center justify-center text-terracotta-400">
+            <span class="material-symbols-outlined text-lg" data-icon="deployed_code">deployed_code</span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-space font-bold tracking-wider text-sm text-white group-hover:text-terracotta-400 transition-colors">GEOANALOG <span class="text-terracotta-500 font-medium">SCOUT</span></span>
+          <span class="text-[10px] font-mono text-slate-subtle tracking-widest uppercase">NASA SPACE APPS 2026</span>
+        </div>
       </div>
-      <button id="btn-close-satellite" class="text-secondary hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
-    </div>
-    <div class="relative flex-1 bg-surface-container-lowest">
-      <div id="satellite-map" class="w-full h-full"></div>
-      <div class="absolute bottom-3 left-3 z-[1000] bg-black/90 border border-outline-variant/40 px-3 py-1.5 text-xs font-mono text-secondary rounded">
-        <span>SENSOR: ESRI WORLD IMAGERY HIGH-RES ORTHOMOSAIC</span>
+
+      <!-- Live Mission Selector Pill -->
+      <div class="hidden md:flex items-center gap-2 bg-space-850/80 border border-white/[0.08] px-3 py-1.5 rounded-full text-xs font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-subtle">TARGET MISSION:</span>
+        <select id="mission-target-select" class="bg-transparent text-white font-semibold outline-none cursor-pointer hover:text-terracotta-400 transition-colors">
+          <option value="artemis-south-pole">🌖 Artemis III Base (Moon South Pole)</option>
+          <option value="marius-lava-tube">🌖 Marius Hills Lava Tube (Moon Caverns)</option>
+          <option value="jezero-astrobiology">🔴 Jezero Crater Delta (Mars Paleo-Lake)</option>
+          <option value="arcadia-ice">🔴 Arcadia Planitia (Mars Glacial Ice)</option>
+        </select>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- 2. DOSSIER AUTHORIZATION MODAL -->
-<div id="dossier-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-dim border border-primary/50 rounded max-w-2xl w-full max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl">
-    <div class="p-3 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container font-mono text-xs no-print">
-      <span class="font-bold text-primary uppercase">PLANETARY ANALOGUE FIELD PROTOCOL // DOSSIER DEBRIEF</span>
-      <button id="btn-close-dossier" class="text-secondary hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
+    <!-- Center Navigation Tabs -->
+    <nav class="hidden lg:flex items-center gap-1 bg-space-900 border border-white/[0.06] p-1 rounded-full text-xs font-mono">
+      <button id="tab-overview" class="nav-tab px-4 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all">
+        ANALOG DOSSIERS
+      </button>
+      <button id="tab-radar" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors">
+        ORBITAL RADAR
+      </button>
+      <button id="tab-matrix" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors">
+        SURFACE MATRIX
+      </button>
+      <button id="tab-telemetry" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors">
+        TELEMETRY HUD
+      </button>
+    </nav>
+
+    <!-- Header Trailing Action Buttons -->
+    <div class="flex items-center gap-3">
+      <!-- Search Input -->
+      <div class="relative hidden sm:block">
+        <span class="material-symbols-outlined text-slate-subtle text-sm absolute left-3 top-2.5" data-icon="search">search</span>
+        <input id="search-input" type="text" placeholder="Search testbeds... (⌘K)" class="bg-space-850/80 border border-white/[0.08] text-xs pl-8 pr-3 py-1.5 rounded-full text-slate-100 placeholder:text-slate-subtle focus:border-terracotta-500 focus:outline-none w-48 transition-all"/>
+      </div>
+
+      <!-- Sync Button -->
+      <button id="btn-sync-orbital" class="hidden xl:flex items-center gap-1.5 text-xs font-mono text-slate-subtle hover:text-white border border-white/[0.08] hover:border-white/[0.2] bg-space-850 px-3 py-1.5 rounded-full transition-all">
+        <span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
+        <span id="sync-text">SYNC</span>
+      </button>
+
+      <!-- Primary Action: Export Dossier -->
+      <button id="btn-export-dossier" class="flex items-center gap-2 bg-gradient-to-r from-terracotta-600 to-terracotta-500 hover:from-terracotta-500 hover:to-terracotta-400 text-white font-mono font-semibold text-xs px-4 py-1.5 rounded-full shadow-lg shadow-terracotta-500/20 transition-all active:scale-95">
+        <span class="material-symbols-outlined text-sm" data-icon="file_download">file_download</span>
+        <span>EXPORT DOSSIER</span>
+      </button>
     </div>
+  </header>
 
-    <!-- Printable Area -->
-    <div id="dossier-print-area" class="p-6 space-y-4 font-mono text-xs text-on-surface bg-surface-dim">
-      <div class="border-b border-primary pb-3 flex justify-between items-start">
-        <div>
-          <h2 class="text-lg font-bold text-primary uppercase">ANALOGUE FLIGHT TEST PROTOCOL</h2>
-          <p class="text-[11px] text-secondary">EXPLORATION SYSTEMS DEVELOPMENT • HABITAT VALIDATION</p>
-        </div>
-        <div class="text-right text-xs">
-          <span class="text-secondary block">AUTHORIZATION:</span>
-          <div id="modal-dossier-id" class="font-bold text-primary">NASA-ANALOG-749201</div>
-        </div>
-      </div>
+  <!-- ================= HERO SHOWCASE ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-8 space-y-10">
 
-      <div class="grid grid-cols-2 gap-3 bg-surface-container-lowest p-3 border border-outline-variant/30 text-xs">
-        <div>
-          <span class="text-secondary text-[10px] uppercase block">TARGET LOCATION</span>
-          <span id="modal-site-name" class="font-bold text-primary block">Haughton Crater, Devon Island</span>
+    <!-- Mission Context Header (Clean, spacious) -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/[0.06] pb-6">
+      <div class="space-y-2 max-w-3xl">
+        <div class="flex items-center gap-2 font-mono text-[11px] text-terracotta-400 tracking-wider uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-terracotta-500"></span>
+          <span id="mission-sub-badge">OPS PLAN // ARTEMIS-III ARCHITECTURE</span>
+          <span class="text-white/[0.2]">•</span>
+          <span class="text-slate-subtle">SWOT-2 ORBITAL ALT 412 KM</span>
         </div>
-        <div>
-          <span class="text-secondary text-[10px] uppercase block">FIDELITY INDEX</span>
-          <span id="modal-site-fidelity" class="font-bold text-primary block">94.2%</span>
-        </div>
-        <div>
-          <span class="text-secondary text-[10px] uppercase block">DATUM / COORDINATES</span>
-          <span id="modal-site-coords" class="font-bold text-on-surface block">WGS84: 75°22′N 89°41′W</span>
-        </div>
-        <div>
-          <span class="text-secondary text-[10px] uppercase block">ELEVATION ASL</span>
-          <span id="modal-site-elev" class="font-bold text-on-surface block">230m ASL</span>
-        </div>
-      </div>
-
-      <div class="space-y-1.5">
-        <span class="text-xs uppercase font-bold text-primary block tracking-wider">1. GEOLOGICAL & ENVIRONMENTAL VALIDATION</span>
-        <p id="modal-site-desc" class="text-secondary text-xs leading-relaxed">
-          High shock metamorphism, paleolake sediment analogs to Jezero / Shackleton rim rubble. Target carbonate & crystalline basement clasts mimic lunar South Pole regolith mechanical shear.
+        <h1 id="mission-main-title" class="font-space text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight">
+          Earth Locations That Analog Moon Base & Mars Missions
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-subtle font-inter leading-relaxed">
+          Systematic correlation of extreme terrestrial environments to validate cryogenic ice drilling, lava tube subterranean shelters, and autonomous rover trafficability before launch.
         </p>
       </div>
 
-      <div class="space-y-1.5">
-        <span class="text-xs uppercase font-bold text-primary block tracking-wider">2. TEST CAMPAIGN SPECIFICATION</span>
-        <p id="modal-site-hab" class="text-secondary text-xs leading-relaxed">
-          Autonomous perimeter trial. Validated FMARS habitat core, pressurized rover ingress, EVA suit joint dust intrusion testing.
+      <!-- Quick Filter Pills -->
+      <div class="flex flex-wrap items-center gap-1.5 font-mono text-xs self-start md:self-auto" id="filter-chips-container">
+        <button data-cat="all" class="filter-chip px-3.5 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all">All Sites</button>
+        <button data-cat="lunar-polar" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Lunar Polar</button>
+        <button data-cat="martian-permafrost" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Mars Permafrost</button>
+        <button data-cat="lava-tubes" class="filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all">Lava Tubes</button>
+      </div>
+    </div>
+
+    <!-- PRIMARY DOSSIER SHOWCASE (The Master Bento Stage) -->
+    <section class="glass-card rounded-2xl overflow-hidden p-6 lg:p-8 space-y-6 shadow-2xl relative" id="hero-section">
+      
+      <!-- Top Title & Fidelity Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.06] pb-5">
+        <div>
+          <div class="flex items-center gap-2 text-[11px] font-mono text-terracotta-400 font-semibold uppercase tracking-wider">
+            <span id="hero-badge">PRIMARY TESTBED #01</span>
+            <span class="text-white/[0.2]">//</span>
+            <span id="hero-sector" class="text-slate-subtle">DEVON ISLAND RECON SECTOR</span>
+          </div>
+          <h2 id="hero-name" class="font-space text-2xl lg:text-3xl font-bold text-white mt-1">
+            Haughton Crater, Devon Island (Nunavut, Canada)
+          </h2>
+          <div class="flex items-center gap-3 font-mono text-xs text-slate-subtle mt-1.5">
+            <span id="hero-coords">WGS84: 75°22′N 89°41′W</span>
+            <span>•</span>
+            <span id="hero-elev">ELEV: 230m ASL</span>
+            <span>•</span>
+            <span id="hero-impact">IMPACT AGE: ~39 Ma</span>
+          </div>
+        </div>
+
+        <!-- High-Impact Fidelity Display -->
+        <div class="flex items-center gap-4 bg-space-900/90 border border-white/[0.08] px-5 py-3 rounded-xl self-start sm:self-auto">
+          <div class="text-right">
+            <span class="text-[10px] font-mono text-slate-subtle uppercase block tracking-wider">Planetary Twin Index</span>
+            <span id="hero-fidelity" class="font-space text-3xl font-bold text-terracotta-400 block font-tabular">94.2%</span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <button id="btn-full-dossier" class="px-3.5 py-1.5 bg-terracotta-500 hover:bg-terracotta-600 text-white font-mono text-xs font-bold rounded-lg transition-colors flex items-center gap-1 shadow">
+              <span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+              <span>Dossier</span>
+            </button>
+            <button id="btn-spectral-layer" class="px-3.5 py-1.5 bg-space-800 hover:bg-space-700 text-slate-light border border-white/[0.08] font-mono text-xs rounded-lg transition-colors flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm" data-icon="radar">radar</span>
+              <span>Satellite</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split Layout: Cinematic Imagery + 4 Scientific Bento Parameters -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Left: High-Contrast Orthomosaic Satellite Box (5 Cols) -->
+        <div class="lg:col-span-5 relative rounded-xl overflow-hidden min-h-[300px] border border-white/[0.08] bg-space-950 flex flex-col justify-between p-4 group">
+          <img id="hero-image" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700 filter contrast-125 brightness-90" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80" alt="Terrain Satellite Imagery" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-space-950/90 via-transparent to-space-950/40 pointer-events-none"></div>
+
+          <!-- Overlay Tags -->
+          <div class="relative z-10 flex justify-between items-center text-[10px] font-mono">
+            <span class="bg-space-950/80 backdrop-blur px-2.5 py-1 rounded border border-white/[0.1] text-slate-light">ORBITAL SAR COMPOSITE</span>
+            <span class="bg-terracotta-500/20 text-terracotta-400 border border-terracotta-500/30 px-2.5 py-1 rounded font-bold">P-BAND SYNTH</span>
+          </div>
+
+          <!-- Bottom Geo-Zone Caption -->
+          <div class="relative z-10 bg-space-900/90 backdrop-blur-md border border-white/[0.08] p-3 rounded-lg">
+            <span id="hero-geo-zone" class="text-xs font-mono font-bold text-white block">GEO-ZONE: IMPACT STRUCTURAL BASIN</span>
+            <p id="hero-geo-desc" class="text-[11px] text-slate-subtle mt-0.5 leading-relaxed">
+              High shock metamorphism, paleolake sediment analogs to Jezero / Shackleton rim rubble.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: 4 Scientific Attribute Bento Cards (7 Cols) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          
+          <!-- Bento 1: Geomorphology -->
+          <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-slate-subtle mb-1.5">
+                <span class="text-[10px] font-mono uppercase tracking-wider">Geomorphology</span>
+                <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="blur_circular">blur_circular</span>
+              </div>
+              <h4 id="hero-geom-title" class="font-space font-bold text-sm text-white">Impact Breccia & Shatter Cones</h4>
+              <p id="hero-geom-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
+                Target carbonate & crystalline basement clasts mimic lunar South Pole regolith mechanical shear.
+              </p>
+            </div>
+            <div id="hero-geom-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
+              MATCH INDEX: 96.8%
+            </div>
+          </div>
+
+          <!-- Bento 2: Climatic Regime -->
+          <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-slate-subtle mb-1.5">
+                <span class="text-[10px] font-mono uppercase tracking-wider">Climatic Regime</span>
+                <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="ac_unit">ac_unit</span>
+              </div>
+              <h4 id="hero-clim-title" class="font-space font-bold text-sm text-white">Hyper-Cold Dry Desert Biome</h4>
+              <p id="hero-clim-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
+                Mean annual temp −17°C, severe desiccating katabatic winds, negligible liquid precipitation.
+              </p>
+            </div>
+            <div id="hero-clim-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
+              MATCH INDEX: 93.1%
+            </div>
+          </div>
+
+          <!-- Bento 3: Habitat Architecture -->
+          <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-slate-subtle mb-1.5">
+                <span class="text-[10px] font-mono uppercase tracking-wider">Hab Architecture</span>
+                <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="home_repair_service">home_repair_service</span>
+              </div>
+              <h4 id="hero-hab-title" class="font-space font-bold text-sm text-white">Autonomous Perimeter Trial</h4>
+              <p id="hero-hab-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
+                Validated FMARS habitat core, pressurized rover ingress, EVA suit joint dust intrusion testing.
+              </p>
+            </div>
+            <div id="hero-hab-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
+              MATCH INDEX: 91.5%
+            </div>
+          </div>
+
+          <!-- Bento 4: Volatile Deposits -->
+          <div class="bg-space-850/70 border border-white/[0.06] p-4 rounded-xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-slate-subtle mb-1.5">
+                <span class="text-[10px] font-mono uppercase tracking-wider">Volatile Deposits</span>
+                <span class="material-symbols-outlined text-sm text-terracotta-400" data-icon="water_drop">water_drop</span>
+              </div>
+              <h4 id="hero-vol-title" class="font-space font-bold text-sm text-white">Subsurface Massive Ground Ice</h4>
+              <p id="hero-vol-desc" class="text-xs text-slate-subtle leading-relaxed mt-1">
+                Active continuous permafrost polygonal wedges simulating Martian mid-latitude ice tables.
+              </p>
+            </div>
+            <div id="hero-vol-match" class="mt-3 text-[11px] font-mono text-terracotta-400 font-semibold border-t border-white/[0.04] pt-2">
+              MATCH INDEX: 95.4%
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= CANDIDATE ANALOGS CAROUSEL / GRID ================= -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-white/[0.06] pb-3">
+        <div>
+          <h3 class="font-space font-bold text-lg text-white">Candidate Planetary Analog Sites</h3>
+          <p class="text-xs text-slate-subtle">Click any testbed to swap it into the primary analysis stage</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="sync-candidate-badge" class="font-mono text-xs text-slate-subtle bg-space-850 border border-white/[0.06] px-3 py-1 rounded-full">
+            4 SITES SYNCHRONIZED
+          </span>
+          <button id="btn-add-recon" class="flex items-center gap-1 font-mono text-xs text-terracotta-400 hover:text-white border border-terracotta-500/40 hover:bg-terracotta-500/10 px-3 py-1 rounded-full transition-all">
+            <span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+            <span>Add Recon</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 High-End Candidate Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="candidate-grid">
+        <!-- Rendered dynamically and populated by default in app.js -->
+      </div>
+    </section>
+
+    <!-- ================= SECONDARY VIEW: TELEMETRY & SIMULANT BENCHMARK ================= -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch pt-2">
+      
+      <!-- Live Telemetry Stream (4 Cols) -->
+      <div class="lg:col-span-4 glass-card p-5 rounded-2xl flex flex-col justify-between space-y-4">
+        <div>
+          <div class="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-3">
+            <h4 class="font-space font-bold text-sm text-white">Live Planetary Telemetry</h4>
+            <span id="live-link-badge" class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full cursor-pointer hover:bg-emerald-500/20">
+              ORBIT LINK LOCKED
+            </span>
+          </div>
+
+          <div class="space-y-2.5 font-mono text-xs">
+            <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
+              <div>
+                <span class="text-[10px] text-slate-subtle block">PYROXENE / OLIVINE INDEX</span>
+                <span id="tel-poi" class="text-white font-bold text-sm">0.89 POI-NORM</span>
+              </div>
+              <span id="tel-poi-status" class="text-[10px] font-bold text-terracotta-400 bg-terracotta-500/10 px-2 py-0.5 rounded">CALIBRATED</span>
+            </div>
+
+            <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
+              <div>
+                <span class="text-[10px] text-slate-subtle block">UV-C ATTENUATION FLUX</span>
+                <span id="tel-uv" class="text-white font-bold text-sm">14.8 W/m²</span>
+              </div>
+              <span id="tel-uv-status" class="text-[10px] font-bold text-slate-subtle bg-space-800 px-2 py-0.5 rounded">ELEVATED</span>
+            </div>
+
+            <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
+              <div>
+                <span class="text-[10px] text-slate-subtle block">WATER ICE EQUIVALENT (WIE)</span>
+                <span id="tel-wie" class="text-white font-bold text-sm">3.2 wt% DRY MASS</span>
+              </div>
+              <span id="tel-wie-status" class="text-[10px] font-bold text-terracotta-400 bg-terracotta-500/10 px-2 py-0.5 rounded">DETECTION+</span>
+            </div>
+
+            <div class="bg-space-850 p-3 rounded-xl border border-white/[0.04] flex justify-between items-center">
+              <div>
+                <span class="text-[10px] text-slate-subtle block">ORBIT RELAY LATENCY</span>
+                <span id="tel-latency" class="text-white font-bold text-sm">342 ms ROUNDTRIP</span>
+              </div>
+              <span id="tel-latency-status" class="text-[10px] font-bold text-slate-light bg-space-800 px-2 py-0.5 rounded">NOMINAL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-white/[0.06] pt-3 text-[10px] font-mono text-slate-subtle flex justify-between items-center">
+          <span>NEXT PASS (SWOT-2):</span>
+          <span id="orbital-timer" class="text-terracotta-400 font-bold">T-MINUS 00:14:28</span>
+        </div>
+      </div>
+
+      <!-- Regolith Simulant Bar Matrix (4 Cols) -->
+      <div class="lg:col-span-4 glass-card p-5 rounded-2xl flex flex-col justify-between space-y-4">
+        <div>
+          <div class="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-3">
+            <h4 class="font-space font-bold text-sm text-white">Regolith Simulant Benchmark</h4>
+            <select id="simulant-select" class="bg-space-850 text-terracotta-400 font-mono text-xs font-bold border border-white/[0.08] rounded-lg px-2 py-1 outline-none cursor-pointer">
+              <option value="lhs-jsc">LHS-1 vs JSC-1A</option>
+              <option value="lhs-apollo">LHS-1 vs Apollo 16</option>
+              <option value="lms-apollo11">LMS-1 vs Apollo 11</option>
+              <option value="mms-rocknest">MMS-1 vs Curiosity</option>
+              <option value="jsc-jezero">JSC-1A vs Jezero Clay</option>
+            </select>
+          </div>
+
+          <div class="space-y-4 pt-1 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-[11px] mb-1.5">
+                <span class="text-slate-subtle">SiO₂ / Basaltic Oxide Ratio</span>
+                <span id="bar-sio2-val" class="text-white font-bold">93.4%</span>
+              </div>
+              <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
+                <div id="bar-sio2" class="bg-gradient-to-r from-terracotta-600 to-terracotta-400 h-full rounded-full transition-all duration-500" style="width: 93.4%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] mb-1.5">
+                <span class="text-slate-subtle">Grain Angularity & Abrasion Factor</span>
+                <span id="bar-grain-val" class="text-white font-bold">88.1%</span>
+              </div>
+              <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
+                <div id="bar-grain" class="bg-gradient-to-r from-terracotta-600 to-terracotta-400 h-full rounded-full transition-all duration-500" style="width: 88.1%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] mb-1.5">
+                <span class="text-slate-subtle">Volatile Sublimation Kinetics</span>
+                <span id="bar-vol-val" class="text-white font-bold">79.5%</span>
+              </div>
+              <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
+                <div id="bar-vol" class="bg-gradient-to-r from-slate-600 to-slate-400 h-full rounded-full transition-all duration-500" style="width: 79.5%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] mb-1.5">
+                <span class="text-slate-subtle">Dielectric Permittivity Constant</span>
+                <span id="bar-dielectric-val" class="text-white font-bold">95.2%</span>
+              </div>
+              <div class="w-full bg-space-850 h-2 rounded-full overflow-hidden border border-white/[0.04]">
+                <div id="bar-dielectric" class="bg-gradient-to-r from-terracotta-600 to-terracotta-400 h-full rounded-full transition-all duration-500" style="width: 95.2%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-[10px] text-slate-subtle border-t border-white/[0.06] pt-3">
+          Calibrated against USGS Lunar Regolith Simulant standards.
         </p>
       </div>
 
-      <div class="pt-3 border-t border-outline-variant/30 text-[10px] text-secondary">
-        AUTHORIZED FOR ARTEMIS-III / ARES-1 ARCHITECTURE TESTBED UNDER COLD HARDENED PROTOCOL SPEC 2.2
-      </div>
-    </div>
-
-    <div class="p-3 border-t border-outline-variant/30 bg-surface-container flex justify-between items-center font-mono text-xs no-print">
-      <button id="btn-download-json" class="px-3 py-1.5 border border-outline-variant/50 text-secondary hover:text-white rounded hover:bg-surface-container-high transition-colors flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-sm" data-icon="data_object">data_object</span>
-        Download JSON Telemetry
-      </button>
-      <button id="btn-print-modal" class="px-4 py-2 bg-primary-container text-on-primary font-bold rounded hover:bg-inverse-primary transition-colors flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-sm" data-icon="print">print</span>
-        Print / Save PDF
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- 3. SURFACE MATRIX MODAL (Comparative Table) -->
-<div id="matrix-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-dim border border-outline-variant/40 rounded max-w-4xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden font-mono text-xs">
-    <div class="p-3.5 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-sm" data-icon="grid_view">grid_view</span>
-        <span class="font-bold text-primary uppercase">TERRESTRIAL SURFACE CORRELATION MATRIX</span>
-      </div>
-      <button id="btn-close-matrix" class="text-secondary hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
-    </div>
-    <div class="p-4 overflow-x-auto flex-1">
-      <table class="w-full text-left border-collapse border border-outline-variant/30">
-        <thead>
-          <tr class="bg-surface-container border-b border-outline-variant/30 text-secondary text-[11px]">
-            <th class="p-2.5 border-r border-outline-variant/30">ANALOG SITE</th>
-            <th class="p-2.5 border-r border-outline-variant/30">FIDELITY</th>
-            <th class="p-2.5 border-r border-outline-variant/30">POI INDEX</th>
-            <th class="p-2.5 border-r border-outline-variant/30">UV-C FLUX</th>
-            <th class="p-2.5 border-r border-outline-variant/30">WIE (wt%)</th>
-            <th class="p-2.5">PRIMARY REGIME</th>
-          </tr>
-        </thead>
-        <tbody id="matrix-table-body" class="text-on-surface text-xs">
-          <!-- Populated by app.js -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- 4. SPECTRAL MAPPING MODAL -->
-<div id="spectral-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-dim border border-outline-variant/40 rounded max-w-3xl w-full p-4 flex flex-col shadow-2xl font-mono text-xs space-y-3">
-    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-sm" data-icon="multiline_chart">multiline_chart</span>
-        <span class="font-bold text-primary uppercase">HYPERSPECTRAL REFLECTANCE (VNIR / SWIR)</span>
-      </div>
-      <button id="btn-close-spectral" class="text-secondary hover:text-white text-lg font-bold">&times;</button>
-    </div>
-    <p class="text-secondary text-[11px]">
-      Simulated 0.4 µm to 2.5 µm absorption bands matched against CRISM (Mars) and M³ (Lunar) spectral libraries.
-    </p>
-    <!-- SVG Spectral Graph -->
-    <div class="bg-surface-container-lowest p-4 rounded border border-outline-variant/30">
-      <svg class="w-full h-48" viewBox="0 0 600 200">
-        <!-- Axes -->
-        <line x1="40" y1="20" x2="40" y2="170" stroke="#57423c" stroke-width="1"></line>
-        <line x1="40" y1="170" x2="580" y2="170" stroke="#57423c" stroke-width="1"></line>
-        <!-- Grid lines -->
-        <line x1="40" y1="60" x2="580" y2="60" stroke="#282a2d" stroke-dasharray="2 2"></line>
-        <line x1="40" y1="110" x2="580" y2="110" stroke="#282a2d" stroke-dasharray="2 2"></line>
-        <!-- Wavelength markers -->
-        <text x="40" y="185" fill="#8A9EA7" font-size="10">0.4 µm</text>
-        <text x="180" y="185" fill="#8A9EA7" font-size="10">1.0 µm (Olivine)</text>
-        <text x="320" y="185" fill="#8A9EA7" font-size="10">1.5 µm (H₂O Ice)</text>
-        <text x="450" y="185" fill="#8A9EA7" font-size="10">2.0 µm (CO₂/Ice)</text>
-        <text x="540" y="185" fill="#8A9EA7" font-size="10">2.5 µm</text>
-        <!-- Reflectance Curve: Off-World Target -->
-        <path d="M 40,140 Q 120,100 180,150 T 320,120 T 450,155 T 580,90" fill="none" stroke="#e36e4e" stroke-width="2.5"></path>
-        <!-- Reflectance Curve: Earth Analog Site -->
-        <path d="M 40,135 Q 120,95 180,145 T 320,125 T 450,150 T 580,95" fill="none" stroke="#ffb5a0" stroke-width="1.5" stroke-dasharray="3 3"></path>
-      </svg>
-      <div class="flex justify-between items-center text-[10px] text-secondary mt-2 border-t border-outline-variant/30 pt-1">
-        <div class="flex items-center gap-2"><span class="w-3 h-0.5 bg-primary-container"></span> Off-World Target Profile</div>
-        <div class="flex items-center gap-2"><span class="w-3 h-0.5 bg-primary border-t border-dashed"></span> Selected Earth Analog Trace</div>
-        <span class="text-primary">SPECTRAL CORRELATION: 0.941</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 5. MISSION TERMINAL MODAL -->
-<div id="terminal-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-lowest border border-outline-variant/40 rounded max-w-2xl w-full h-96 flex flex-col shadow-2xl font-mono text-xs">
-    <div class="p-2.5 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-sm" data-icon="terminal">terminal</span>
-        <span class="font-bold text-primary">MISSION OPS TERMINAL HUD</span>
-      </div>
-      <button id="btn-close-terminal" class="text-secondary hover:text-white font-bold">&times;</button>
-    </div>
-    <div id="terminal-output" class="flex-1 p-3 overflow-y-auto space-y-1 text-secondary text-[11px]">
-      <div class="text-primary font-bold">GEOANALOG MISSION OPS TERMINAL [VERSION 2.2-HARDENED]</div>
-      <div>TYPE <span class="text-primary font-bold">help</span> FOR AVAILABLE COMMANDS. (e.g. scan, list, target, clear, ping)</div>
-      <div class="text-outline-variant">----------------------------------------------------</div>
-    </div>
-    <div class="p-2 border-t border-outline-variant/30 flex items-center gap-2 bg-surface-container-low">
-      <span class="text-primary font-bold">&gt;</span>
-      <input id="terminal-input" type="text" class="w-full bg-transparent border-0 p-0 text-primary text-xs focus:ring-0 outline-none uppercase font-mono" placeholder="ENTER COMMAND..." autocomplete="off"/>
-    </div>
-  </div>
-</div>
-
-<!-- 6. SENSOR CALIBRATION DRAWER -->
-<div id="calibration-drawer" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-end hidden">
-  <div class="w-full max-w-sm bg-surface-dim border-l border-outline-variant/40 h-full p-4 overflow-y-auto space-y-4 font-mono text-xs">
-    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-sm" data-icon="tune">tune</span>
-        <span class="font-bold text-primary uppercase">Sensor Calibration</span>
-      </div>
-      <button id="btn-close-calibrate" class="text-secondary hover:text-white text-lg">&times;</button>
-    </div>
-    <p class="text-secondary text-[11px]">
-      Adjust mathematical weight vectors to calibrate fidelity scoring against specific mission priorities:
-    </p>
-
-    <div class="space-y-3 pt-2">
-      <div>
-        <div class="flex justify-between text-[10px] text-secondary mb-1">
-          <span>Terrain Roughness / Slope</span>
-          <span id="slider-rough-val" class="text-primary">1.0x</span>
+      <!-- Habitability Feasibility Radar Chart (4 Cols) -->
+      <div class="lg:col-span-4 glass-card p-5 rounded-2xl flex flex-col justify-between items-center text-center">
+        <div class="w-full flex items-center justify-between border-b border-white/[0.06] pb-3 mb-2">
+          <h4 class="font-space font-bold text-sm text-white">Habitability Radar Matrix</h4>
+          <span class="text-[10px] font-mono text-terracotta-400">5-AXIS GEOMETRY</span>
         </div>
-        <input type="range" id="slider-rough" min="0.2" max="3.0" step="0.2" value="1.0" class="w-full accent-primary cursor-pointer"/>
-      </div>
-      <div>
-        <div class="flex justify-between text-[10px] text-secondary mb-1">
-          <span>Thermal Extremes / Diurnal</span>
-          <span id="slider-therm-val" class="text-primary">1.0x</span>
+
+        <div class="relative py-2 flex items-center justify-center">
+          <svg class="w-48 h-48" viewBox="0 0 100 100">
+            <!-- Concentric guide rings -->
+            <polygon fill="none" points="50,15 83,38 71,78 29,78 17,38" stroke="rgba(255,255,255,0.08)" stroke-dasharray="1 1" stroke-width="0.5"></polygon>
+            <polygon fill="none" points="50,25 73,42 64,70 36,70 27,42" stroke="rgba(255,255,255,0.08)" stroke-dasharray="1 1" stroke-width="0.5"></polygon>
+            <polygon fill="none" points="50,35 63,45 58,63 42,63 37,45" stroke="rgba(255,255,255,0.08)" stroke-dasharray="1 1" stroke-width="0.5"></polygon>
+            <!-- Axis lines -->
+            <line stroke="rgba(255,255,255,0.12)" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"></line>
+            <line stroke="rgba(255,255,255,0.12)" stroke-width="0.5" x1="50" x2="88" y1="50" y2="38"></line>
+            <line stroke="rgba(255,255,255,0.12)" stroke-width="0.5" x1="50" x2="74" y1="50" y2="85"></line>
+            <line stroke="rgba(255,255,255,0.12)" stroke-width="0.5" x1="50" x2="26" y1="50" y2="85"></line>
+            <line stroke="rgba(255,255,255,0.12)" stroke-width="0.5" x1="50" x2="12" y1="50" y2="38"></line>
+            <!-- Analog Score Polygon -->
+            <polygon id="svg-radar-poly" fill="rgba(231,111,81,0.3)" points="50,18 78,39 68,74 34,71 20,36" stroke="#ff9e80" stroke-width="1.5"></polygon>
+            <!-- Vertices -->
+            <circle cx="50" cy="18" fill="#ff9e80" r="1.5"></circle>
+            <circle cx="78" cy="39" fill="#ff9e80" r="1.5"></circle>
+            <circle cx="68" cy="74" fill="#ff9e80" r="1.5"></circle>
+            <circle cx="34" cy="71" fill="#ff9e80" r="1.5"></circle>
+            <circle cx="20" cy="36" fill="#ff9e80" r="1.5"></circle>
+          </svg>
         </div>
-        <input type="range" id="slider-therm" min="0.2" max="3.0" step="0.2" value="1.0" class="w-full accent-primary cursor-pointer"/>
-      </div>
-      <div>
-        <div class="flex justify-between text-[10px] text-secondary mb-1">
-          <span>Cryo-Ice / Volatiles</span>
-          <span id="slider-ice-val" class="text-primary">1.0x</span>
+
+        <div class="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-[11px] font-mono text-slate-subtle border-t border-white/[0.06] pt-3 text-left">
+          <div>• Top: Mineralogy</div>
+          <div>• Right: Shielding</div>
+          <div>• B-Right: Thermal</div>
+          <div>• B-Left: In-situ H₂O</div>
         </div>
-        <input type="range" id="slider-ice" min="0.2" max="3.0" step="0.2" value="1.0" class="w-full accent-primary cursor-pointer"/>
       </div>
-      <div>
-        <div class="flex justify-between text-[10px] text-secondary mb-1">
-          <span>Regolith Mineral Simulant</span>
-          <span id="slider-min-val" class="text-primary">1.0x</span>
+
+    </section>
+
+  </main>
+
+  <!-- ================= MODALS & SLIDE-OVER PANELS ================= -->
+
+  <!-- 1. SATELLITE ORTHOMOSAIC MODAL -->
+  <div id="satellite-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card rounded-2xl max-w-4xl w-full h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 border-b border-white/[0.08] flex items-center justify-between font-mono text-xs">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="satellite_alt">satellite_alt</span>
+          <span class="font-bold text-white uppercase tracking-wider">Orbital SAR & Satellite Reconnaissance</span>
         </div>
-        <input type="range" id="slider-min" min="0.2" max="3.0" step="0.2" value="1.0" class="w-full accent-primary cursor-pointer"/>
+        <button id="btn-close-satellite" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
+      </div>
+      <div class="relative flex-1 bg-space-950">
+        <div id="satellite-map" class="w-full h-full"></div>
+        <div class="absolute bottom-3 left-3 z-[1000] bg-space-900/90 backdrop-blur border border-white/[0.1] px-3 py-1.5 text-xs font-mono text-slate-subtle rounded-lg">
+          <span>SENSOR: ESRI WORLD IMAGERY (SUB-METER RESOLUTION)</span>
+        </div>
       </div>
     </div>
-
-    <button id="btn-reset-calibration" class="w-full py-2 bg-surface-container border border-outline-variant/40 text-secondary hover:text-primary rounded text-xs mt-3">
-      Reset to Default Weights
-    </button>
   </div>
-</div>
 
-<!-- 7. ADD TARGET RECON MODAL -->
-<div id="add-recon-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-dim border border-outline-variant/40 rounded max-w-md w-full p-4 font-mono text-xs space-y-3 shadow-2xl">
-    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-sm" data-icon="add_location_alt">add_location_alt</span>
-        <span class="font-bold text-primary uppercase">ADD TARGET FIELD RECON</span>
+  <!-- 2. OFFICIAL DOSSIER MODAL -->
+  <div id="dossier-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl">
+      <div class="p-4 border-b border-white/[0.08] flex items-center justify-between font-mono text-xs no-print">
+        <span class="font-bold text-terracotta-400 uppercase tracking-wider">Planetary Analogue Field Protocol // Dossier</span>
+        <button id="btn-close-dossier" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
       </div>
-      <button id="btn-close-add-recon" class="text-secondary hover:text-white font-bold text-lg">&times;</button>
+
+      <!-- Printable Area -->
+      <div id="dossier-print-area" class="p-6 space-y-4 font-mono text-xs text-slate-100 bg-space-950">
+        <div class="border-b border-terracotta-500 pb-3 flex justify-between items-start">
+          <div>
+            <h2 class="text-lg font-bold text-white uppercase">ANALOGUE FLIGHT TEST PROTOCOL</h2>
+            <p class="text-[11px] text-slate-subtle">EXPLORATION SYSTEMS DEVELOPMENT • HABITAT VALIDATION</p>
+          </div>
+          <div class="text-right text-xs">
+            <span class="text-slate-subtle block">AUTHORIZATION:</span>
+            <div id="modal-dossier-id" class="font-bold text-terracotta-400">NASA-ANALOG-749201</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 bg-space-900 p-3 rounded-lg border border-white/[0.06] text-xs">
+          <div>
+            <span class="text-slate-subtle text-[10px] uppercase block">TARGET LOCATION</span>
+            <span id="modal-site-name" class="font-bold text-terracotta-400 block">Haughton Crater, Devon Island</span>
+          </div>
+          <div>
+            <span class="text-slate-subtle text-[10px] uppercase block">FIDELITY INDEX</span>
+            <span id="modal-site-fidelity" class="font-bold text-white block">94.2%</span>
+          </div>
+          <div>
+            <span class="text-slate-subtle text-[10px] uppercase block">DATUM / COORDINATES</span>
+            <span id="modal-site-coords" class="font-bold text-slate-light block">WGS84: 75°22′N 89°41′W</span>
+          </div>
+          <div>
+            <span class="text-slate-subtle text-[10px] uppercase block">ELEVATION ASL</span>
+            <span id="modal-site-elev" class="font-bold text-slate-light block">230m ASL</span>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <span class="text-xs uppercase font-bold text-terracotta-400 block tracking-wider">1. GEOLOGICAL & ENVIRONMENTAL VALIDATION</span>
+          <p id="modal-site-desc" class="text-slate-subtle text-xs leading-relaxed"></p>
+        </div>
+
+        <div class="space-y-1.5">
+          <span class="text-xs uppercase font-bold text-terracotta-400 block tracking-wider">2. TEST CAMPAIGN SPECIFICATION</span>
+          <p id="modal-site-hab" class="text-slate-subtle text-xs leading-relaxed"></p>
+        </div>
+
+        <div class="pt-3 border-t border-white/[0.08] text-[10px] text-slate-subtle">
+          AUTHORIZED FOR ARTEMIS-III / ARES-1 ARCHITECTURE TESTBED UNDER COLD HARDENED PROTOCOL SPEC 2.2
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-white/[0.08] bg-space-900 flex justify-between items-center font-mono text-xs no-print">
+        <button id="btn-download-json" class="px-3.5 py-2 border border-white/[0.1] hover:border-white/[0.3] text-slate-subtle hover:text-white rounded-lg transition-colors flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm" data-icon="data_object">data_object</span>
+          Download JSON
+        </button>
+        <button id="btn-print-modal" class="px-4 py-2 bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow">
+          <span class="material-symbols-outlined text-sm" data-icon="print">print</span>
+          Print / Save PDF
+        </button>
+      </div>
     </div>
-    <form id="form-add-recon" class="space-y-2.5">
-      <div>
-        <label class="text-[10px] text-secondary uppercase block mb-1">Site / Analog Name</label>
-        <input id="input-site-name" type="text" required placeholder="e.g. Lanzarote Lava Tubes" class="w-full p-2 bg-surface-lowest border border-outline-variant/40 text-primary text-xs rounded outline-none focus:border-primary"/>
+  </div>
+
+  <!-- 3. SURFACE MATRIX MODAL -->
+  <div id="matrix-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card rounded-2xl max-w-4xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden font-mono text-xs">
+      <div class="p-4 border-b border-white/[0.08] flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="grid_view">grid_view</span>
+          <span class="font-bold text-white uppercase tracking-wider">Surface Correlation Matrix</span>
+        </div>
+        <button id="btn-close-matrix" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold">&times;</button>
       </div>
-      <div>
-        <label class="text-[10px] text-secondary uppercase block mb-1">Territory / Region</label>
-        <input id="input-site-region" type="text" required placeholder="e.g. Canary Islands, Spain" class="w-full p-2 bg-surface-lowest border border-outline-variant/40 text-primary text-xs rounded outline-none focus:border-primary"/>
+      <div class="p-5 overflow-x-auto flex-1">
+        <table class="w-full text-left border-collapse border border-white/[0.08] rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-space-900 border-b border-white/[0.08] text-slate-subtle text-[11px]">
+              <th class="p-3 border-r border-white/[0.06]">ANALOG SITE</th>
+              <th class="p-3 border-r border-white/[0.06]">FIDELITY</th>
+              <th class="p-3 border-r border-white/[0.06]">POI INDEX</th>
+              <th class="p-3 border-r border-white/[0.06]">UV-C FLUX</th>
+              <th class="p-3 border-r border-white/[0.06]">WIE (wt%)</th>
+              <th class="p-3">PRIMARY REGIME</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-table-body" class="text-slate-100 text-xs">
+            <!-- Populated by app.js -->
+          </tbody>
+        </table>
       </div>
-      <div class="grid grid-cols-2 gap-2">
+    </div>
+  </div>
+
+  <!-- 4. TERMINAL HUD MODAL -->
+  <div id="terminal-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-space-950 border border-white/[0.1] rounded-2xl max-w-2xl w-full h-96 flex flex-col shadow-2xl font-mono text-xs overflow-hidden">
+      <div class="p-3 border-b border-white/[0.08] flex items-center justify-between bg-space-900">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="terminal">terminal</span>
+          <span class="font-bold text-white">MISSION OPS TERMINAL HUD</span>
+        </div>
+        <button id="btn-close-terminal" class="text-slate-subtle hover:text-white font-bold">&times;</button>
+      </div>
+      <div id="terminal-output" class="flex-1 p-4 overflow-y-auto space-y-1.5 text-slate-subtle text-[11px]">
+        <div class="text-terracotta-400 font-bold">GEOANALOG MISSION OPS TERMINAL [VERSION 2.2-HARDENED]</div>
+        <div>TYPE <span class="text-terracotta-400 font-bold">help</span> FOR AVAILABLE COMMANDS (scan, list, target, clear, ping).</div>
+        <div class="text-white/[0.1]">----------------------------------------------------</div>
+      </div>
+      <div class="p-3 border-t border-white/[0.08] flex items-center gap-2 bg-space-900">
+        <span class="text-terracotta-400 font-bold">&gt;</span>
+        <input id="terminal-input" type="text" class="w-full bg-transparent border-0 p-0 text-white text-xs focus:ring-0 outline-none uppercase font-mono" placeholder="ENTER COMMAND..." autocomplete="off"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. ADD TARGET RECON MODAL -->
+  <div id="add-recon-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card rounded-2xl max-w-md w-full p-5 font-mono text-xs space-y-3.5 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-terracotta-400 text-sm" data-icon="add_location_alt">add_location_alt</span>
+          <span class="font-bold text-white uppercase tracking-wider">ADD TARGET FIELD RECON</span>
+        </div>
+        <button id="btn-close-add-recon" class="text-slate-subtle hover:text-white font-bold text-lg">&times;</button>
+      </div>
+      <form id="form-add-recon" class="space-y-3">
         <div>
-          <label class="text-[10px] text-secondary uppercase block mb-1">Latitude</label>
-          <input id="input-site-lat" type="number" step="0.001" required placeholder="29.04" class="w-full p-2 bg-surface-lowest border border-outline-variant/40 text-primary text-xs rounded outline-none focus:border-primary"/>
+          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Site / Analog Name</label>
+          <input id="input-site-name" type="text" required placeholder="e.g. Lanzarote Lava Tubes" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
         </div>
         <div>
-          <label class="text-[10px] text-secondary uppercase block mb-1">Longitude</label>
-          <input id="input-site-lng" type="number" step="0.001" required placeholder="-13.58" class="w-full p-2 bg-surface-lowest border border-outline-variant/40 text-primary text-xs rounded outline-none focus:border-primary"/>
+          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Territory / Region</label>
+          <input id="input-site-region" type="text" required placeholder="e.g. Canary Islands, Spain" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
         </div>
-      </div>
-      <div>
-        <label class="text-[10px] text-secondary uppercase block mb-1">Primary Geological Feature</label>
-        <input id="input-site-geo" type="text" required placeholder="e.g. Basaltic pyroducts & radiation shield" class="w-full p-2 bg-surface-lowest border border-outline-variant/40 text-primary text-xs rounded outline-none focus:border-primary"/>
-      </div>
-      <button type="submit" class="w-full py-2 bg-primary text-on-primary font-bold rounded uppercase hover:bg-surface-tint transition-colors mt-3">
-        Compute Fidelity & Deploy Recon
-      </button>
-    </form>
-  </div>
-</div>
-
-<!-- 8. ABORT COMM ALERT MODAL -->
-<div id="abort-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-lowest border-2 border-error rounded max-w-sm w-full p-4 font-mono text-xs space-y-3 text-center shadow-2xl">
-    <div class="text-error text-3xl font-bold">⚠️ EMERGENCY ALERT</div>
-    <div class="text-on-error-container font-bold text-sm uppercase">ORBITAL COMM TERMINATION TRIGGERED</div>
-    <p class="text-secondary text-[11px] leading-relaxed">
-      Disconnect telemetry uplink to orbital relay SWOT-2 and enter standalone hardened fallback mode?
-    </p>
-    <div class="flex gap-2 justify-center pt-2">
-      <button id="btn-cancel-abort" class="px-4 py-1.5 border border-outline-variant/50 text-secondary hover:text-white rounded">
-        Cancel / Standby
-      </button>
-      <button id="btn-confirm-abort" class="px-4 py-1.5 bg-error text-on-error font-bold rounded hover:bg-error-container">
-        Confirm Abort
-      </button>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] text-slate-subtle uppercase block mb-1">Latitude</label>
+            <input id="input-site-lat" type="number" step="0.001" required placeholder="29.04" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-subtle uppercase block mb-1">Longitude</label>
+            <input id="input-site-lng" type="number" step="0.001" required placeholder="-13.58" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
+          </div>
+        </div>
+        <div>
+          <label class="text-[10px] text-slate-subtle uppercase block mb-1">Primary Geological Feature</label>
+          <input id="input-site-geo" type="text" required placeholder="e.g. Basaltic pyroducts & radiation shield" class="w-full p-2.5 bg-space-900 border border-white/[0.08] text-white text-xs rounded-lg outline-none focus:border-terracotta-500"/>
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold rounded-lg uppercase transition-colors shadow mt-2">
+          Compute Fidelity & Deploy Recon
+        </button>
+      </form>
     </div>
   </div>
-</div>
 
-<!-- 9. FLIGHT CONTROLLER CREDENTIAL MODAL -->
-<div id="profile-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-  <div class="bg-surface-dim border border-outline-variant/40 rounded max-w-xs w-full p-4 font-mono text-xs space-y-3 shadow-2xl">
-    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
-      <span class="font-bold text-primary uppercase">OPERATOR CREDENTIALS</span>
-      <button id="btn-close-profile" class="text-secondary hover:text-white font-bold">&times;</button>
-    </div>
-    <div class="space-y-1.5 text-[11px]">
-      <div>OPERATOR: <span class="text-on-surface font-bold">FLIGHT CONTROLLER (AJINKYA)</span></div>
-      <div>STATION: <span class="text-primary font-bold">GEO-ANALOG OPS CONSOLE 01</span></div>
-      <div>SECURITY CLEARANCE: <span class="text-primary font-bold">NASA ARS-IV / LEVEL 3</span></div>
-      <div>WGS84 DATUM: <span class="text-secondary">LOCKED</span></div>
-      <div>ORBIT LINK: <span class="text-emerald-400 font-bold">STABLE (342 ms)</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- SCRIPTS -->
-<script src="./data.js"></script>
-<script src="./app.js"></script>
+  <!-- SCRIPTS -->
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ const planetarySites = [
     category: "all lunar-polar martian-permafrost",
     geoZone: "GEO-ZONE: IMPACT STRUCTURAL BASIN",
     geoZoneDesc: "High shock metamorphism, paleolake sediment analogs to Jezero / Shackleton rim rubble.",
-    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
     specs: {
       geomorphology: {
         title: "Impact Breccia & Shatter Cones",

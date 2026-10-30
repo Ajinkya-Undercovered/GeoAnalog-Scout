@@ -1,40 +1,36 @@
-// Planetary Analogue Field Protocol - Full Workstation Controller
-// Powers 100% of all interactive buttons, modals, and telemetry
+// Planetary Analogue Field Protocol - Sophisticated Workstation Controller
+// Drives GEOANALOG SCOUT clean luxury aerospace experience
 
 let sites = window.PlanetarySites || [];
 const simulantData = window.SimulantProfiles || {};
 const missionList = window.MissionTargets || [];
 
 let activeSite = sites[0] || null;
+let activeCategory = 'all';
 let satelliteMap = null;
 let satelliteMarker = null;
 
-// Dynamic weight modifiers from calibration drawer
-let weights = {
-  rough: 1.0,
-  therm: 1.0,
-  ice: 1.0,
-  mineral: 1.0
-};
-
 document.addEventListener('DOMContentLoaded', () => {
+  if (!sites.length) {
+    console.error('PlanetarySites dataset missing');
+    return;
+  }
+
   initHeroDossier(activeSite);
-  initCandidateCards();
+  renderCandidateCards('all');
   initFilterChips();
   initSearch();
-  initSidebarCatalog();
   initMissionSelector();
   initSimulantSelector();
   initModals();
   initTerminal();
-  initCalibrationDrawer();
   initAddReconForm();
   initSyncButton();
   initOrbitalPassTimer();
   populateMatrixTable();
 });
 
-// ================= 1. HERO DOSSIER & TELEMETRY =================
+// ================= 1. HERO SHOWCASE =================
 function initHeroDossier(site) {
   if (!site) return;
   activeSite = site;
@@ -57,7 +53,7 @@ function initHeroDossier(site) {
   if (coordsEl) coordsEl.textContent = `WGS84: ${site.coords}`;
   if (elevEl) elevEl.textContent = `ELEV: ${site.elev}`;
   if (impactEl) impactEl.textContent = `IMPACT AGE: ${site.impactAge}`;
-  if (fidelityEl) fidelityEl.textContent = `${site.fidelity}% FIDELITY`;
+  if (fidelityEl) fidelityEl.textContent = `${site.fidelity}%`;
   if (imageEl) imageEl.src = site.image;
   if (geoZoneEl) geoZoneEl.textContent = site.geoZone;
   if (geoDescEl) geoDescEl.textContent = site.geoZoneDesc;
@@ -118,36 +114,58 @@ function initHeroDossier(site) {
   }
 }
 
-// ================= 2. CANDIDATE CARDS =================
-function initCandidateCards() {
+// ================= 2. CANDIDATE CARDS (SOPHISTICATED) =================
+function renderCandidateCards(filterCat = 'all') {
   const grid = document.getElementById('candidate-grid');
   if (!grid) return;
 
-  grid.addEventListener('click', (e) => {
-    const card = e.target.closest('.candidate-card');
-    if (!card) return;
+  grid.innerHTML = '';
+  const filtered = sites.filter(s => s.id !== activeSite.id);
+  const displaySites = filtered.filter(s => filterCat === 'all' || (s.category && s.category.includes(filterCat)));
 
-    const siteId = card.getAttribute('data-site-id');
-    const found = sites.find(s => s.id === siteId);
-    if (found) {
-      initHeroDossier(found);
-      
-      // Update visual active state
-      document.querySelectorAll('.candidate-card').forEach(c => {
-        c.classList.remove('border-primary', 'bg-surface-container');
-        c.classList.add('border-outline-variant/30', 'bg-surface-container-low');
-      });
-      card.classList.add('border-primary', 'bg-surface-container');
-      card.classList.remove('border-outline-variant/30', 'bg-surface-container-low');
+  displaySites.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'glass-card glass-card-hover p-4 rounded-xl flex flex-col justify-between cursor-pointer space-y-3 group border border-white/[0.06] hover:border-terracotta-500/40';
+    card.setAttribute('data-site-id', s.id);
 
-      // Scroll to hero section
+    card.innerHTML = `
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-[11px] font-mono">
+          <span class="text-terracotta-400 font-bold font-tabular">${s.fidelity}% MATCH</span>
+          <span class="text-slate-subtle">${s.coords}</span>
+        </div>
+        <h4 class="font-space font-bold text-sm text-white group-hover:text-terracotta-400 transition-colors">${s.name}</h4>
+        <p class="text-[11px] text-slate-subtle">${s.region}</p>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed line-clamp-2">
+        ${s.geoZoneDesc || s.specs?.geomorphology?.desc || s.name}
+      </p>
+
+      <div class="flex items-center justify-between text-[10px] font-mono border-t border-white/[0.04] pt-2 text-slate-subtle">
+        <span class="truncate max-w-[130px] uppercase text-[9px] tracking-wider">${s.analogType}</span>
+        <span class="text-terracotta-400 font-semibold group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5">
+          <span>Inspect</span>
+          <span class="text-xs">›</span>
+        </span>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+      initHeroDossier(s);
+      renderCandidateCards(activeCategory);
       const hero = document.getElementById('hero-section');
       if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    });
+
+    grid.appendChild(card);
   });
+
+  const badge = document.getElementById('sync-candidate-badge');
+  if (badge) badge.textContent = `${displaySites.length} SITES SYNCHRONIZED`;
 }
 
-// ================= 3. FILTER CHIPS =================
+// ================= 3. FILTER PILLS =================
 function initFilterChips() {
   const container = document.getElementById('filter-chips-container');
   if (!container) return;
@@ -157,114 +175,53 @@ function initFilterChips() {
     if (!chip) return;
 
     document.querySelectorAll('.filter-chip').forEach(c => {
-      c.className = 'filter-chip bg-surface-container border border-outline-variant/40 hover:border-primary text-secondary hover:text-on-surface font-label-telemetry text-label-data-sm uppercase px-3 py-1 rounded transition-colors';
+      c.className = 'filter-chip px-3.5 py-1.5 rounded-full bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] hover:border-white/[0.15] transition-all';
     });
-    chip.className = 'filter-chip bg-primary text-on-primary font-label-telemetry text-label-data-sm uppercase px-3 py-1 rounded font-bold border border-primary transition-all';
+    chip.className = 'filter-chip px-3.5 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all';
 
-    const cat = chip.getAttribute('data-cat');
-    const cards = document.querySelectorAll('.candidate-card');
-    let visible = 0;
+    activeCategory = chip.getAttribute('data-cat');
+    renderCandidateCards(activeCategory);
+  });
+}
+
+// ================= 4. REAL-TIME SEARCH =================
+function initSearch() {
+  const input = document.getElementById('search-input');
+  if (!input) return;
+
+  // Global Ctrl+K / Cmd+K
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    }
+  });
+
+  input.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase().trim();
+    const cards = document.querySelectorAll('#candidate-grid > div');
+    let count = 0;
 
     cards.forEach(card => {
-      const siteId = card.getAttribute('data-site-id');
-      const site = sites.find(s => s.id === siteId);
-      if (!site) return;
-
-      if (cat === 'all' || (site.category && site.category.includes(cat))) {
-        card.style.display = 'block';
-        visible++;
+      const text = card.textContent.toLowerCase();
+      if (!q || text.includes(q)) {
+        card.style.display = 'flex';
+        count++;
       } else {
         card.style.display = 'none';
       }
     });
 
     const badge = document.getElementById('sync-candidate-badge');
-    if (badge) badge.textContent = `${visible} SITES ONLINE // SYNCHRONIZED`;
+    if (badge) badge.textContent = `${count} MATCHES FOUND`;
   });
 }
 
-// ================= 4. REAL-TIME SEARCH & CMD+K =================
-function initSearch() {
-  const input = document.getElementById('search-input');
-  const badgeCmdK = document.getElementById('badge-cmdk');
-
-  if (badgeCmdK && input) {
-    badgeCmdK.addEventListener('click', () => input.focus());
-  }
-
-  // Global Ctrl+K / Cmd+K listener
-  window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      if (input) {
-        input.focus();
-        input.select();
-      }
-    }
-  });
-
-  if (input) {
-    input.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase().trim();
-      const cards = document.querySelectorAll('.candidate-card');
-      let count = 0;
-
-      cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        if (!q || text.includes(q)) {
-          card.style.display = 'block';
-          count++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      const badge = document.getElementById('sync-candidate-badge');
-      if (badge) badge.textContent = `${count} MATCHES FOUND`;
-    });
-  }
-}
-
-// ================= 5. SIDEBAR TARGET CATALOG [6] =================
-function initSidebarCatalog() {
-  const catalogList = document.getElementById('target-catalog-list');
-  if (!catalogList) return;
-
-  catalogList.addEventListener('click', (e) => {
-    const link = e.target.closest('.catalog-link');
-    if (!link) return;
-    e.preventDefault();
-
-    document.querySelectorAll('.catalog-link').forEach(l => {
-      l.className = 'catalog-link flex items-center gap-3 text-secondary hover:bg-surface-container hover:text-on-surface px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider transition-colors cursor-pointer';
-      const icon = l.querySelector('.material-symbols-outlined');
-      if (icon) {
-        icon.textContent = 'radio_button_unchecked';
-        icon.className = 'material-symbols-outlined text-secondary';
-      }
-    });
-
-    link.className = 'catalog-link flex items-center gap-3 bg-surface-container text-primary border-l-2 border-primary px-3 py-2.5 font-label-telemetry text-label-telemetry uppercase tracking-wider rounded-none cursor-pointer';
-    const icon = link.querySelector('.material-symbols-outlined');
-    if (icon) {
-      icon.textContent = 'radio_button_checked';
-      icon.className = 'material-symbols-outlined text-primary';
-    }
-
-    const tid = link.getAttribute('data-target-id');
-    if (tid === 'lunar-basalt') initHeroDossier(sites[0]); // Haughton
-    else if (tid === 'martian-regolith') initHeroDossier(sites[1]); // McMurdo
-    else if (tid === 'hydrothermal') initHeroDossier(sites[2]); // Atacama
-    else if (tid === 'polar-permafrost') initHeroDossier(sites[1]); // McMurdo
-    else if (tid === 'volcanic-tubes') initHeroDossier(sites[3]); // Mauna Loa
-    else if (tid === 'impact-craters') initHeroDossier(sites[4]); // Askja
-  });
-}
-
-// ================= 6. DYNAMIC MISSION SELECTOR =================
+// ================= 5. DYNAMIC MISSION SELECTOR =================
 function initMissionSelector() {
   const select = document.getElementById('mission-target-select');
-  const badge = document.getElementById('header-mission-badge');
+  const badge = document.getElementById('mission-sub-badge');
   const title = document.getElementById('mission-main-title');
 
   if (!select) return;
@@ -274,29 +231,28 @@ function initMissionSelector() {
     const target = missionList.find(m => m.id === val);
     if (!target) return;
 
-    if (badge) badge.textContent = target.code;
+    if (badge) badge.textContent = `OPS PLAN // ${target.code}`;
     if (title) title.textContent = target.title;
 
-    // Load top recommended site for that mission
     const topSite = sites.find(s => s.id === target.topSiteId);
     if (topSite) {
       initHeroDossier(topSite);
+      renderCandidateCards(activeCategory);
       
-      // Flash live link badge
       const linkBadge = document.getElementById('live-link-badge');
       if (linkBadge) {
         linkBadge.textContent = 'MISSION RECALIBRATED';
-        linkBadge.classList.add('bg-primary-container', 'text-on-primary-container');
+        linkBadge.className = 'text-[10px] font-mono text-terracotta-400 bg-terracotta-500/10 border border-terracotta-500/20 px-2 py-0.5 rounded-full';
         setTimeout(() => {
-          linkBadge.textContent = 'LIVE LINK';
-          linkBadge.classList.remove('bg-primary-container', 'text-on-primary-container');
+          linkBadge.textContent = 'ORBIT LINK LOCKED';
+          linkBadge.className = 'text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full';
         }, 1500);
       }
     }
   });
 }
 
-// ================= 7. REGOLITH SIMULANT SELECTOR =================
+// ================= 6. REGOLITH SIMULANT SELECTOR =================
 function initSimulantSelector() {
   const select = document.getElementById('simulant-select');
   if (!select) return;
@@ -316,53 +272,48 @@ function initSimulantSelector() {
   });
 }
 
-// ================= 8. ALL MODALS & ACTIONS =================
+// ================= 7. MODALS & NAV TABS =================
 function initModals() {
   // Brand Home
   const brandHome = document.getElementById('btn-brand-home');
-  const navDossiers = document.getElementById('btn-nav-dossiers');
+  const tabOverview = document.getElementById('tab-overview');
   if (brandHome) brandHome.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  if (navDossiers) navDossiers.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  if (tabOverview) tabOverview.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   // Satellite Modal
   const satModal = document.getElementById('satellite-modal');
-  const openSatBtns = [
-    document.getElementById('btn-spectral-layer'),
-    document.getElementById('btn-nav-radar'),
-    document.getElementById('btn-quick-radar')
-  ];
+  const tabRadar = document.getElementById('tab-radar');
+  const spectralBtn = document.getElementById('btn-spectral-layer');
   const closeSatBtn = document.getElementById('btn-close-satellite');
 
-  openSatBtns.forEach(btn => {
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        satModal.classList.remove('hidden');
-        setTimeout(initSatelliteMap, 150);
-      });
+  function openSatellite() {
+    if (satModal) {
+      satModal.classList.remove('hidden');
+      setTimeout(initSatelliteMap, 150);
     }
-  });
+  }
+
+  if (tabRadar) tabRadar.addEventListener('click', openSatellite);
+  if (spectralBtn) spectralBtn.addEventListener('click', openSatellite);
   if (closeSatBtn) closeSatBtn.addEventListener('click', () => satModal.classList.add('hidden'));
 
   // Dossier Modal
   const dosModal = document.getElementById('dossier-modal');
-  const openDosBtns = [
-    document.getElementById('btn-full-dossier'),
-    document.getElementById('btn-export-dossier')
-  ];
+  const fullDossierBtn = document.getElementById('btn-full-dossier');
+  const exportDossierBtn = document.getElementById('btn-export-dossier');
   const closeDosBtn = document.getElementById('btn-close-dossier');
   const printBtn = document.getElementById('btn-print-modal');
   const downloadJsonBtn = document.getElementById('btn-download-json');
 
-  openDosBtns.forEach(btn => {
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        populateDossierModal(activeSite);
-        dosModal.classList.remove('hidden');
-      });
+  function openDossier() {
+    if (dosModal && activeSite) {
+      populateDossierModal(activeSite);
+      dosModal.classList.remove('hidden');
     }
-  });
+  }
+
+  if (fullDossierBtn) fullDossierBtn.addEventListener('click', openDossier);
+  if (exportDossierBtn) exportDossierBtn.addEventListener('click', openDossier);
   if (closeDosBtn) closeDosBtn.addEventListener('click', () => dosModal.classList.add('hidden'));
   if (printBtn) printBtn.addEventListener('click', () => window.print());
 
@@ -380,98 +331,28 @@ function initModals() {
 
   // Surface Matrix Modal
   const matrixModal = document.getElementById('matrix-modal');
-  const navMatrixBtn = document.getElementById('btn-nav-matrix');
+  const tabMatrix = document.getElementById('tab-matrix');
   const closeMatrixBtn = document.getElementById('btn-close-matrix');
 
-  if (navMatrixBtn) {
-    navMatrixBtn.addEventListener('click', (e) => {
-      e.preventDefault();
+  if (tabMatrix) {
+    tabMatrix.addEventListener('click', () => {
       matrixModal.classList.remove('hidden');
     });
   }
   if (closeMatrixBtn) closeMatrixBtn.addEventListener('click', () => matrixModal.classList.add('hidden'));
-
-  // Spectral Modal
-  const spectralModal = document.getElementById('spectral-modal');
-  const navSpectralBtn = document.getElementById('btn-nav-spectral');
-  const closeSpectralBtn = document.getElementById('btn-close-spectral');
-
-  if (navSpectralBtn) {
-    navSpectralBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      spectralModal.classList.remove('hidden');
-    });
-  }
-  if (closeSpectralBtn) closeSpectralBtn.addEventListener('click', () => spectralModal.classList.add('hidden'));
-
-  // Calibration Drawer
-  const calDrawer = document.getElementById('calibration-drawer');
-  const openCalBtns = [
-    document.getElementById('btn-quick-calibrate'),
-    document.getElementById('btn-sidebar-calibrate')
-  ];
-  const closeCalBtn = document.getElementById('btn-close-calibrate');
-
-  openCalBtns.forEach(btn => {
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        calDrawer.classList.remove('hidden');
-      });
-    }
-  });
-  if (closeCalBtn) closeCalBtn.addEventListener('click', () => calDrawer.classList.add('hidden'));
 
   // Add Recon Modal
   const reconModal = document.getElementById('add-recon-modal');
   const btnAddRecon = document.getElementById('btn-add-recon');
   const closeReconBtn = document.getElementById('btn-close-add-recon');
 
-  if (btnAddRecon) {
-    btnAddRecon.addEventListener('click', () => reconModal.classList.remove('hidden'));
-  }
+  if (btnAddRecon) btnAddRecon.addEventListener('click', () => reconModal.classList.remove('hidden'));
   if (closeReconBtn) closeReconBtn.addEventListener('click', () => reconModal.classList.add('hidden'));
 
-  // Abort Comm Modal
-  const abortModal = document.getElementById('abort-modal');
-  const btnSidebarAbort = document.getElementById('btn-sidebar-abort');
-  const cancelAbort = document.getElementById('btn-cancel-abort');
-  const confirmAbort = document.getElementById('btn-confirm-abort');
-
-  if (btnSidebarAbort) {
-    btnSidebarAbort.addEventListener('click', (e) => {
-      e.preventDefault();
-      abortModal.classList.remove('hidden');
-    });
-  }
-  if (cancelAbort) cancelAbort.addEventListener('click', () => abortModal.classList.add('hidden'));
-  if (confirmAbort) {
-    confirmAbort.addEventListener('click', () => {
-      abortModal.classList.add('hidden');
-      const linkBadge = document.getElementById('live-link-badge');
-      if (linkBadge) {
-        linkBadge.textContent = 'COMM ABORTED // STANDALONE';
-        linkBadge.className = 'text-caption font-caption bg-error text-on-error px-2 py-0.5 rounded cursor-pointer';
-        setTimeout(() => {
-          linkBadge.textContent = 'LIVE LINK';
-          linkBadge.className = 'text-caption font-caption text-secondary bg-surface-container px-2 py-0.5 rounded cursor-pointer hover:text-primary';
-        }, 5000);
-      }
-    });
-  }
-
-  // Operator Profile Modal
-  const profileModal = document.getElementById('profile-modal');
-  const btnProfile = document.getElementById('btn-user-profile');
-  const closeProfile = document.getElementById('btn-close-profile');
-
-  if (btnProfile) btnProfile.addEventListener('click', () => profileModal.classList.remove('hidden'));
-  if (closeProfile) closeProfile.addEventListener('click', () => profileModal.classList.add('hidden'));
-
-  // Global ESC key closes any open modal
+  // Global ESC key
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      [satModal, dosModal, matrixModal, spectralModal, calDrawer, reconModal, abortModal, profileModal].forEach(m => {
+      [satModal, dosModal, matrixModal, reconModal].forEach(m => {
         if (m) m.classList.add('hidden');
       });
       const termModal = document.getElementById('terminal-modal');
@@ -498,13 +379,13 @@ function populateMatrixTable() {
   if (!tbody) return;
 
   tbody.innerHTML = sites.map(s => `
-    <tr class="border-b border-outline-variant/20 hover:bg-surface-container transition-colors cursor-pointer" onclick="selectSiteFromMatrix('${s.id}')">
-      <td class="p-2.5 font-bold text-primary border-r border-outline-variant/30">${s.name}</td>
-      <td class="p-2.5 font-bold text-on-surface border-r border-outline-variant/30">${s.fidelity}%</td>
-      <td class="p-2.5 border-r border-outline-variant/30">${s.telemetry.poiIndex}</td>
-      <td class="p-2.5 border-r border-outline-variant/30">${s.telemetry.uvFlux}</td>
-      <td class="p-2.5 border-r border-outline-variant/30">${s.telemetry.wie}</td>
-      <td class="p-2.5 text-secondary">${s.analogType}</td>
+    <tr class="border-b border-white/[0.04] hover:bg-space-850 transition-colors cursor-pointer" onclick="selectSiteFromMatrix('${s.id}')">
+      <td class="p-3 font-bold text-white border-r border-white/[0.06]">${s.name}</td>
+      <td class="p-3 font-bold text-terracotta-400 border-r border-white/[0.06] font-tabular">${s.fidelity}%</td>
+      <td class="p-3 border-r border-white/[0.06]">${s.telemetry.poiIndex}</td>
+      <td class="p-3 border-r border-white/[0.06]">${s.telemetry.uvFlux}</td>
+      <td class="p-3 border-r border-white/[0.06]">${s.telemetry.wie}</td>
+      <td class="p-3 text-slate-subtle">${s.analogType}</td>
     </tr>
   `).join('');
 }
@@ -513,32 +394,26 @@ window.selectSiteFromMatrix = function(siteId) {
   const found = sites.find(s => s.id === siteId);
   if (found) {
     initHeroDossier(found);
+    renderCandidateCards(activeCategory);
     const matrixModal = document.getElementById('matrix-modal');
     if (matrixModal) matrixModal.classList.add('hidden');
   }
 };
 
-// ================= 9. MISSION TERMINAL HUD =================
+// ================= 8. MISSION TERMINAL HUD =================
 function initTerminal() {
   const termModal = document.getElementById('terminal-modal');
-  const openBtns = [
-    document.getElementById('btn-nav-telemetry'),
-    document.getElementById('btn-quick-terminal'),
-    document.getElementById('btn-sidebar-log')
-  ];
+  const tabTelemetry = document.getElementById('tab-telemetry');
   const closeBtn = document.getElementById('btn-close-terminal');
   const input = document.getElementById('terminal-input');
   const output = document.getElementById('terminal-output');
 
-  openBtns.forEach(btn => {
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        termModal.classList.remove('hidden');
-        if (input) input.focus();
-      });
-    }
-  });
+  if (tabTelemetry) {
+    tabTelemetry.addEventListener('click', () => {
+      termModal.classList.remove('hidden');
+      if (input) input.focus();
+    });
+  }
 
   if (closeBtn) closeBtn.addEventListener('click', () => termModal.classList.add('hidden'));
 
@@ -556,25 +431,25 @@ function initTerminal() {
 function executeTerminalCommand(cmd, output) {
   const log = (msg, isErr = false) => {
     const div = document.createElement('div');
-    div.className = isErr ? 'text-error' : 'text-on-surface';
+    div.className = isErr ? 'text-error text-red-400' : 'text-slate-100';
     div.innerHTML = msg;
     output.appendChild(div);
     output.scrollTop = output.scrollHeight;
   };
 
-  log(`<span class="text-primary font-bold">&gt; ${cmd.toUpperCase()}</span>`);
+  log(`<span class="text-terracotta-400 font-bold">&gt; ${cmd.toUpperCase()}</span>`);
 
   if (!cmd) return;
 
   switch (cmd) {
     case 'help':
       log(`AVAILABLE COMMANDS:
-- <span class="text-primary">scan</span> : Perform orbital SAR sweep on active site
-- <span class="text-primary">sites</span> : List all active Earth analog testbeds
-- <span class="text-primary">target [name]</span> : Switch target (e.g. target mcmurdo, target atacama)
-- <span class="text-primary">dossier</span> : View current active flight authorization summary
-- <span class="text-primary">ping</span> : Test orbital uplink latency
-- <span class="text-primary">clear</span> : Clear terminal buffer`);
+- <span class="text-terracotta-400">scan</span> : Perform orbital SAR sweep on active site
+- <span class="text-terracotta-400">sites</span> : List all active Earth analog testbeds
+- <span class="text-terracotta-400">target [name]</span> : Switch target (e.g. target mcmurdo, target atacama)
+- <span class="text-terracotta-400">dossier</span> : View current active flight authorization summary
+- <span class="text-terracotta-400">ping</span> : Test orbital uplink latency
+- <span class="text-terracotta-400">clear</span> : Clear terminal buffer`);
       break;
     case 'scan':
       log(`[SWOT-2 SAR RECON] P-Band Synthetic Aperture Radar active...`);
@@ -589,7 +464,7 @@ function executeTerminalCommand(cmd, output) {
       log(`REGIME: ${activeSite.analogType} | ELEVATION: ${activeSite.elev}`);
       break;
     case 'ping':
-      log(`PING ORBITAL RELAY SWOT-2: 64 bytes from 192.0.2.42: icmp_seq=1 time=${activeSite.telemetry.latency}`);
+      log(`PING ORBITAL RELAY SWOT-2: 64 bytes from 192.0.2.42: time=${activeSite.telemetry.latency}`);
       break;
     case 'clear':
       output.innerHTML = '';
@@ -600,7 +475,8 @@ function executeTerminalCommand(cmd, output) {
         const found = sites.find(s => s.id.includes(query) || s.name.toLowerCase().includes(query));
         if (found) {
           initHeroDossier(found);
-          log(`TARGET SWITCHED TO: <span class="text-primary font-bold">${found.name}</span> (${found.coords})`);
+          renderCandidateCards(activeCategory);
+          log(`TARGET SWITCHED TO: <span class="text-terracotta-400 font-bold">${found.name}</span> (${found.coords})`);
         } else {
           log(`Site not found. Use 'sites' to list valid target IDs.`, true);
         }
@@ -611,50 +487,7 @@ function executeTerminalCommand(cmd, output) {
   }
 }
 
-// ================= 10. SENSOR CALIBRATION DRAWER SLIDERS =================
-function initCalibrationDrawer() {
-  const sliders = [
-    { id: 'slider-rough', valId: 'slider-rough-val', key: 'rough' },
-    { id: 'slider-therm', valId: 'slider-therm-val', key: 'therm' },
-    { id: 'slider-ice', valId: 'slider-ice-val', key: 'ice' },
-    { id: 'slider-min', valId: 'slider-min-val', key: 'mineral' }
-  ];
-
-  sliders.forEach(s => {
-    const el = document.getElementById(s.id);
-    const valEl = document.getElementById(s.valId);
-    if (el) {
-      el.addEventListener('input', (e) => {
-        const val = parseFloat(e.target.value);
-        weights[s.key] = val;
-        if (valEl) valEl.textContent = `${val.toFixed(1)}x`;
-
-        // Dynamically adjust fidelity based on calibration weights
-        const adjustedFidelity = (activeSite.fidelity * (0.8 + 0.05 * (weights.rough + weights.therm + weights.ice + weights.mineral))).toFixed(1);
-        const cappedFidelity = Math.min(99.4, Math.max(75.0, adjustedFidelity));
-        
-        const fidEl = document.getElementById('hero-fidelity');
-        if (fidEl) fidEl.textContent = `${cappedFidelity}% FIDELITY`;
-      });
-    }
-  });
-
-  const resetBtn = document.getElementById('btn-reset-calibration');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      sliders.forEach(s => {
-        const el = document.getElementById(s.id);
-        const valEl = document.getElementById(s.valId);
-        if (el) el.value = '1.0';
-        if (valEl) valEl.textContent = '1.0x';
-        weights[s.key] = 1.0;
-      });
-      initHeroDossier(activeSite);
-    });
-  }
-}
-
-// ================= 11. ADD TARGET RECON FORM =================
+// ================= 9. ADD TARGET RECON FORM =================
 function initAddReconForm() {
   const form = document.getElementById('form-add-recon');
   const modal = document.getElementById('add-recon-modal');
@@ -707,7 +540,7 @@ function initAddReconForm() {
     };
 
     sites.push(newSite);
-    appendCandidateCard(newSite);
+    renderCandidateCards(activeCategory);
     populateMatrixTable();
     initHeroDossier(newSite);
 
@@ -716,35 +549,7 @@ function initAddReconForm() {
   });
 }
 
-function appendCandidateCard(site) {
-  const grid = document.getElementById('candidate-grid');
-  if (!grid) return;
-
-  const card = document.createElement('div');
-  card.setAttribute('data-site-id', site.id);
-  card.className = 'candidate-card bg-surface-container border border-primary rounded p-4 transition-colors cursor-pointer group';
-  card.innerHTML = `
-    <div class="flex justify-between items-start mb-2">
-      <div>
-        <span class="text-label-data-sm font-label-data-sm text-primary font-bold">${site.region.toUpperCase()} // VECTOR ${site.coords}</span>
-        <h4 class="text-headline-sm font-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors">${site.name}</h4>
-      </div>
-      <span class="bg-surface-container border border-primary/40 text-primary text-label-data-sm font-label-data-sm px-2 py-0.5 rounded font-bold">${site.fidelity}% FIDELITY</span>
-    </div>
-    <p class="text-body-sm font-body-sm text-secondary mb-3">${site.geoZoneDesc}</p>
-    <div class="grid grid-cols-3 gap-2 border-t border-outline-variant/20 pt-2 text-caption font-caption text-secondary">
-      <div><span class="block text-on-surface font-label-data-sm">FIELD STATUS</span> DEPLOYED</div>
-      <div><span class="block text-on-surface font-label-data-sm">DATUM</span> WGS84</div>
-      <div><span class="block text-on-surface font-label-data-sm">UPLINK</span> ACTIVE</div>
-    </div>
-  `;
-  grid.prepend(card);
-
-  const badge = document.getElementById('sync-candidate-badge');
-  if (badge) badge.textContent = `${sites.length} SITES ONLINE // SYNCHRONIZED`;
-}
-
-// ================= 12. SATELLITE LEAFLET MAP =================
+// ================= 10. SATELLITE LEAFLET MAP =================
 function initSatelliteMap() {
   const container = document.getElementById('satellite-map');
   if (!container || !activeSite) return;
@@ -765,8 +570,8 @@ function initSatelliteMap() {
       className: 'tactical-beacon',
       html: `
         <div class="relative flex items-center justify-center">
-          <span class="absolute w-8 h-8 border-2 border-primary rounded-full animate-ping"></span>
-          <div class="w-3.5 h-3.5 bg-primary-container border-2 border-white rounded-full"></div>
+          <span class="absolute w-8 h-8 border-2 border-terracotta-500 rounded-full animate-ping"></span>
+          <div class="w-3.5 h-3.5 bg-terracotta-500 border-2 border-white rounded-full"></div>
         </div>
       `,
       iconSize: [24, 24],
@@ -781,7 +586,7 @@ function initSatelliteMap() {
   }
 }
 
-// ================= 13. SYNC BUTTON ANIMATION =================
+// ================= 11. SYNC BUTTON ANIMATION =================
 function initSyncButton() {
   const syncBtn = document.getElementById('btn-sync-orbital');
   const syncText = document.getElementById('sync-text');
@@ -794,18 +599,18 @@ function initSyncButton() {
 
     setTimeout(() => {
       if (icon) icon.classList.remove('animate-spin');
-      if (syncText) syncText.textContent = 'SYNCHRONIZED';
+      if (syncText) syncText.textContent = 'SYNCED';
       
       const badge = document.getElementById('live-link-badge');
       if (badge) {
-        badge.classList.add('bg-primary-container', 'text-on-primary-container');
-        setTimeout(() => badge.classList.remove('bg-primary-container', 'text-on-primary-container'), 1200);
+        badge.classList.add('text-terracotta-400');
+        setTimeout(() => badge.classList.remove('text-terracotta-400'), 1200);
       }
     }, 800);
   });
 }
 
-// ================= 14. ORBITAL PASS COUNTDOWN TIMER =================
+// ================= 12. ORBITAL PASS COUNTDOWN TIMER =================
 function initOrbitalPassTimer() {
   const timerEl = document.getElementById('orbital-timer');
   if (!timerEl) return;
