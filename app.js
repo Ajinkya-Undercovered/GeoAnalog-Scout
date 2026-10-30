@@ -164,7 +164,7 @@ function renderCandidateCards(filterCat = 'all') {
   });
 
   const badge = document.getElementById('sync-candidate-badge');
-  if (badge) badge.textContent = `${displaySites.length} SITES SYNCHRONIZED`;
+  if (badge) badge.textContent = `${displaySites.length} LOCATIONS READY`;
 }
 
 // ================= 3. FILTER PILLS =================
