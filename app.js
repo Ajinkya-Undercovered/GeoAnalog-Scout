@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initHeroDossier(activeSite);
   renderCandidateCards('all');
+  initCollapsibleSidebar();
   initFilterChips();
   initSearch();
   initMissionSelector();
@@ -542,6 +543,7 @@ function initAddReconForm() {
     sites.push(newSite);
     renderCandidateCards(activeCategory);
     populateMatrixTable();
+    if (window.refreshSidebarSites) window.refreshSidebarSites();
     initHeroDossier(newSite);
 
     form.reset();
@@ -613,7 +615,7 @@ function initSyncButton() {
 // ================= 12. ORBITAL PASS COUNTDOWN TIMER =================
 function initOrbitalPassTimer() {
   const timerEl = document.getElementById('orbital-timer');
-  if (!timerEl) return;
+  const sidebarTimerEl = document.getElementById('sidebar-pass-timer');
 
   let totalSeconds = 14 * 60 + 28;
 
@@ -623,6 +625,237 @@ function initOrbitalPassTimer() {
 
     const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
     const s = String(totalSeconds % 60).padStart(2, '0');
-    timerEl.textContent = `T-MINUS 00:${m}:${s}`;
+    const timeStr = `T-MINUS 00:${m}:${s}`;
+    if (timerEl) timerEl.textContent = timeStr;
+    if (sidebarTimerEl) sidebarTimerEl.textContent = timeStr;
   }, 1000);
+}
+
+// ================= 13. COLLAPSIBLE LEFT SIDEBAR (THREE LINES MENU) =================
+function initCollapsibleSidebar() {
+  const toggleBtn = document.getElementById('sidebar-toggle-btn');
+  const closeBtn = document.getElementById('sidebar-close-btn');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  const drawer = document.getElementById('left-sidebar-drawer');
+  const container = document.getElementById('sidebar-sites-container');
+  const searchInput = document.getElementById('sidebar-search-input');
+  const filterChips = document.getElementById('sidebar-filter-chips');
+  const missionLabel = document.getElementById('sidebar-mission-label');
+
+  if (!toggleBtn || !drawer || !backdrop) return;
+
+  let isSidebarOpen = false;
+  let sidebarCategory = 'all';
+  let sidebarSearchTerm = '';
+
+  function openSidebar() {
+    isSidebarOpen = true;
+    drawer.classList.remove('-translate-x-full');
+    drawer.classList.add('translate-x-0');
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100', 'pointer-events-auto');
+    toggleBtn.classList.add('sidebar-open');
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    renderSidebarSites();
+    if (searchInput) searchInput.focus();
+  }
+
+  function closeSidebar() {
+    isSidebarOpen = false;
+    drawer.classList.add('-translate-x-full');
+    drawer.classList.remove('translate-x-0');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+    backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+    toggleBtn.classList.remove('sidebar-open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleSidebar() {
+    if (isSidebarOpen) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  }
+
+  // Toggle button click (Three lines)
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleSidebar();
+  });
+
+  // Close button click
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
+  }
+
+  // Backdrop click
+  backdrop.addEventListener('click', closeSidebar);
+
+  // Keyboard Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isSidebarOpen) {
+      closeSidebar();
+    }
+  });
+
+  // Search input in sidebar
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      sidebarSearchTerm = e.target.value.toLowerCase().trim();
+      renderSidebarSites();
+    });
+  }
+
+  // Category filter chips in sidebar
+  if (filterChips) {
+    filterChips.addEventListener('click', (e) => {
+      const chip = e.target.closest('.sidebar-cat-chip');
+      if (!chip) return;
+
+      document.querySelectorAll('.sidebar-cat-chip').forEach(c => {
+        c.className = 'sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer';
+      });
+      chip.className = 'sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-terracotta-500 text-white font-semibold transition-all cursor-pointer';
+
+      sidebarCategory = chip.getAttribute('data-cat') || 'all';
+      renderSidebarSites();
+    });
+  }
+
+  // Quick Action Buttons in sidebar
+  const btnMap = document.getElementById('sidebar-btn-map');
+  if (btnMap) {
+    btnMap.addEventListener('click', () => {
+      closeSidebar();
+      const targetBtn = document.getElementById('btn-view-satellite') || document.getElementById('btn-hero-satellite');
+      if (targetBtn) targetBtn.click();
+    });
+  }
+
+  const btnMatrix = document.getElementById('sidebar-btn-matrix');
+  if (btnMatrix) {
+    btnMatrix.addEventListener('click', () => {
+      closeSidebar();
+      const targetBtn = document.getElementById('tab-matrix') || document.getElementById('btn-surface-matrix-view');
+      if (targetBtn) targetBtn.click();
+    });
+  }
+
+  const btnTerminal = document.getElementById('sidebar-btn-terminal');
+  if (btnTerminal) {
+    btnTerminal.addEventListener('click', () => {
+      closeSidebar();
+      const targetBtn = document.getElementById('tab-telemetry');
+      if (targetBtn) targetBtn.click();
+    });
+  }
+
+  const btnRecon = document.getElementById('sidebar-btn-recon');
+  if (btnRecon) {
+    btnRecon.addEventListener('click', () => {
+      closeSidebar();
+      const targetBtn = document.getElementById('btn-add-recon');
+      if (targetBtn) targetBtn.click();
+    });
+  }
+
+  // Render analog sites in sidebar
+  function renderSidebarSites() {
+    if (!container) return;
+    container.innerHTML = '';
+
+    const filtered = sites.filter(s => {
+      const matchesCat = (sidebarCategory === 'all' || (s.category && s.category.includes(sidebarCategory)));
+      const matchesSearch = !sidebarSearchTerm || 
+        s.name.toLowerCase().includes(sidebarSearchTerm) ||
+        s.region.toLowerCase().includes(sidebarSearchTerm) ||
+        (s.specs?.geomorphology?.title && s.specs.geomorphology.title.toLowerCase().includes(sidebarSearchTerm)) ||
+        (s.specs?.climate?.title && s.specs.climate.title.toLowerCase().includes(sidebarSearchTerm));
+      return matchesCat && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="p-6 text-center text-slate-subtle border border-white/[0.04] rounded-xl bg-space-900/30">
+          <span class="material-symbols-outlined text-2xl mb-1 text-slate-500" data-icon="search_off">search_off</span>
+          <p class="text-xs font-mono">No matching analog sites found.</p>
+        </div>
+      `;
+      return;
+    }
+
+    filtered.forEach(s => {
+      const isActive = activeSite && (activeSite.id === s.id);
+      const card = document.createElement('div');
+      card.className = `p-3 rounded-xl border transition-all flex flex-col gap-1.5 cursor-pointer group ${
+        isActive 
+          ? 'border-terracotta-500/80 bg-space-850/90 shadow-lg shadow-terracotta-500/10' 
+          : 'border-white/[0.06] hover:border-terracotta-500/40 bg-space-900/40 hover:bg-space-850/70'
+      }`;
+      card.setAttribute('data-sidebar-site-id', s.id);
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full ${isActive ? 'bg-terracotta-400 animate-pulse' : 'bg-slate-500'}"></span>
+            <span class="text-[9px] font-mono text-terracotta-400 uppercase tracking-wider font-semibold">${s.dossierCode}</span>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full ${
+            isActive 
+              ? 'bg-terracotta-500 text-white font-bold' 
+              : 'bg-terracotta-500/10 text-terracotta-400 border border-terracotta-500/20 font-bold'
+          }">${s.fidelity}% MATCH</span>
+        </div>
+        <h4 class="font-space font-bold text-xs text-white group-hover:text-terracotta-400 transition-colors">${s.name}</h4>
+        <p class="text-[10px] text-slate-subtle line-clamp-1">${s.region} • ${s.coords}</p>
+        <div class="flex items-center justify-between text-[9px] font-mono text-slate-subtle pt-1.5 border-t border-white/[0.04]">
+          <span class="uppercase tracking-wider truncate max-w-[170px]">${s.analogType}</span>
+          <span class="text-terracotta-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5 font-semibold">
+            <span>${isActive ? 'Active' : 'Load Site'}</span>
+            <span>›</span>
+          </span>
+        </div>
+      `;
+
+      card.addEventListener('click', () => {
+        initHeroDossier(s);
+        renderCandidateCards(activeCategory);
+        renderSidebarSites();
+        
+        // Scroll to hero section smoothly
+        const hero = document.getElementById('hero-section');
+        if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Close drawer after selection so user sees the updated view
+        setTimeout(closeSidebar, 200);
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  // Sync sidebar mission label when mission select changes
+  const missionSelect = document.getElementById('mission-target-select');
+  if (missionSelect && missionLabel) {
+    const updateMissionLabel = () => {
+      const selectedOption = missionSelect.options[missionSelect.selectedIndex];
+      if (selectedOption) {
+        missionLabel.textContent = selectedOption.textContent.replace(/^[^\s]+\s*/, '');
+      }
+    };
+    missionSelect.addEventListener('change', updateMissionLabel);
+    updateMissionLabel();
+  }
+
+  // Also expose re-render if new recon site added
+  window.refreshSidebarSites = renderSidebarSites;
+
+  // Initial render of sidebar sites
+  renderSidebarSites();
+
+  // Support ?sidebar=open or #sidebar trigger
+  if (window.location.search.includes('sidebar=open') || window.location.hash === '#sidebar') {
+    setTimeout(openSidebar, 150);
+  }
 }

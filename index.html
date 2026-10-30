@@ -81,6 +81,23 @@
   ::-webkit-scrollbar-thumb { background: #222834; border-radius: 9999px; }
   ::-webkit-scrollbar-thumb:hover { background: #323b4c; }
 
+  /* Hamburger 3-lines icon transition */
+  .bar-top, .bar-mid, .bar-bot {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, background-color 0.2s ease, width 0.2s ease;
+  }
+  .sidebar-open .bar-top {
+    transform: translateY(6px) rotate(45deg);
+    background-color: #f97316 !important;
+  }
+  .sidebar-open .bar-mid {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .sidebar-open .bar-bot {
+    transform: translateY(-6px) rotate(-45deg);
+    background-color: #f97316 !important;
+  }
+
   @media print {
     body * { visibility: hidden; }
     #dossier-print-area, #dossier-print-area * { visibility: visible; }
@@ -91,10 +108,103 @@
 </head>
 <body class="bg-space-950 text-slate-100 min-h-screen flex flex-col selection:bg-terracotta-500 selection:text-white">
 
+  <!-- ================= COLLAPSIBLE LEFT SIDEBAR DRAWER (THREE LINES MENU) ================= -->
+  <!-- Backdrop Overlay -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-space-950/75 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <!-- Left Sidebar Drawer Container -->
+  <aside id="left-sidebar-drawer" class="fixed top-0 left-0 bottom-0 z-50 w-80 sm:w-96 bg-space-950/95 backdrop-blur-2xl border-r border-white/[0.08] shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out overflow-hidden" aria-label="Analog Sites Catalog Drawer">
+    <!-- Drawer Header -->
+    <div class="px-5 py-4 border-b border-white/[0.08] flex items-center justify-between bg-space-900/60">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-terracotta-500/20 border border-terracotta-500/40 flex items-center justify-center text-terracotta-400">
+          <span class="material-symbols-outlined text-sm" data-icon="explore">explore</span>
+        </div>
+        <div>
+          <h2 class="font-space font-bold text-xs uppercase tracking-wider text-white">Analog Testbed Catalog</h2>
+          <p class="text-[10px] font-mono text-slate-subtle tracking-widest uppercase">WGS84 DATUM // 5 RECON SITES</p>
+        </div>
+      </div>
+      <button id="sidebar-close-btn" title="Close Sidebar (Esc)" aria-label="Close Sidebar" class="w-8 h-8 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.08] hover:border-white/[0.2] flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+      </button>
+    </div>
+
+    <!-- Active Mission Indicator & Quick Search -->
+    <div class="p-4 space-y-3 border-b border-white/[0.06] bg-space-900/30">
+      <!-- Mission Pill -->
+      <div class="bg-space-850/80 border border-white/[0.06] p-2.5 rounded-xl flex items-center justify-between">
+        <div class="flex items-center gap-2 truncate">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+          <div class="flex flex-col truncate">
+            <span class="text-[9px] font-mono text-slate-subtle uppercase tracking-wider">ACTIVE MISSION</span>
+            <span id="sidebar-mission-label" class="text-xs font-semibold text-slate-100 truncate">Artemis III Base (Moon South Pole)</span>
+          </div>
+        </div>
+        <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full shrink-0">LOCKED</span>
+      </div>
+
+      <!-- Quick Search input inside sidebar -->
+      <div class="relative">
+        <span class="material-symbols-outlined text-slate-subtle text-xs absolute left-3 top-2.5" data-icon="search">search</span>
+        <input id="sidebar-search-input" type="text" placeholder="Filter sites by name, soil, biome..." class="w-full bg-space-850/80 border border-white/[0.08] text-xs pl-8 pr-3 py-2 rounded-lg text-slate-100 placeholder:text-slate-subtle focus:border-terracotta-500 focus:outline-none transition-all"/>
+      </div>
+
+      <!-- Quick Category Filter Chips -->
+      <div class="flex flex-wrap gap-1.5 pt-1" id="sidebar-filter-chips">
+        <button data-cat="all" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-terracotta-500 text-white font-semibold transition-all cursor-pointer">ALL</button>
+        <button data-cat="lunar-polar" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">LUNAR POLAR</button>
+        <button data-cat="martian-permafrost" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">MARS PERMAFROST</button>
+        <button data-cat="lava-tubes" class="sidebar-cat-chip px-2.5 py-1 rounded-full text-[10px] font-mono bg-space-850 text-slate-subtle hover:text-white border border-white/[0.06] transition-all cursor-pointer">LAVA TUBES</button>
+      </div>
+    </div>
+
+    <!-- Scrollable Analog Sites List -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-2.5" id="sidebar-sites-container">
+      <!-- Injected dynamically via JS -->
+    </div>
+
+    <!-- Quick Tools Cluster & Footer -->
+    <div class="p-4 border-t border-white/[0.08] bg-space-900/60 space-y-3 shrink-0">
+      <div class="grid grid-cols-2 gap-2 text-[11px] font-mono">
+        <button id="sidebar-btn-map" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
+          <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="public">public</span>
+          <span>Satellite 3D</span>
+        </button>
+        <button id="sidebar-btn-matrix" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
+          <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="table_chart">table_chart</span>
+          <span>Matrix Table</span>
+        </button>
+        <button id="sidebar-btn-terminal" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
+          <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="terminal">terminal</span>
+          <span>Orbital HUD</span>
+        </button>
+        <button id="sidebar-btn-recon" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.06] hover:border-terracotta-500/40 text-slate-200 hover:text-white transition-all justify-center cursor-pointer">
+          <span class="material-symbols-outlined text-xs text-terracotta-400" data-icon="add_circle">add_circle</span>
+          <span>+ Add Recon</span>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between text-[10px] font-mono text-slate-subtle pt-1 border-t border-white/[0.04]">
+        <span>SWOT-2: <strong id="sidebar-pass-timer" class="text-terracotta-400">T-MINUS 08:14</strong></span>
+        <span>NASA SPACE APPS</span>
+      </div>
+    </div>
+  </aside>
+
   <!-- ================= TOP NAVIGATION ================= -->
-  <header class="sticky top-0 z-40 bg-space-950/80 backdrop-blur-xl border-b border-white/[0.06] px-6 lg:px-12 py-3.5 flex items-center justify-between">
-    <!-- Brand Logo -->
-    <div class="flex items-center gap-6">
+  <header class="sticky top-0 z-40 bg-space-950/80 backdrop-blur-xl border-b border-white/[0.06] px-4 lg:px-12 py-3.5 flex items-center justify-between">
+    <!-- Brand Logo & Sidebar Toggle -->
+    <div class="flex items-center gap-4 lg:gap-6">
+      <!-- Three Lines (Hamburger Menu) Toggle Button -->
+      <button id="sidebar-toggle-btn" title="Toggle Terrestrial Analogs Sidebar (Three Lines)" aria-label="Toggle Catalog Sidebar" class="flex flex-col justify-center items-center w-10 h-10 rounded-xl bg-space-850 hover:bg-space-800 border border-white/[0.08] hover:border-terracotta-500/50 text-white transition-all group shrink-0 shadow-sm cursor-pointer">
+        <div class="flex flex-col justify-between w-4 h-3.5" id="hamburger-icon-bars">
+          <span class="block h-0.5 w-4 bg-slate-200 group-hover:bg-terracotta-400 transition-all rounded-full bar-top"></span>
+          <span class="block h-0.5 w-4 bg-slate-200 group-hover:bg-terracotta-400 transition-all rounded-full bar-mid"></span>
+          <span class="block h-0.5 w-3.5 group-hover:w-4 bg-slate-200 group-hover:bg-terracotta-400 transition-all rounded-full bar-bot"></span>
+        </div>
+      </button>
+
       <div class="flex items-center gap-3 cursor-pointer group" id="btn-brand-home">
         <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-terracotta-600 to-terracotta-400 p-[1px] flex items-center justify-center shadow-lg shadow-terracotta-500/10">
           <div class="w-full h-full bg-space-950 rounded-[7px] flex items-center justify-center text-terracotta-400">
