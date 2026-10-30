@@ -100,8 +100,9 @@
 
   @media print {
     body * { visibility: hidden; }
-    #dossier-print-area, #dossier-print-area * { visibility: visible; }
-    #dossier-print-area { position: absolute; left: 0; top: 0; width: 100%; }
+    #dossier-print-area, #dossier-print-area *,
+    #board-defense-print-area, #board-defense-print-area * { visibility: visible; }
+    #dossier-print-area, #board-defense-print-area { position: absolute; left: 0; top: 0; width: 100%; }
     .no-print { display: none !important; }
   }
 </style>
@@ -142,6 +143,25 @@
           </div>
         </div>
         <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full shrink-0">LOCKED</span>
+      </div>
+
+      <!-- Frontier Settlement Scenarios in Sidebar -->
+      <div class="space-y-1.5 pt-1">
+        <div class="flex items-center justify-between text-[9px] font-mono text-amber-400 uppercase tracking-wider font-semibold">
+          <span>FRONTIER MISSION SCENARIO</span>
+          <span class="text-slate-subtle text-[8px]">SELECT REQUIREMENT</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1.5 text-[10px] font-mono" id="sidebar-scenario-selector">
+          <button data-scenario="scenario-a" class="sidebar-scen-btn p-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-center font-bold transition-all cursor-pointer">
+            SCENARIO A<br><span class="text-[8px] font-normal opacity-80">Moon Outpost</span>
+          </button>
+          <button data-scenario="scenario-b" class="sidebar-scen-btn p-1.5 rounded-lg bg-space-850 text-slate-subtle border border-white/[0.06] text-center transition-all cursor-pointer hover:text-white">
+            SCENARIO B<br><span class="text-[8px] font-normal opacity-80">Mars Station</span>
+          </button>
+          <button data-scenario="scenario-c" class="sidebar-scen-btn p-1.5 rounded-lg bg-space-850 text-slate-subtle border border-white/[0.06] text-center transition-all cursor-pointer hover:text-white">
+            SCENARIO C<br><span class="text-[8px] font-normal opacity-80">Survival Haven</span>
+          </button>
+        </div>
       </div>
 
       <!-- Quick Search input inside sidebar -->
@@ -232,16 +252,20 @@
 
     <!-- Center Navigation Tabs -->
     <nav class="hidden lg:flex items-center gap-1 bg-space-900 border border-white/[0.06] p-1 rounded-full text-xs font-mono">
-      <button id="tab-overview" class="nav-tab px-4 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all">
+      <button id="tab-overview" class="nav-tab px-4 py-1.5 rounded-full bg-terracotta-500 text-white font-semibold shadow-sm transition-all cursor-pointer">
         ANALOG DOSSIERS
       </button>
-      <button id="tab-radar" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors">
+      <button id="tab-scenarios" class="nav-tab px-3.5 py-1.5 rounded-full text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all flex items-center gap-1.5 cursor-pointer">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+        <span>3 SCENARIOS</span>
+      </button>
+      <button id="tab-radar" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors cursor-pointer">
         ORBITAL RADAR
       </button>
-      <button id="tab-matrix" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors">
+      <button id="tab-matrix" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors cursor-pointer">
         SURFACE MATRIX
       </button>
-      <button id="tab-telemetry" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors">
+      <button id="tab-telemetry" class="nav-tab px-4 py-1.5 rounded-full text-slate-subtle hover:text-white transition-colors cursor-pointer">
         TELEMETRY HUD
       </button>
     </nav>
@@ -435,6 +459,136 @@
 
         </div>
 
+      </div>
+
+    </section>
+
+    <!-- ================= THE FRONTIER TWIST // MISSION REQUIREMENT SETTLEMENT SCENARIOS ================= -->
+    <section class="glass-card rounded-2xl p-6 lg:p-8 space-y-6 shadow-2xl relative border border-white/[0.08]" id="frontier-twist-section">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.06] pb-5">
+        <div class="space-y-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span class="text-[11px] font-mono text-amber-400 uppercase tracking-widest font-bold">THE FRONTIER TWIST // MISSION REQUIREMENT</span>
+            <span class="text-white/[0.2]">•</span>
+            <span class="text-[10px] font-mono bg-white/[0.06] border border-white/[0.08] text-slate-subtle px-2 py-0.5 rounded-full">TRANSPARENT SCORING FRAMEWORK</span>
+          </div>
+          <h2 class="font-space text-xl lg:text-2xl font-bold text-white flex items-center gap-2">
+            <span>Settlement Mission Scenarios & Site Selection</span>
+          </h2>
+          <p class="text-xs text-slate-subtle max-w-3xl leading-relaxed">
+            Each settlement architecture carries distinct mission priorities. Select a preset scenario below or use the <strong>Interactive Analogue Explorer</strong> to tune criterion weights and observe real-time candidate rank re-sorting.
+          </p>
+        </div>
+
+        <!-- Defense Trigger Button -->
+        <div class="flex items-center gap-3">
+          <button id="btn-open-board-defense" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-terracotta-500 hover:from-amber-400 hover:to-terracotta-400 text-space-950 font-mono text-xs font-bold rounded-xl transition-all shadow-lg shadow-amber-500/20 flex items-center gap-2 cursor-pointer active:scale-95 shrink-0">
+            <span class="material-symbols-outlined text-base" data-icon="gavel">gavel</span>
+            <span>DEFEND BEFORE SELECTION BOARD</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Scenario Cards Bar -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="scenario-cards-container">
+        <!-- Scenario A -->
+        <div data-scenario="scenario-a" class="scenario-card p-4 rounded-xl border border-amber-500/80 bg-space-850/90 shadow-lg shadow-amber-500/10 cursor-pointer transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">SCENARIO A</span>
+              <span class="text-[10px] font-mono text-emerald-400 font-semibold active-scenario-tag">● ACTIVE</span>
+            </div>
+            <h3 class="font-space font-bold text-sm text-white group-hover:text-amber-400 transition-colors">Lunar Research Outpost</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              <strong>Requirement:</strong> Prioritise terrain, illumination conditions and access to relevant resources.
+            </p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
+            <span class="text-slate-subtle">Strongest Match:</span>
+            <span class="text-amber-400 font-bold scenario-top-site">Haughton Crater (90.7%)</span>
+          </div>
+        </div>
+
+        <!-- Scenario B -->
+        <div data-scenario="scenario-b" class="scenario-card p-4 rounded-xl border border-white/[0.08] hover:border-terracotta-500/50 bg-space-900/40 hover:bg-space-850/70 cursor-pointer transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold text-terracotta-400 uppercase tracking-wider bg-terracotta-500/10 border border-terracotta-500/20 px-2 py-0.5 rounded">SCENARIO B</span>
+              <span class="text-[10px] font-mono text-slate-subtle hidden active-scenario-tag">● ACTIVE</span>
+            </div>
+            <h3 class="font-space font-bold text-sm text-white group-hover:text-terracotta-400 transition-colors">Martian Science Station</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              <strong>Requirement:</strong> Prioritise geological analogues, environmental conditions and research opportunities.
+            </p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
+            <span class="text-slate-subtle">Strongest Match:</span>
+            <span class="text-terracotta-400 font-bold scenario-top-site">McMurdo Dry Valleys (91.1%)</span>
+          </div>
+        </div>
+
+        <!-- Scenario C -->
+        <div data-scenario="scenario-c" class="scenario-card p-4 rounded-xl border border-white/[0.08] hover:border-emerald-500/50 bg-space-900/40 hover:bg-space-850/70 cursor-pointer transition-all flex flex-col justify-between group relative overflow-hidden">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">SCENARIO C</span>
+              <span class="text-[10px] font-mono text-slate-subtle hidden active-scenario-tag">● ACTIVE</span>
+            </div>
+            <h3 class="font-space font-bold text-sm text-white group-hover:text-emerald-400 transition-colors">Emergency Survival Outpost</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              <strong>Requirement:</strong> Prioritise accessibility, resource availability and operational resilience.
+            </p>
+          </div>
+          <div class="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono">
+            <span class="text-slate-subtle">Strongest Match:</span>
+            <span class="text-emerald-400 font-bold scenario-top-site">Mauna Loa Lava Tubes (89.5%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Analogue Explorer (Bonus Objective Accordion / Slider Deck) -->
+      <div class="bg-space-950/70 border border-white/[0.06] rounded-xl p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.04] pb-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-lg" data-icon="tune">tune</span>
+            <div>
+              <h4 class="font-space font-bold text-sm text-white">Interactive Analogue Explorer (Bonus Objective)</h4>
+              <p class="text-[11px] text-slate-subtle font-mono">Drag any criterion slider below to adjust weights and see the rankings update live</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-reset-weights" class="text-[11px] font-mono text-slate-subtle hover:text-white px-2.5 py-1 rounded bg-space-850 border border-white/[0.08] transition-colors cursor-pointer">
+              Reset Preset Weights
+            </button>
+            <span class="text-[11px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2.5 py-1 rounded">
+              WEIGHT SUM: <strong id="weights-sum-display" class="text-white">580</strong>
+            </span>
+          </div>
+        </div>
+
+        <!-- 8 Interactive Sliders Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="criteria-sliders-grid">
+          <!-- Injected via JavaScript for terrain, illumination, resources, geology, environment, research, resilience, accessibility -->
+        </div>
+      </div>
+
+      <!-- Transparent Scoring Framework: Dynamic Rankings Leaderboard -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-sm" data-icon="leaderboard">leaderboard</span>
+            <span class="font-space font-bold text-sm text-white uppercase tracking-wider">Site Selection Rankings (Transparent Weighted Scoring)</span>
+          </div>
+          <span class="text-[10px] font-mono text-slate-subtle">Formula: Score = Σ(Weight × Metric) / Σ(Weight)</span>
+        </div>
+
+        <div class="space-y-2" id="rankings-list-container">
+          <!-- Injected via JavaScript: Dynamic real-time sorted list of all 5 sites -->
+        </div>
       </div>
 
     </section>
@@ -799,6 +953,127 @@
           Compute Fidelity & Deploy Recon
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- 6. SIMULATED INTERNATIONAL SITE-SELECTION BOARD MODAL -->
+  <div id="board-defense-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-card rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl border border-amber-500/30">
+      
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-white/[0.08] flex items-center justify-between font-mono text-xs no-print bg-space-900/80">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <span class="material-symbols-outlined text-sm" data-icon="gavel">gavel</span>
+          </div>
+          <div>
+            <h3 class="font-bold text-white uppercase tracking-wider">International Site-Selection Board</h3>
+            <p class="text-[10px] text-slate-subtle">SIMULATED EVALUATION // NASA • ESA • JAXA CONSENSUS</p>
+          </div>
+        </div>
+        <button id="btn-close-board-defense" class="text-slate-subtle hover:text-white px-2 py-0.5 text-lg font-bold cursor-pointer">&times;</button>
+      </div>
+
+      <!-- Printable Defense Briefing Body -->
+      <div id="board-defense-print-area" class="p-6 space-y-5 font-mono text-xs text-slate-100 bg-space-950">
+        <!-- Top Board Directive Banner -->
+        <div class="border-b border-amber-500/50 pb-4 flex flex-col sm:flex-row justify-between sm:items-start gap-2">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded font-bold uppercase" id="board-scenario-badge">SCENARIO A: LUNAR RESEARCH OUTPOST</span>
+              <span class="text-[10px] text-emerald-400 font-bold">● BOARD SESSION CONVENED</span>
+            </div>
+            <h2 class="text-base sm:text-lg font-bold font-space text-white uppercase" id="board-scenario-title">Candidate Defense: Lunar Research Outpost</h2>
+            <p class="text-[11px] text-slate-subtle" id="board-scenario-req">Requirement: Prioritise terrain, illumination conditions and access to relevant resources.</p>
+          </div>
+          <div class="text-left sm:text-right shrink-0">
+            <span class="text-slate-subtle text-[10px] block">BOARD RESOLUTION:</span>
+            <span class="font-bold text-amber-400 text-sm">IPSSB-2026-CONFIRMED</span>
+          </div>
+        </div>
+
+        <!-- Selected Strongest Candidate Banner -->
+        <div class="bg-gradient-to-r from-space-900 to-space-850 p-4 rounded-xl border border-white/[0.08] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div>
+            <span class="text-[10px] uppercase text-amber-400 font-bold block tracking-wider">STRONGEST CANDIDATE LOCATION</span>
+            <h3 class="font-space font-bold text-lg text-white" id="board-top-site-name">Haughton Crater, Devon Island</h3>
+            <p class="text-xs text-slate-subtle" id="board-top-site-meta">Nunavut, Canada • WGS84: 75°22′N 89°41′W</p>
+          </div>
+          <div class="bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl text-center shrink-0">
+            <span class="text-[9px] uppercase text-slate-subtle block">SCENARIO SCORE</span>
+            <span class="font-space font-bold text-2xl text-amber-400 font-tabular" id="board-top-site-score">90.7%</span>
+          </div>
+        </div>
+
+        <!-- Section 1: Formal Defense Statement -->
+        <div class="space-y-2 bg-space-900/40 p-4 rounded-xl border border-white/[0.06]">
+          <span class="text-[11px] uppercase font-bold text-amber-400 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" data-icon="verified">verified</span>
+            <span>1. Primary Rationale & Priority Multipliers</span>
+          </span>
+          <p class="text-slate-200 leading-relaxed font-sans text-xs" id="board-defense-statement">
+            <!-- Injected via JS -->
+          </p>
+        </div>
+
+        <!-- Section 2: Elimination Matrix -->
+        <div class="space-y-2 bg-space-900/40 p-4 rounded-xl border border-white/[0.06]">
+          <span class="text-[11px] uppercase font-bold text-slate-300 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" data-icon="do_not_disturb_on">do_not_disturb_on</span>
+            <span>2. Elimination Analysis (Why Alternative Sites Failed)</span>
+          </span>
+          <p class="text-slate-subtle leading-relaxed font-sans text-xs" id="board-why-eliminated">
+            <!-- Injected via JS -->
+          </p>
+        </div>
+
+        <!-- Section 3: Risk Mitigation -->
+        <div class="space-y-2 bg-space-900/40 p-4 rounded-xl border border-white/[0.06]">
+          <span class="text-[11px] uppercase font-bold text-slate-300 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-sm" data-icon="security">security</span>
+            <span>3. Operational Risk Mitigation & Survival Margin</span>
+          </span>
+          <p class="text-slate-subtle leading-relaxed font-sans text-xs" id="board-risk-mitigation">
+            <!-- Injected via JS -->
+          </p>
+        </div>
+
+        <!-- Section 4: Simulated Board Member Vote -->
+        <div class="border-t border-white/[0.08] pt-4 space-y-3">
+          <span class="text-[10px] uppercase font-bold text-slate-subtle block tracking-wider">SIMULATED INTERNATIONAL BOARD ROLL-CALL VOTE</span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div class="bg-space-900 p-2.5 rounded-lg border border-white/[0.06] text-center">
+              <span class="text-[9px] text-slate-subtle block">NASA ESDMD</span>
+              <span class="text-xs font-bold text-emerald-400">APPROVED (97/100)</span>
+            </div>
+            <div class="bg-space-900 p-2.5 rounded-lg border border-white/[0.06] text-center">
+              <span class="text-[9px] text-slate-subtle block">ESA HRE DIRECTORATE</span>
+              <span class="text-xs font-bold text-emerald-400">APPROVED (95/100)</span>
+            </div>
+            <div class="bg-space-900 p-2.5 rounded-lg border border-white/[0.06] text-center">
+              <span class="text-[9px] text-slate-subtle block">JAXA LUNAR STRATEGY</span>
+              <span class="text-xs font-bold text-emerald-400">APPROVED (96/100)</span>
+            </div>
+          </div>
+          <div class="bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-lg text-center text-emerald-400 font-bold text-xs" id="board-verdict-banner">
+            UNANIMOUS CONSENSUS: SITE SELECTED FOR PROTO-HABITAT DEPLOYMENT
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-white/[0.08] bg-space-900 flex justify-between items-center font-mono text-xs no-print">
+        <button id="btn-load-top-candidate" class="px-3.5 py-2 border border-amber-500/30 hover:border-amber-500 text-amber-300 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-sm" data-icon="flight_takeoff">flight_takeoff</span>
+          <span>Load Site on Flight Deck</span>
+        </button>
+        <button id="btn-print-board-defense" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-terracotta-500 hover:from-amber-400 hover:to-terracotta-400 text-space-950 font-bold rounded-lg transition-colors flex items-center gap-1.5 shadow cursor-pointer">
+          <span class="material-symbols-outlined text-sm" data-icon="print">print</span>
+          <span>Print Board Resolution</span>
+        </button>
+      </div>
+
     </div>
   </div>
 

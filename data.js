@@ -41,6 +41,16 @@ const planetarySites = [
         match: "95.4%"
       }
     },
+    criteriaScores: {
+      terrain: 96,
+      illumination: 94,
+      resources: 95,
+      geology: 96,
+      environment: 92,
+      research: 94,
+      resilience: 73,
+      accessibility: 68
+    },
     telemetry: {
       poiIndex: "0.89 POI-NORM",
       poiStatus: "CALIBRATED",
@@ -97,6 +107,16 @@ const planetarySites = [
         desc: "Hyper-saline liquid water veins beneath ice crust serving as recurring slope lineae proxies.",
         match: "96.5%"
       }
+    },
+    criteriaScores: {
+      terrain: 94,
+      illumination: 88,
+      resources: 92,
+      geology: 98,
+      environment: 99,
+      research: 99,
+      resilience: 70,
+      accessibility: 62
     },
     telemetry: {
       poiIndex: "0.94 POI-NORM",
@@ -155,6 +175,16 @@ const planetarySites = [
         match: "88.0%"
       }
     },
+    criteriaScores: {
+      terrain: 91,
+      illumination: 96,
+      resources: 82,
+      geology: 96,
+      environment: 98,
+      research: 97,
+      resilience: 66,
+      accessibility: 89
+    },
     telemetry: {
       poiIndex: "0.91 POI-NORM",
       poiStatus: "CALIBRATED",
@@ -212,6 +242,16 @@ const planetarySites = [
         match: "81.5%"
       }
     },
+    criteriaScores: {
+      terrain: 88,
+      illumination: 62,
+      resources: 84,
+      geology: 95,
+      environment: 86,
+      research: 90,
+      resilience: 99,
+      accessibility: 96
+    },
     telemetry: {
       poiIndex: "0.96 POI-NORM",
       poiStatus: "CALIBRATED",
@@ -268,6 +308,16 @@ const planetarySites = [
         desc: "Hydrothermal volcanic interaction with glacial caps, analog for young Mars volcanoes.",
         match: "82.3%"
       }
+    },
+    criteriaScores: {
+      terrain: 92,
+      illumination: 89,
+      resources: 86,
+      geology: 96,
+      environment: 87,
+      research: 93,
+      resilience: 76,
+      accessibility: 85
     },
     telemetry: {
       poiIndex: "0.86 POI-NORM",
@@ -343,8 +393,111 @@ const missionTargets = [
   }
 ];
 
+const criteriaDefinitions = [
+  { id: "terrain", label: "Terrain & Trafficability", desc: "Slope stability, ejecta rubble, rover wheel traction", icon: "terrain" },
+  { id: "illumination", label: "Illumination Conditions", desc: "Low-angle polar sunlight, solar array exposure", icon: "wb_sunny" },
+  { id: "resources", label: "Resource Access (Volatiles)", desc: "Subsurface massive ground ice, water-ice equivalent", icon: "water_drop" },
+  { id: "geology", label: "Geological & Mineral Analogy", desc: "Impact shock breccia, basaltic tholeiite, evaporites", icon: "landscape" },
+  { id: "environment", label: "Environmental Severity", desc: "Hyper-cold, desiccating katabatics, planetary UV flux", icon: "ac_unit" },
+  { id: "research", label: "Research Opportunities", desc: "Astrobiology, biosignatures, extremophile limit of life", icon: "biotech" },
+  { id: "resilience", label: "Operational Resilience & Shielding", desc: "Lava tube ceiling, 99.4% radiation & meteoroid barrier", icon: "shield" },
+  { id: "accessibility", label: "Accessibility & Logistics", desc: "Emergency egress, transport corridor, telemetry latency", icon: "local_shipping" }
+];
+
+const settlementScenarios = {
+  "scenario-a": {
+    id: "scenario-a",
+    code: "SCENARIO A",
+    title: "Lunar Research Outpost",
+    subtitle: "Frontier Twist // Artemis Moon Base Architecture",
+    requirement: "Prioritise terrain, illumination conditions and access to relevant resources.",
+    badge: "LUNAR POLAR BASE",
+    badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    targetBody: "Moon South Pole (Shackleton / Malapert Mountain)",
+    priorities: ["Terrain & Trafficability", "Illumination Conditions", "Resource Access (Volatiles)"],
+    weights: {
+      terrain: 95,
+      illumination: 95,
+      resources: 95,
+      geology: 70,
+      environment: 60,
+      research: 70,
+      resilience: 50,
+      accessibility: 45
+    },
+    topCandidateId: "haughton",
+    defense: {
+      missionCharter: "Establish permanent crewed scientific presence at Lunar South Pole with persistent ISRU water-ice harvesting and polar summit solar power stations.",
+      defenseStatement: "Haughton Crater (Devon Island) provides the gold standard for Lunar Research Outpost qualification. Its high-latitude Arctic regime mimics the grazing low-angle solar incidence of Lunar South Pole summits of eternal light. Its impact-fractured carbonate and crystalline breccia replicates regolith shear encountered by heavy rovers, while its massive permafrost ice tables serve as an exact physical and operational proxy for permanently shadowed crater (PSR) water extraction.",
+      whyEliminated: "Mauna Loa is subterranean without polar illumination; Atacama lacks cryogenic water ice; McMurdo presents extreme logistics and lacks impact crater topography.",
+      keyRiskMitigations: "Cryogenic drill mechanical binding mitigated via permafrost trials; EVA dust intrusion validated at FMARS core.",
+      boardVerdict: "UNANIMOUS APPROVAL: Haughton Crater selected as primary Lunar Research Outpost analog testbed."
+    }
+  },
+  "scenario-b": {
+    id: "scenario-b",
+    code: "SCENARIO B",
+    title: "Martian Science Station",
+    subtitle: "Frontier Twist // Mars Astrobiology & Paleoclimate",
+    requirement: "Prioritise geological analogues, environmental conditions and research opportunities.",
+    badge: "MARS ASTROBIOLOGY",
+    badgeColor: "bg-terracotta-500/10 text-terracotta-400 border-terracotta-500/20",
+    targetBody: "Mars (Jezero Crater Delta / Gusev / Noachian Highlands)",
+    priorities: ["Geological Analogues", "Environmental Severity", "Research Opportunities"],
+    weights: {
+      terrain: 65,
+      illumination: 50,
+      resources: 70,
+      geology: 98,
+      environment: 98,
+      research: 98,
+      resilience: 55,
+      accessibility: 40
+    },
+    topCandidateId: "mcmurdo",
+    defense: {
+      missionCharter: "Conduct in-situ search for ancient and extant biosignatures, examine Noachian aqueous mineral transition, and evaluate microbial habitability under extreme hyper-aridity.",
+      defenseStatement: "McMurdo Dry Valleys stands as the undisputed premier Mars analog on planet Earth. Featuring mean annual temperatures down to −50°C, decadal desiccating katabatic winds, and continuous freeze-thaw cycles, it replicates Martian Noachian-to-Amazonian transitional climate. Most critically, endolithic cyanobacteria living inside porous sandstones provide a unique real-world benchmark for testing life-detection payloads (Raman, UV fluorescence, and mass spectrometers).",
+      whyEliminated: "Hawaii lacks subzero temperatures and hyper-aridity; Iceland is too wet with young basalt; Haughton lacks the extreme desiccated endolithic biome.",
+      keyRiskMitigations: "Forward contamination controlled under COSPAR Category IVc standards; autonomous sample caching verified under subzero katabatic winds.",
+      boardVerdict: "UNANIMOUS APPROVAL: McMurdo Dry Valleys selected as primary Martian Science Station validation site."
+    }
+  },
+  "scenario-c": {
+    id: "scenario-c",
+    code: "SCENARIO C",
+    title: "Emergency Survival Outpost",
+    subtitle: "Frontier Twist // Extreme Resilience & Evacuation",
+    requirement: "Prioritise accessibility, resource availability and operational resilience.",
+    badge: "SURVIVAL & RESILIENCE",
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    targetBody: "Subterranean Planetary Shelter (Lunar & Martian Lava Tubes)",
+    priorities: ["Operational Resilience", "Accessibility & Logistics", "Resource Availability"],
+    weights: {
+      terrain: 60,
+      illumination: 40,
+      resources: 90,
+      geology: 65,
+      environment: 65,
+      research: 60,
+      resilience: 98,
+      accessibility: 95
+    },
+    topCandidateId: "maunaloa",
+    defense: {
+      missionCharter: "Guarantee human survival in extreme abort or severe solar particle event (SPE) scenarios where surface habitats fail, requiring subterranean radiation shielding, thermal buffering, and critical logistics.",
+      defenseStatement: "Mauna Loa Lava Tubes provides the highest operational survival rating of any terrestrial candidate. Its 5–15 meter thick unweathered basalt ceiling offers over 99.4% radiation and micrometeorite shielding, completely mitigating lethal galactic cosmic rays and solar flares. Internally, it maintains a constant 14°C natural thermal buffer independent of surface extremes, while its proximity to logistical corridors guarantees rapid emergency extraction and continuous life-support resupply.",
+      whyEliminated: "Surface sites (Atacama, McMurdo, Haughton) have 0% natural cosmic radiation shielding and would suffer catastrophic decompression/thermal failure during severe solar storms.",
+      keyRiskMitigations: "Autonomous subterranean communications relay verified; structural acoustic monitoring for roof integrity deployed.",
+      boardVerdict: "UNANIMOUS APPROVAL: Mauna Loa Lava Tubes selected as primary Emergency Survival Outpost subterranean benchmark."
+    }
+  }
+};
+
 if (typeof window !== 'undefined') {
   window.PlanetarySites = planetarySites;
   window.SimulantProfiles = simulantProfiles;
   window.MissionTargets = missionTargets;
+  window.SettlementScenarios = settlementScenarios;
+  window.CriteriaDefinitions = criteriaDefinitions;
 }

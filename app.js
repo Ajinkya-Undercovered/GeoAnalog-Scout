@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSyncButton();
   initOrbitalPassTimer();
   populateMatrixTable();
+  initFrontierScenarios();
 });
 
 // ================= 1. HERO SHOWCASE =================
@@ -857,5 +858,347 @@ function initCollapsibleSidebar() {
   // Support ?sidebar=open or #sidebar trigger
   if (window.location.search.includes('sidebar=open') || window.location.hash === '#sidebar') {
     setTimeout(openSidebar, 150);
+  }
+}
+
+// ================= 14. THE FRONTIER TWIST: SETTLEMENT SCENARIOS & INTERACTIVE EXPLORER =================
+function initFrontierScenarios() {
+  const scenarios = window.SettlementScenarios || {};
+  const criteria = window.CriteriaDefinitions || [];
+  
+  let activeScenarioKey = 'scenario-a';
+  let currentWeights = { ...(scenarios['scenario-a']?.weights || {}) };
+
+  const slidersGrid = document.getElementById('criteria-sliders-grid');
+  const rankingsContainer = document.getElementById('rankings-list-container');
+  const weightsSumDisplay = document.getElementById('weights-sum-display');
+  const btnResetWeights = document.getElementById('btn-reset-weights');
+  const scenarioCardsContainer = document.getElementById('scenario-cards-container');
+  const sidebarScenarioSelector = document.getElementById('sidebar-scenario-selector');
+  const tabScenarios = document.getElementById('tab-scenarios');
+  const btnOpenDefense = document.getElementById('btn-open-board-defense');
+
+  // Defense Modal elements
+  const boardModal = document.getElementById('board-defense-modal');
+  const btnCloseDefense = document.getElementById('btn-close-board-defense');
+  const btnLoadTopCandidate = document.getElementById('btn-load-top-candidate');
+  const btnPrintDefense = document.getElementById('btn-print-board-defense');
+
+  let currentTopSite = null;
+
+  // Calculate score using transparent weighted average formula
+  function calculateScore(site, weights) {
+    if (!site.criteriaScores) return parseFloat(site.fidelity || 90);
+    let weightedSum = 0;
+    let totalWeight = 0;
+    for (const [crit, w] of Object.entries(weights)) {
+      const score = site.criteriaScores[crit] || 80;
+      weightedSum += (score * w);
+      totalWeight += w;
+    }
+    return totalWeight > 0 ? parseFloat((weightedSum / totalWeight).toFixed(1)) : 0;
+  }
+
+  // Calculate total weight sum
+  function getWeightSum() {
+    return Object.values(currentWeights).reduce((a, b) => a + b, 0);
+  }
+
+  // Render 8 Interactive Sliders (Bonus Objective)
+  function renderSliders() {
+    if (!slidersGrid) return;
+    slidersGrid.innerHTML = '';
+
+    criteria.forEach(crit => {
+      const currentVal = currentWeights[crit.id] !== undefined ? currentWeights[crit.id] : 50;
+      const card = document.createElement('div');
+      card.className = 'bg-space-900/60 border border-white/[0.06] rounded-xl p-3 flex flex-col justify-between space-y-2 group hover:border-amber-500/30 transition-all';
+      
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5 truncate">
+            <span class="material-symbols-outlined text-xs text-amber-400" data-icon="${crit.icon}">${crit.icon}</span>
+            <span class="text-[11px] font-mono text-white font-semibold truncate" title="${crit.label}">${crit.label}</span>
+          </div>
+          <span class="text-[11px] font-mono font-bold text-amber-300 font-tabular bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20" id="val-${crit.id}">${currentVal}</span>
+        </div>
+        <p class="text-[9px] text-slate-subtle truncate">${crit.desc}</p>
+        <div class="pt-1">
+          <input type="range" min="0" max="100" step="1" value="${currentVal}" data-crit="${crit.id}" 
+            class="criteria-slider w-full h-1.5 bg-space-800 rounded-lg appearance-none cursor-pointer accent-amber-400 focus:outline-none"/>
+        </div>
+      `;
+
+      const sliderInput = card.querySelector('input');
+      sliderInput.addEventListener('input', (e) => {
+        const newVal = parseInt(e.target.value, 10);
+        currentWeights[crit.id] = newVal;
+        const valBadge = card.querySelector(`#val-${crit.id}`);
+        if (valBadge) valBadge.textContent = newVal;
+
+        // Update total sum
+        if (weightsSumDisplay) weightsSumDisplay.textContent = getWeightSum();
+
+        // Update rankings
+        renderRankings();
+      });
+
+      slidersGrid.appendChild(card);
+    });
+
+    if (weightsSumDisplay) weightsSumDisplay.textContent = getWeightSum();
+  }
+
+  // Render Dynamic Transparent Rankings
+  function renderRankings() {
+    if (!rankingsContainer) return;
+    rankingsContainer.innerHTML = '';
+
+    // Score and sort all sites
+    const scoredSites = sites.map(s => {
+      const sc = calculateScore(s, currentWeights);
+      return { ...s, scenarioScore: sc };
+    }).sort((a, b) => b.scenarioScore - a.scenarioScore);
+
+    currentTopSite = scoredSites[0];
+
+    // Update scenario card top site text
+    const activeScenCard = document.querySelector(`.scenario-card[data-scenario="${activeScenarioKey}"] .scenario-top-site`);
+    if (activeScenCard && currentTopSite) {
+      activeScenCard.textContent = `${currentTopSite.name} (${currentTopSite.scenarioScore}%)`;
+    }
+
+    scoredSites.forEach((site, index) => {
+      const isTop = index === 0;
+      const rankNum = index + 1;
+      const rankCard = document.createElement('div');
+      
+      rankCard.className = `p-4 rounded-xl border transition-all flex flex-col md:flex-row md:items-center justify-between gap-4 ${
+        isTop 
+          ? 'bg-gradient-to-r from-space-900 via-amber-950/20 to-space-900 border-amber-500/80 shadow-lg shadow-amber-500/10' 
+          : 'bg-space-900/40 border-white/[0.06] hover:border-white/[0.15]'
+      }`;
+
+      // Build criteria pill previews
+      const critPills = [
+        { label: 'Terrain', val: site.criteriaScores?.terrain || 85 },
+        { label: 'Resources', val: site.criteriaScores?.resources || 85 },
+        { label: 'Geology', val: site.criteriaScores?.geology || 85 },
+        { label: 'Resilience', val: site.criteriaScores?.resilience || 70 }
+      ].map(c => `
+        <span class="text-[10px] font-mono bg-space-850 px-2 py-0.5 rounded border border-white/[0.04]">
+          ${c.label}: <strong class="text-white">${c.val}</strong>
+        </span>
+      `).join('');
+
+      rankCard.innerHTML = `
+        <div class="flex items-start md:items-center gap-3.5">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center font-space font-bold text-sm shrink-0 ${
+            isTop 
+              ? 'bg-amber-500 text-space-950 shadow-md shadow-amber-500/30' 
+              : 'bg-space-800 text-slate-300 border border-white/[0.06]'
+          }">
+            #${rankNum}
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-space font-bold text-sm text-white">${site.name}</h4>
+              ${isTop ? '<span class="text-[9px] font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold animate-pulse">STRONGEST CANDIDATE</span>' : ''}
+            </div>
+            <p class="text-xs text-slate-subtle">${site.region} • <span class="font-mono text-[11px]">${site.coords}</span></p>
+            <div class="flex flex-wrap items-center gap-1.5 mt-2">
+              ${critPills}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 self-end md:self-auto shrink-0">
+          <div class="text-right">
+            <span class="text-[10px] font-mono text-slate-subtle block uppercase">Weighted Score</span>
+            <span class="font-space font-bold text-xl font-tabular ${isTop ? 'text-amber-400' : 'text-slate-100'}">${site.scenarioScore}%</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            ${isTop ? `
+              <button class="btn-defend-top-site px-3.5 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-terracotta-500 hover:from-amber-400 hover:to-terracotta-400 text-space-950 font-mono text-xs font-bold transition-all shadow flex items-center gap-1 cursor-pointer active:scale-95">
+                <span class="material-symbols-outlined text-sm" data-icon="gavel">gavel</span>
+                <span>Defend Decision</span>
+              </button>
+            ` : ''}
+            <button class="btn-inspect-rank-site px-3 py-2 rounded-lg bg-space-850 hover:bg-space-800 border border-white/[0.08] hover:border-white/[0.2] text-slate-200 text-xs font-mono transition-colors flex items-center gap-1 cursor-pointer">
+              <span>Inspect</span>
+              <span>›</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Handle inspect button
+      const inspectBtn = rankCard.querySelector('.btn-inspect-rank-site');
+      if (inspectBtn) {
+        inspectBtn.addEventListener('click', () => {
+          initHeroDossier(site);
+          renderCandidateCards(activeCategory);
+          const hero = document.getElementById('hero-section');
+          if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
+      // Handle defend button on top site
+      const defendBtn = rankCard.querySelector('.btn-defend-top-site');
+      if (defendBtn) {
+        defendBtn.addEventListener('click', () => {
+          openBoardDefenseModal();
+        });
+      }
+
+      rankingsContainer.appendChild(rankCard);
+    });
+  }
+
+  // Switch to a specific scenario (A, B, C)
+  function selectScenario(scenarioKey) {
+    activeScenarioKey = scenarioKey;
+    const scen = scenarios[scenarioKey];
+    if (!scen) return;
+
+    currentWeights = { ...scen.weights };
+
+    // Update scenario card styles in main view
+    document.querySelectorAll('.scenario-card').forEach(card => {
+      const k = card.getAttribute('data-scenario');
+      const tag = card.querySelector('.active-scenario-tag');
+      if (k === scenarioKey) {
+        card.className = `scenario-card p-4 rounded-xl border border-amber-500/80 bg-space-850/90 shadow-lg shadow-amber-500/10 cursor-pointer transition-all flex flex-col justify-between group relative overflow-hidden`;
+        if (tag) tag.classList.remove('hidden');
+      } else {
+        card.className = `scenario-card p-4 rounded-xl border border-white/[0.08] hover:border-white/[0.2] bg-space-900/40 hover:bg-space-850/70 cursor-pointer transition-all flex flex-col justify-between group relative overflow-hidden`;
+        if (tag) tag.classList.add('hidden');
+      }
+    });
+
+    // Update scenario buttons in sidebar drawer
+    document.querySelectorAll('.sidebar-scen-btn').forEach(btn => {
+      const k = btn.getAttribute('data-scenario');
+      if (k === scenarioKey) {
+        btn.className = 'sidebar-scen-btn p-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 text-center font-bold transition-all cursor-pointer';
+      } else {
+        btn.className = 'sidebar-scen-btn p-1.5 rounded-lg bg-space-850 text-slate-subtle border border-white/[0.06] text-center transition-all cursor-pointer hover:text-white';
+      }
+    });
+
+    // Re-render sliders & rankings
+    renderSliders();
+    renderRankings();
+  }
+
+  // Open Board Defense Modal with populated data
+  function openBoardDefenseModal() {
+    if (!boardModal) return;
+    const scen = scenarios[activeScenarioKey] || scenarios['scenario-a'];
+    const topSite = currentTopSite || sites[0];
+
+    // Populate modal contents
+    const badgeEl = document.getElementById('board-scenario-badge');
+    const titleEl = document.getElementById('board-scenario-title');
+    const reqEl = document.getElementById('board-scenario-req');
+    const nameEl = document.getElementById('board-top-site-name');
+    const metaEl = document.getElementById('board-top-site-meta');
+    const scoreEl = document.getElementById('board-top-site-score');
+    const stmtEl = document.getElementById('board-defense-statement');
+    const elimEl = document.getElementById('board-why-eliminated');
+    const riskEl = document.getElementById('board-risk-mitigation');
+    const verdictEl = document.getElementById('board-verdict-banner');
+
+    if (badgeEl) badgeEl.textContent = `${scen.code}: ${scen.title.toUpperCase()}`;
+    if (titleEl) titleEl.textContent = `Candidate Defense: ${scen.title}`;
+    if (reqEl) reqEl.textContent = `Requirement: ${scen.requirement}`;
+    if (nameEl) nameEl.textContent = `${topSite.name} (${topSite.region})`;
+    if (metaEl) metaEl.textContent = `${topSite.region} • WGS84: ${topSite.coords} • ELEV: ${topSite.elev}`;
+    if (scoreEl) scoreEl.textContent = `${topSite.scenarioScore || topSite.fidelity}%`;
+
+    if (stmtEl && scen.defense) stmtEl.textContent = scen.defense.defenseStatement;
+    if (elimEl && scen.defense) elimEl.textContent = scen.defense.whyEliminated;
+    if (riskEl && scen.defense) riskEl.textContent = scen.defense.keyRiskMitigations;
+    if (verdictEl && scen.defense) verdictEl.textContent = scen.defense.boardVerdict;
+
+    boardModal.classList.remove('hidden');
+  }
+
+  function closeBoardDefenseModal() {
+    if (boardModal) boardModal.classList.add('hidden');
+  }
+
+  // Listeners for Scenario Cards
+  if (scenarioCardsContainer) {
+    scenarioCardsContainer.addEventListener('click', (e) => {
+      const card = e.target.closest('.scenario-card');
+      if (!card) return;
+      const k = card.getAttribute('data-scenario');
+      selectScenario(k);
+    });
+  }
+
+  // Listeners for Sidebar Scenario Buttons
+  if (sidebarScenarioSelector) {
+    sidebarScenarioSelector.addEventListener('click', (e) => {
+      const btn = e.target.closest('.sidebar-scen-btn');
+      if (!btn) return;
+      const k = btn.getAttribute('data-scenario');
+      selectScenario(k);
+    });
+  }
+
+  // Reset Weights Button
+  if (btnResetWeights) {
+    btnResetWeights.addEventListener('click', () => {
+      selectScenario(activeScenarioKey);
+    });
+  }
+
+  // Board Defense Triggers
+  if (btnOpenDefense) {
+    btnOpenDefense.addEventListener('click', openBoardDefenseModal);
+  }
+  if (btnCloseDefense) {
+    btnCloseDefense.addEventListener('click', closeBoardDefenseModal);
+  }
+  if (boardModal) {
+    boardModal.addEventListener('click', (e) => {
+      if (e.target === boardModal) closeBoardDefenseModal();
+    });
+  }
+  if (btnPrintDefense) {
+    btnPrintDefense.addEventListener('click', () => {
+      window.print();
+    });
+  }
+  if (btnLoadTopCandidate) {
+    btnLoadTopCandidate.addEventListener('click', () => {
+      if (currentTopSite) {
+        initHeroDossier(currentTopSite);
+        renderCandidateCards(activeCategory);
+        closeBoardDefenseModal();
+        const hero = document.getElementById('hero-section');
+        if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
+  // Top Nav "3 SCENARIOS" Tab
+  if (tabScenarios) {
+    tabScenarios.addEventListener('click', () => {
+      const sec = document.getElementById('frontier-twist-section');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  // Initial setup
+  renderSliders();
+  renderRankings();
+
+  // Support ?board=open or #board trigger
+  if (window.location.search.includes('board=open') || window.location.hash === '#board') {
+    setTimeout(openBoardDefenseModal, 200);
   }
 }
