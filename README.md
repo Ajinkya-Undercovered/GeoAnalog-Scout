@@ -67,22 +67,3 @@ Then navigate to: **`http://localhost:3000`**
 Simply double-click **`index.html`** in Windows Explorer. The application is completely zero-dependency and runs straight in Google Chrome, Microsoft Edge, or Firefox!
 
 ---
-
-## 🎙️ 6. Hackathon Presentation Script (2-Minute Pitch)
-
-Use this script during your judging presentation:
-
-* **[0:00 - 0:25] The Hook:**  
-  *"Judges, returning to the Moon permanently with Artemis and landing humans on Mars requires testing billion-dollar rovers, habitats, and drills before launch. But Earth has no single twin for the Moon or Mars. A site that looks like Mars might have the wrong chemistry; a site with the right rocks might have tropical rain. How do engineers find the right test bed without wasting millions of dollars?"*
-
-* **[0:25 - 0:50] The Solution (Live Demo):**  
-  *"We built **GeoAnalog Scout**. Here is our live dashboard. Let's say NASA wants to test a permanent underground habitat in the Marius Hills Lava Tube on the Moon. When we select 'Subsurface Base Shelter', our algorithm instantly scores 12 global analogs. The #1 match is the **Lanzarote Lava Tubes in Spain** with a 94% compatibility index, backed by real ESA and NASA astronaut field data."*
-
-* **[0:50 - 1:20] The Science & Innovation:**  
-  *"Now watch what happens when we switch our mission to 'In-Situ Cryogenic Ice Drilling' at Shackleton Crater. Instantly, the radar chart and map re-rank the planet: the top match shifts to **McMurdo Dry Valleys in Antarctica**, matching cold-trap permafrost and sublimation ice. We don't just give a score—we quantify discrepancies like gravity and atmospheric convection, citing official NASA LOLA and HiRISE datasets."*
-
-* **[1:20 - 1:50] The Deliverable:**  
-  *"With one click on 'Export Mission Dossier', flight planners can generate an official NASA-styled analog flight test authorization report complete with test objectives and environmental mitigations."*
-
-* **[1:50 - 2:00] Conclusion:**  
-  *"GeoAnalog Scout bridges Earth science and planetary exploration, turning Earth into humanity's launchpad for the Moon and Mars. Thank you!"*
